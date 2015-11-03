@@ -65,6 +65,42 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ucMU.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucMU.Designer.cs">
+      <DependentUpon>ucMU.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucRu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucRu.Designer.cs">
+      <DependentUpon>ucRu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucSYMainScreen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucSYMainScreen.Designer.cs">
+      <DependentUpon>ucSYMainScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucHistorySearch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucHistorySearch.Designer.cs">
+      <DependentUpon>ucHistorySearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucMainScreen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucMainScreen.Designer.cs">
+      <DependentUpon>ucMainScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucSetting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucSetting.Designer.cs">
+      <DependentUpon>ucSetting.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -77,6 +113,24 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ucMU.resx">
+      <DependentUpon>ucMU.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucRu.resx">
+      <DependentUpon>ucRu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucSYMainScreen.resx">
+      <DependentUpon>ucSYMainScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucHistorySearch.resx">
+      <DependentUpon>ucHistorySearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucMainScreen.resx">
+      <DependentUpon>ucMainScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucSetting.resx">
+      <DependentUpon>ucSetting.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

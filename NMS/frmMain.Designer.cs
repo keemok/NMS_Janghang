@@ -41,7 +41,7 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btMenu4 = new System.Windows.Forms.Button();
             this.btMenu1 = new System.Windows.Forms.Button();
-            this.panelGround1 = new System.Windows.Forms.Panel();
+            this.panelGroundMainScreen = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
             this.panelMainBase1 = new System.Windows.Forms.Panel();
             this.panel경의일산선 = new System.Windows.Forms.Panel();
@@ -418,10 +418,10 @@
             this.ucMUSt_ILSAN = new Common.ucMUStatus_ILSAN();
             this.ucMUSt = new Common.ucMUStatus();
             this.ucRUSt = new Common.ucRUStatus();
-            this.panelGround2 = new System.Windows.Forms.Panel();
+            this.panelGroundSearchHistory = new System.Windows.Forms.Panel();
             this.ucErrorSearch1 = new Common.ucErrorSearch();
             this.label2 = new System.Windows.Forms.Label();
-            this.panelGround3 = new System.Windows.Forms.Panel();
+            this.panelGroundSetting = new System.Windows.Forms.Panel();
             this.gbDB = new System.Windows.Forms.GroupBox();
             this.label114 = new System.Windows.Forms.Label();
             this.tbDBCnt5 = new System.Windows.Forms.TextBox();
@@ -572,7 +572,7 @@
             this.lblTxNMS = new System.Windows.Forms.Label();
             this.lblRxNMS = new System.Windows.Forms.Label();
             this.panelMessageView.SuspendLayout();
-            this.panelGround1.SuspendLayout();
+            this.panelGroundMainScreen.SuspendLayout();
             this.panelMainBase1.SuspendLayout();
             this.panel경의일산선.SuspendLayout();
             this.panel92.SuspendLayout();
@@ -706,8 +706,8 @@
             this.panel30.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.panelMainBase2.SuspendLayout();
-            this.panelGround2.SuspendLayout();
-            this.panelGround3.SuspendLayout();
+            this.panelGroundSearchHistory.SuspendLayout();
+            this.panelGroundSetting.SuspendLayout();
             this.gbDB.SuspendLayout();
             this.tcGUISetup.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -846,15 +846,15 @@
             // 
             // panelGround1
             // 
-            this.panelGround1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.panelGround1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelGround1.BackgroundImage")));
-            this.panelGround1.Controls.Add(this.lblTitle);
-            this.panelGround1.Controls.Add(this.panelMainBase1);
-            this.panelGround1.Controls.Add(this.panelMainBase2);
-            this.panelGround1.Location = new System.Drawing.Point(6, 6);
-            this.panelGround1.Name = "panelGround1";
-            this.panelGround1.Size = new System.Drawing.Size(1252, 870);
-            this.panelGround1.TabIndex = 396;
+            this.panelGroundMainScreen.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.panelGroundMainScreen.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelGround1.BackgroundImage")));
+            this.panelGroundMainScreen.Controls.Add(this.lblTitle);
+            this.panelGroundMainScreen.Controls.Add(this.panelMainBase1);
+            this.panelGroundMainScreen.Controls.Add(this.panelMainBase2);
+            this.panelGroundMainScreen.Location = new System.Drawing.Point(6, 6);
+            this.panelGroundMainScreen.Name = "panelGround1";
+            this.panelGroundMainScreen.Size = new System.Drawing.Size(1252, 870);
+            this.panelGroundMainScreen.TabIndex = 396;
             // 
             // lblTitle
             // 
@@ -4907,14 +4907,14 @@
             // 
             // panelGround2
             // 
-            this.panelGround2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.panelGround2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelGround2.BackgroundImage")));
-            this.panelGround2.Controls.Add(this.ucErrorSearch1);
-            this.panelGround2.Controls.Add(this.label2);
-            this.panelGround2.Location = new System.Drawing.Point(6, 6);
-            this.panelGround2.Name = "panelGround2";
-            this.panelGround2.Size = new System.Drawing.Size(1252, 870);
-            this.panelGround2.TabIndex = 397;
+            this.panelGroundSearchHistory.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.panelGroundSearchHistory.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelGround2.BackgroundImage")));
+            this.panelGroundSearchHistory.Controls.Add(this.ucErrorSearch1);
+            this.panelGroundSearchHistory.Controls.Add(this.label2);
+            this.panelGroundSearchHistory.Location = new System.Drawing.Point(6, 6);
+            this.panelGroundSearchHistory.Name = "panelGround2";
+            this.panelGroundSearchHistory.Size = new System.Drawing.Size(1252, 870);
+            this.panelGroundSearchHistory.TabIndex = 397;
             // 
             // ucErrorSearch1
             // 
@@ -4938,16 +4938,16 @@
             // 
             // panelGround3
             // 
-            this.panelGround3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.panelGround3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelGround3.BackgroundImage")));
-            this.panelGround3.Controls.Add(this.gbDB);
-            this.panelGround3.Controls.Add(this.tcGUISetup);
-            this.panelGround3.Controls.Add(this.label1);
-            this.panelGround3.Location = new System.Drawing.Point(6, 6);
-            this.panelGround3.Name = "panelGround3";
-            this.panelGround3.Size = new System.Drawing.Size(1252, 870);
-            this.panelGround3.TabIndex = 398;
-            this.panelGround3.DoubleClick += new System.EventHandler(this.panelGround3_DoubleClick);
+            this.panelGroundSetting.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.panelGroundSetting.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelGround3.BackgroundImage")));
+            this.panelGroundSetting.Controls.Add(this.gbDB);
+            this.panelGroundSetting.Controls.Add(this.tcGUISetup);
+            this.panelGroundSetting.Controls.Add(this.label1);
+            this.panelGroundSetting.Location = new System.Drawing.Point(6, 6);
+            this.panelGroundSetting.Name = "panelGround3";
+            this.panelGroundSetting.Size = new System.Drawing.Size(1252, 870);
+            this.panelGroundSetting.TabIndex = 398;
+            this.panelGroundSetting.DoubleClick += new System.EventHandler(this.panelGround3_DoubleClick);
             // 
             // gbDB
             // 
@@ -6630,16 +6630,16 @@
             this.Controls.Add(this.panelMessageView);
             this.Controls.Add(this.btMenu4);
             this.Controls.Add(this.btMenu1);
-            this.Controls.Add(this.panelGround3);
-            this.Controls.Add(this.panelGround2);
-            this.Controls.Add(this.panelGround1);
+            this.Controls.Add(this.panelGroundSetting);
+            this.Controls.Add(this.panelGroundSearchHistory);
+            this.Controls.Add(this.panelGroundMainScreen);
             this.Name = "frmMain";
             this.Text = "과천선 NMS";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmMain_MouseDown);
             this.panelMessageView.ResumeLayout(false);
-            this.panelGround1.ResumeLayout(false);
+            this.panelGroundMainScreen.ResumeLayout(false);
             this.panelMainBase1.ResumeLayout(false);
             this.panel경의일산선.ResumeLayout(false);
             this.panel92.ResumeLayout(false);
@@ -6773,8 +6773,8 @@
             this.panel30.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.panelMainBase2.ResumeLayout(false);
-            this.panelGround2.ResumeLayout(false);
-            this.panelGround3.ResumeLayout(false);
+            this.panelGroundSearchHistory.ResumeLayout(false);
+            this.panelGroundSetting.ResumeLayout(false);
             this.gbDB.ResumeLayout(false);
             this.gbDB.PerformLayout();
             this.tcGUISetup.ResumeLayout(false);
@@ -6837,7 +6837,7 @@
             this.lblConnectNMS = new System.Windows.Forms.Label();
             this.lblTxNMS = new System.Windows.Forms.Label();
             this.lblRxNMS = new System.Windows.Forms.Label();
-            this.panelGround3 = new System.Windows.Forms.Panel();
+            this.panelGroundSetting = new System.Windows.Forms.Panel();
             this.gbDB = new System.Windows.Forms.GroupBox();
             this.label114 = new System.Windows.Forms.Label();
             this.tbDBCnt5 = new System.Windows.Forms.TextBox();
@@ -6981,12 +6981,14 @@
             this.tabLineTest = new System.Windows.Forms.TabPage();
             this.ucLT = new Common.ucLineTest();
             this.label1 = new System.Windows.Forms.Label();
-            this.panelGround2 = new System.Windows.Forms.Panel();
+            this.panelGroundSearchHistory = new System.Windows.Forms.Panel();
             this.ucErrorSearch1 = new Common.ucErrorSearch();
             this.label2 = new System.Windows.Forms.Label();
-            this.panelGround1 = new System.Windows.Forms.Panel();
+            this.panelGroundMainScreen = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
             this.panelMainBase1 = new System.Windows.Forms.Panel();
+            this.panel성남여주 = new System.Windows.Forms.Panel();
+            this.SYMain = new NMS.ucSYMainScreen();
             this.panel과천선 = new System.Windows.Forms.Panel();
             this.panel31 = new System.Windows.Forms.Panel();
             this.btHub1 = new System.Windows.Forms.Button();
@@ -7361,7 +7363,7 @@
             this.ucMUSt = new Common.ucMUStatus();
             this.ucRUSt = new Common.ucRUStatus();
             this.panelMessageView.SuspendLayout();
-            this.panelGround3.SuspendLayout();
+            this.panelGroundSetting.SuspendLayout();
             this.gbDB.SuspendLayout();
             this.tcGUISetup.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -7387,9 +7389,10 @@
             this.gbILSAN_MuAFGain.SuspendLayout();
             this.tabRange.SuspendLayout();
             this.tabLineTest.SuspendLayout();
-            this.panelGround2.SuspendLayout();
-            this.panelGround1.SuspendLayout();
+            this.panelGroundSearchHistory.SuspendLayout();
+            this.panelGroundMainScreen.SuspendLayout();
             this.panelMainBase1.SuspendLayout();
+            this.panel성남여주.SuspendLayout();
             this.panel과천선.SuspendLayout();
             this.panel31.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -7674,17 +7677,18 @@
             this.lblRxNMS.TabIndex = 498;
             this.lblRxNMS.Visible = false;
             // 
-            // panelGround3
+            // panelGroundSetting
             // 
-            this.panelGround3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelGround3.BackgroundImage")));
-            this.panelGround3.Controls.Add(this.gbDB);
-            this.panelGround3.Controls.Add(this.tcGUISetup);
-            this.panelGround3.Controls.Add(this.label1);
-            this.panelGround3.Location = new System.Drawing.Point(12, 8);
-            this.panelGround3.Name = "panelGround3";
-            this.panelGround3.Size = new System.Drawing.Size(1880, 870);
-            this.panelGround3.TabIndex = 398;
-            this.panelGround3.DoubleClick += new System.EventHandler(this.panelGround3_DoubleClick);
+            this.panelGroundSetting.AccessibleDescription = "1880, 870";
+            this.panelGroundSetting.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelGroundSetting.BackgroundImage")));
+            this.panelGroundSetting.Controls.Add(this.gbDB);
+            this.panelGroundSetting.Controls.Add(this.tcGUISetup);
+            this.panelGroundSetting.Controls.Add(this.label1);
+            this.panelGroundSetting.Location = new System.Drawing.Point(12, 8);
+            this.panelGroundSetting.Name = "panelGroundSetting";
+            this.panelGroundSetting.Size = new System.Drawing.Size(1880, 870);
+            this.panelGroundSetting.TabIndex = 398;
+            this.panelGroundSetting.DoubleClick += new System.EventHandler(this.panelGround3_DoubleClick);
             // 
             // gbDB
             // 
@@ -8160,7 +8164,8 @@
             this.cbUser.Items.AddRange(new object[] {
             "과천선",
             "분당선",
-            "경의일산선"});
+            "경의일산선",
+            "성남여주선"});
             this.cbUser.Location = new System.Drawing.Point(42, 53);
             this.cbUser.Name = "cbUser";
             this.cbUser.Size = new System.Drawing.Size(157, 24);
@@ -9305,15 +9310,16 @@
             this.label1.Text = "설     정     화     면";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panelGround2
+            // panelGroundSearchHistory
             // 
-            this.panelGround2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelGround2.BackgroundImage")));
-            this.panelGround2.Controls.Add(this.ucErrorSearch1);
-            this.panelGround2.Controls.Add(this.label2);
-            this.panelGround2.Location = new System.Drawing.Point(12, 8);
-            this.panelGround2.Name = "panelGround2";
-            this.panelGround2.Size = new System.Drawing.Size(1880, 870);
-            this.panelGround2.TabIndex = 397;
+            this.panelGroundSearchHistory.AccessibleDescription = "1880, 870";
+            this.panelGroundSearchHistory.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelGroundSearchHistory.BackgroundImage")));
+            this.panelGroundSearchHistory.Controls.Add(this.ucErrorSearch1);
+            this.panelGroundSearchHistory.Controls.Add(this.label2);
+            this.panelGroundSearchHistory.Location = new System.Drawing.Point(12, 8);
+            this.panelGroundSearchHistory.Name = "panelGroundSearchHistory";
+            this.panelGroundSearchHistory.Size = new System.Drawing.Size(1880, 870);
+            this.panelGroundSearchHistory.TabIndex = 397;
             // 
             // ucErrorSearch1
             // 
@@ -9335,16 +9341,16 @@
             this.label2.Text = "이     력     검     색";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panelGround1
+            // panelGroundMainScreen
             // 
-            this.panelGround1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelGround1.BackgroundImage")));
-            this.panelGround1.Controls.Add(this.lblTitle);
-            this.panelGround1.Controls.Add(this.panelMainBase1);
-            this.panelGround1.Controls.Add(this.panelMainBase2);
-            this.panelGround1.Location = new System.Drawing.Point(12, 8);
-            this.panelGround1.Name = "panelGround1";
-            this.panelGround1.Size = new System.Drawing.Size(1880, 870);
-            this.panelGround1.TabIndex = 396;
+            this.panelGroundMainScreen.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelGroundMainScreen.BackgroundImage")));
+            this.panelGroundMainScreen.Controls.Add(this.lblTitle);
+            this.panelGroundMainScreen.Controls.Add(this.panelMainBase1);
+            this.panelGroundMainScreen.Controls.Add(this.panelMainBase2);
+            this.panelGroundMainScreen.Location = new System.Drawing.Point(12, 8);
+            this.panelGroundMainScreen.Name = "panelGroundMainScreen";
+            this.panelGroundMainScreen.Size = new System.Drawing.Size(1880, 870);
+            this.panelGroundMainScreen.TabIndex = 396;
             // 
             // lblTitle
             // 
@@ -9361,6 +9367,7 @@
             // panelMainBase1
             // 
             this.panelMainBase1.BackColor = System.Drawing.Color.White;
+            this.panelMainBase1.Controls.Add(this.panel성남여주);
             this.panelMainBase1.Controls.Add(this.panel과천선);
             this.panelMainBase1.Controls.Add(this.panel경의일산선);
             this.panelMainBase1.Controls.Add(this.panel분당선);
@@ -9369,8 +9376,25 @@
             this.panelMainBase1.Size = new System.Drawing.Size(1850, 790);
             this.panelMainBase1.TabIndex = 475;
             // 
+            // panel성남여주
+            // 
+            this.panel성남여주.Controls.Add(this.SYMain);
+            this.panel성남여주.Location = new System.Drawing.Point(5, 5);
+            this.panel성남여주.Name = "panel성남여주";
+            this.panel성남여주.Size = new System.Drawing.Size(1840, 780);
+            this.panel성남여주.TabIndex = 502;
+            // 
+            // SYMain
+            // 
+            this.SYMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SYMain.Location = new System.Drawing.Point(0, 0);
+            this.SYMain.Name = "SYMain";
+            this.SYMain.Size = new System.Drawing.Size(1840, 780);
+            this.SYMain.TabIndex = 0;
+            // 
             // panel과천선
             // 
+            this.panel과천선.AccessibleDescription = "1840, 780";
             this.panel과천선.Controls.Add(this.panel31);
             this.panel과천선.Controls.Add(this.panel18);
             this.panel과천선.Controls.Add(this.panel29);
@@ -10565,6 +10589,7 @@
             // 
             // panel경의일산선
             // 
+            this.panel경의일산선.AccessibleDescription = "1192, 745";
             this.panel경의일산선.Controls.Add(this.label119);
             this.panel경의일산선.Controls.Add(this.label120);
             this.panel경의일산선.Controls.Add(this.label121);
@@ -11291,6 +11316,7 @@
             // 
             // panel분당선
             // 
+            this.panel분당선.AccessibleDescription = "1840, 780";
             this.panel분당선.Controls.Add(this.label55);
             this.panel분당선.Controls.Add(this.label54);
             this.panel분당선.Controls.Add(this.label3);
@@ -13375,16 +13401,16 @@
             this.Controls.Add(this.panelMessageView);
             this.Controls.Add(this.btMenu4);
             this.Controls.Add(this.btMenu1);
-            this.Controls.Add(this.panelGround3);
-            this.Controls.Add(this.panelGround2);
-            this.Controls.Add(this.panelGround1);
+            this.Controls.Add(this.panelGroundSetting);
+            this.Controls.Add(this.panelGroundSearchHistory);
+            this.Controls.Add(this.panelGroundMainScreen);
             this.Name = "frmMain";
             this.Text = "과천선 NMS";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmMain_MouseDown);
             this.panelMessageView.ResumeLayout(false);
-            this.panelGround3.ResumeLayout(false);
+            this.panelGroundSetting.ResumeLayout(false);
             this.gbDB.ResumeLayout(false);
             this.gbDB.PerformLayout();
             this.tcGUISetup.ResumeLayout(false);
@@ -13423,9 +13449,10 @@
             this.gbILSAN_MuAFGain.ResumeLayout(false);
             this.tabRange.ResumeLayout(false);
             this.tabLineTest.ResumeLayout(false);
-            this.panelGround2.ResumeLayout(false);
-            this.panelGround1.ResumeLayout(false);
+            this.panelGroundSearchHistory.ResumeLayout(false);
+            this.panelGroundMainScreen.ResumeLayout(false);
             this.panelMainBase1.ResumeLayout(false);
+            this.panel성남여주.ResumeLayout(false);
             this.panel과천선.ResumeLayout(false);
             this.panel31.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -13574,10 +13601,10 @@
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.Button btMenu4;
         private System.Windows.Forms.Button btMenu1;
-        private System.Windows.Forms.Panel panelGround1;
+        private System.Windows.Forms.Panel panelGroundMainScreen;
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Panel panelGround2;
-        private System.Windows.Forms.Panel panelGround3;
+        private System.Windows.Forms.Panel panelGroundSearchHistory;
+        private System.Windows.Forms.Panel panelGroundSetting;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panelMainBase1;
@@ -14104,6 +14131,8 @@
         private Common.ucRangeSetup ucRangeSet;
         private System.Windows.Forms.TabPage tabLineTest;
         private Common.ucLineTest ucLT;
+        private System.Windows.Forms.Panel panel성남여주;
+        private ucSYMainScreen SYMain;
     }
 }
 

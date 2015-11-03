@@ -244,6 +244,7 @@ namespace NMS
             {
                 case "과천선":
                 case "분당선":
+                case "성남여주":
                     InitializeComponent();
                     break;
 
@@ -285,7 +286,7 @@ namespace NMS
             //private List<Button> btCommMenu = new List<Button>();
             btCommMenu.Add(btMenu1); btCommMenu.Add(btMenu2); btCommMenu.Add(btMenu3); btCommMenu.Add(btMenu4);
             //private List<Panel> panelGround = new List<Panel>();
-            panelGround.Add(panelGround1); panelGround.Add(panelGround2); panelGround.Add(panelGround3);
+            panelGround.Add(panelGroundMainScreen); panelGround.Add(panelGroundSearchHistory); panelGround.Add(panelGroundSetting);
 
             //주화면
             //private List<Panel> panelMainBase = new List<Panel>();
@@ -299,6 +300,7 @@ namespace NMS
                     SetVisible(panel과천선, true);
                     SetVisible(panel분당선, false);
                     SetVisible(panel경의일산선, false);
+                    SetVisible(panel성남여주, false);
 
                     //private List<Button> btMu = new List<Button>();
                     btMu.Add(btGC_MU1); btMu.Add(btGC_MU2); btMu.Add(btGC_MU3);
@@ -332,6 +334,7 @@ namespace NMS
                     SetVisible(panel과천선, false);
                     SetVisible(panel분당선, true);
                     SetVisible(panel경의일산선, false);
+                    SetVisible(panel성남여주, false);
 
                     //private List<Button> btMu = new List<Button>();
                     btMu.Add(btMU1); btMu.Add(btMU2); btMu.Add(btMU3); btMu.Add(btMU4); btMu.Add(btMU5);
@@ -370,10 +373,33 @@ namespace NMS
                     btRuBFm[11, 0] = btRUFM12_1; btRuBFm[11, 1] = btRUFM12_2;
                     break;
 
+                case "성남여주선":
+                    SetVisible(panel과천선, false);
+                    SetVisible(panel분당선, false);
+                    SetVisible(panel경의일산선, false);
+                    SetVisible(panel성남여주, true);
+
+                    //MU 설정
+                    btMu.Add(SYMain.ucMU1.Button); btMu.Add(SYMain.ucMU2.Button); btMu.Add(SYMain.ucMU3.Button); btMu.Add(SYMain.ucMU4.Button);
+                    btMu.Add(SYMain.ucMU5.Button); btMu.Add(SYMain.ucMU6.Button); btMu.Add(SYMain.ucMU7.Button); btMu.Add(SYMain.ucMU8.Button);
+
+                    //-------------------ru 설정-----------------------------
+                    //광주
+                    btRuB[2, 0] = SYMain.ucRu3_1.Button; btRuB[2, 1] = SYMain.ucRu3_2.Button;
+                    //곤지암
+                    btRuB[3, 0] = SYMain.ucRu4_1.Button; btRuB[3, 1] = SYMain.ucRu4_2.Button;
+                    //신둔
+                    btRuB[4, 0] = SYMain.ucRu5_1.Button;
+                    //---------------------------------------------------------
+
+
+                    break;
+
                 case "경의일산선":
                     SetVisible(panel과천선, false);
                     SetVisible(panel분당선, false);
                     SetVisible(panel경의일산선, true);
+                    SetVisible(panel성남여주, false);
 
                     //전체 감시화면 관련
                     //private List<Button> btMu = new List<Button>();
