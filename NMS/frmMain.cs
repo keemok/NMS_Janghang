@@ -2639,6 +2639,7 @@ namespace NMS
             switch(Common.clsNMS.nmsGUIUser)
             {
                 case "분당선":
+                case 성남여주:
                     AddStatus("NMS 주장치에 접속하였습니다.");
                     break;
 
@@ -2675,6 +2676,7 @@ namespace NMS
 
                 case "분당선":
                 case "경의일산선":
+                case 성남여주:
                     if (flagSend)
                     {
                         Common.clsCommon.flagTx[mainStbyID] = !Common.clsCommon.flagTx[mainStbyID];
@@ -2721,6 +2723,7 @@ namespace NMS
                 {
                     case "분당선":
                     case "경의일산선":
+                    case 성남여주:
                         AddStatus("NMS 주장치 통신이상 복구");
                         break;
 
