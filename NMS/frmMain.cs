@@ -50,6 +50,8 @@ namespace NMS
         private int pwApplyIndex = 0;
 
         private Common.clsNMSSendDataMake nmsSendDataMake = new Common.clsNMSSendDataMake();
+        
+        public const string SUNGNAM_YEOJU = "성남여주선";
 
         #region 컨트롤 배열
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -218,6 +220,7 @@ namespace NMS
 
                 case "분당선":
                 case "경의일산선":
+                case "성남여주선":
                     try
                     {
                         fr = File.OpenText(Common.clsCommon.DefaultPath + Common.clsNMS.nmsGUIUser + ".txt");
@@ -244,7 +247,7 @@ namespace NMS
             {
                 case "과천선":
                 case "분당선":
-                case "성남여주":
+                case "성남여주선":
                     InitializeComponent();
                     break;
 
@@ -374,25 +377,7 @@ namespace NMS
                     break;
 
                 case "성남여주선":
-                    SetVisible(panel과천선, false);
-                    SetVisible(panel분당선, false);
-                    SetVisible(panel경의일산선, false);
-                    SetVisible(panel성남여주, true);
-
-                    //MU 설정
-                    btMu.Add(SYMain.ucMU1.Button); btMu.Add(SYMain.ucMU2.Button); btMu.Add(SYMain.ucMU3.Button); btMu.Add(SYMain.ucMU4.Button);
-                    btMu.Add(SYMain.ucMU5.Button); btMu.Add(SYMain.ucMU6.Button); btMu.Add(SYMain.ucMU7.Button); btMu.Add(SYMain.ucMU8.Button);
-
-                    //-------------------ru 설정-----------------------------
-                    //광주
-                    btRuB[2, 0] = SYMain.ucRu3_1.Button; btRuB[2, 1] = SYMain.ucRu3_2.Button;
-                    //곤지암
-                    btRuB[3, 0] = SYMain.ucRu4_1.Button; btRuB[3, 1] = SYMain.ucRu4_2.Button;
-                    //신둔
-                    btRuB[4, 0] = SYMain.ucRu5_1.Button;
-                    //---------------------------------------------------------
-
-
+                    Init성남여주선();
                     break;
 
                 case "경의일산선":
@@ -479,6 +464,10 @@ namespace NMS
                 case "경의일산선":
                     SetText(lblTitle, "경 의 선 / 일 산 선   열 차 무 선   N M S");
                     break;
+
+                case "성남여주선":
+                    SetText(lblTitle, "성 남 / 여 주 선   열 차 무 선   N M S");
+                    break;
             }
 
             for (i = 0; i < 4; i++) btCommMenu[i].Tag = i;
@@ -513,6 +502,7 @@ namespace NMS
             {
                 case "분당선":
                 case "경의일산선":
+                case "성남여주선":
                     NMSDB_Connect();
                     break;
             }
@@ -541,6 +531,7 @@ namespace NMS
             {
                 case "분당선":
                 case "경의일산선":
+                case "성남여주선":
                     SetVisible(lblConnectNMS, true);
                     SetVisible(lblRxNMS, true);
                     SetVisible(lblTxNMS, true);
@@ -566,6 +557,44 @@ namespace NMS
 
             frmErrMsg.Show();
             SetVisible(frmErrMsg, false);
+        }
+
+        /// <summary>
+        /// 성남여주선 초기화 
+        /// </summary>
+        private void Init성남여주선()
+        {
+            SetVisible(panel과천선, false);
+            SetVisible(panel분당선, false);
+            SetVisible(panel경의일산선, false);
+            SetVisible(panel성남여주, true);
+
+            //MU 설정
+            btMu.Add(SYMain.ucMU1.Button); btMu.Add(SYMain.ucMU2.Button); btMu.Add(SYMain.ucMU3.Button); btMu.Add(SYMain.ucMU4.Button);
+            btMu.Add(SYMain.ucMU5.Button); btMu.Add(SYMain.ucMU6.Button); btMu.Add(SYMain.ucMU7.Button); btMu.Add(SYMain.ucMU8.Button);
+
+            //-------------------ru 설정-----------------------------
+            //광주
+            btRuB[2, 0] = SYMain.ucRu3_1.Button; btRuB[2, 1] = SYMain.ucRu3_2.Button;
+            //곤지암
+            btRuB[3, 0] = SYMain.ucRu4_1.Button; btRuB[3, 1] = SYMain.ucRu4_2.Button;
+            //신둔
+            btRuB[4, 0] = SYMain.ucRu5_1.Button;
+            //---------------------------------------------------------
+
+
+            #region 버튼 이벤트 연결
+            SYMain.ucMU1.Button.Click += btMU_Click;
+            SYMain.ucMU2.Button.Click += btMU_Click;
+            SYMain.ucMU3.Button.Click += btMU_Click;
+            SYMain.ucMU4.Button.Click += btMU_Click;
+            SYMain.ucMU5.Button.Click += btMU_Click;
+            SYMain.ucMU6.Button.Click += btMU_Click;
+            SYMain.ucMU7.Button.Click += btMU_Click;
+            SYMain.ucMU8.Button.Click += btMU_Click;
+            #endregion
+
+
         }
 
         #region 컨트롤 제어(문자출력, 활성화 변경, 색변경)
@@ -805,6 +834,7 @@ namespace NMS
                     {
                         case "분당선":
                         case "경의일산선":
+                        case "성남여주선":
                             frmDV.SetTitle(0, "  NMS 주장치  ");
                             break;
 
@@ -868,6 +898,7 @@ namespace NMS
             {
                 case "과천선":
                 case "분당선":
+                case "성남여주선":
                     break;
 
                 case "경의일산선":
@@ -959,7 +990,7 @@ namespace NMS
                 Common.clsNMS.muruFmExist[i] = new Common.MuRuFmExist();
                 Common.clsNMS.muLifExist[i] = new Common.MuLifExist();
             }
-
+                
             for (i = 0; i < 3; i++)
                 Common.clsNMS.cceComSt[i] = new Common.CCEComSt();
 
@@ -1052,6 +1083,7 @@ namespace NMS
 
                 case "분당선":
                 case "경의일산선":
+                case "성남여주선":
                     try
                     {
                         fr = File.OpenText(Common.clsCommon.DefaultPath + Common.clsNMS.nmsGUIUser + "_MuRuName.ini");
@@ -1277,12 +1309,18 @@ namespace NMS
                     if (Common.clsNMS.presentMUID > 5) ucMUSt.SetMode(2);
                     else ucMUSt.SetMode(3);
                     break;
+                case SUNGNAM_YEOJU:
+                    ucMUSt.SetMode(3);
+                    break;
             }
 
             MuStInit(Common.clsNMS.muruComSt[Common.clsNMS.presentMUID - 1].flagMu); //MU 화면 초기화
+
             if (Common.clsNMS.muruComSt[Common.clsNMS.presentMUID - 1].flagMu)
                 nmsMUSt_Display(Common.clsNMS.presentMUID); //MU 상태 적용
+
             MuFmStInit(Common.clsNMS.muruComSt[Common.clsNMS.presentMUID - 1].flagFm);  //MU FM 초기화
+
             if (Common.clsNMS.muruComSt[Common.clsNMS.presentMUID - 1].flagFm)
                 nmsFMSt_Display(Common.clsNMS.presentMUID); //MU FM 상태 적용
 
@@ -1579,6 +1617,7 @@ namespace NMS
             {
                 case "분당선":
                 case "경의일산선":
+                case  SUNGNAM_YEOJU:
                     nmsMUSt_DBSave(muID);   //DB에 저장
                     break;
             }
@@ -1644,6 +1683,7 @@ namespace NMS
             {
                 case "분당선":
                 case "경의일산선":
+                case SUNGNAM_YEOJU:
                     nmsMuFmSt_DBSave(muID);   //DB에 저장
                     break;
             }
@@ -1816,6 +1856,7 @@ namespace NMS
             {
                 case "분당선":
                 case "경의일산선":
+                case SUNGNAM_YEOJU:
                     nmsRUSt_DBSave(muID, ruID);     //DB에 저장
                     break;
             }
@@ -1872,6 +1913,7 @@ namespace NMS
             {
                 case "분당선":
                 case "경의일산선":
+                case SUNGNAM_YEOJU:
                     nmsRuFmSt_DBSave(muID, ruID);     //DB에 저장
                     break;
             }
@@ -3838,6 +3880,7 @@ namespace NMS
             {
                 case "분당선":
                 case "경의일산선":
+                case SUNGNAM_YEOJU:
                     if (day != DateTime.Now.Day)
                     {   //날자가 변경되면..
                         day = DateTime.Now.Day;
