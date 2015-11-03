@@ -36,11 +36,19 @@ namespace NMS
         }
 
 
-        public Button Button
+        public Button RuButton
         {
             get
             {
                 return btRU;
+            }
+        }
+
+        public Button FMButton
+        {
+            get
+            {
+                return btFM;
             }
         }
 

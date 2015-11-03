@@ -51,7 +51,7 @@ namespace NMS
 
         private Common.clsNMSSendDataMake nmsSendDataMake = new Common.clsNMSSendDataMake();
         
-        public const string SUNGNAM_YEOJU = "성남여주선";
+        public const string 성남여주 = "성남여주선";
 
         #region 컨트롤 배열
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -447,7 +447,7 @@ namespace NMS
 
             int i = 0;
 
-            Common.clsCommon.thisVer = "Ver 1.04";
+            Common.clsCommon.thisVer = "Ver 1.05";
 
             this.Text = Common.clsNMS.nmsGUIUser + " 열차무선 NMS - " + Common.clsCommon.thisVer;
             switch (Common.clsNMS.nmsGUIUser)
@@ -575,15 +575,22 @@ namespace NMS
 
             //-------------------ru 설정-----------------------------
             //광주
-            btRuB[2, 0] = SYMain.ucRu3_1.Button; btRuB[2, 1] = SYMain.ucRu3_2.Button;
+            btRuB[2, 0] = SYMain.ucRu3_1.RuButton; btRuB[2, 1] = SYMain.ucRu3_2.RuButton;
             //곤지암
-            btRuB[3, 0] = SYMain.ucRu4_1.Button; btRuB[3, 1] = SYMain.ucRu4_2.Button;
+            btRuB[3, 0] = SYMain.ucRu4_1.RuButton; btRuB[3, 1] = SYMain.ucRu4_2.RuButton;
             //신둔
-            btRuB[4, 0] = SYMain.ucRu5_1.Button;
+            btRuB[4, 0] = SYMain.ucRu5_1.RuButton;
             //---------------------------------------------------------
 
+            //-------------------FM 설정-----------------------------
+            btRuBFm[2, 0] = SYMain.ucRu3_1.FMButton; btRuBFm[2, 1] = SYMain.ucRu3_2.FMButton;
+            btRuBFm[3, 0] = SYMain.ucRu4_1.FMButton; btRuBFm[3, 1] = SYMain.ucRu4_2.FMButton;
+            btRuB[4, 0] = SYMain.ucRu5_1.FMButton;
+            //---------------------------------------------------------
 
             #region 버튼 이벤트 연결
+
+            //MU
             SYMain.ucMU1.Button.Click += btMU_Click;
             SYMain.ucMU2.Button.Click += btMU_Click;
             SYMain.ucMU3.Button.Click += btMU_Click;
@@ -592,6 +599,23 @@ namespace NMS
             SYMain.ucMU6.Button.Click += btMU_Click;
             SYMain.ucMU7.Button.Click += btMU_Click;
             SYMain.ucMU8.Button.Click += btMU_Click;
+            
+            //RU
+            SYMain.ucRu3_1.RuButton.Click += btRuB_Click;
+            SYMain.ucRu3_2.RuButton.Click += btRuB_Click;
+            SYMain.ucRu4_1.RuButton.Click += btRuB_Click;
+            SYMain.ucRu4_2.RuButton.Click += btRuB_Click;
+            SYMain.ucRu5_1.RuButton.Click += btRuB_Click;
+
+            //FM
+            SYMain.ucRu3_1.FMButton.Click += btRuB_Click;
+            SYMain.ucRu3_2.FMButton.Click += btRuB_Click;
+            SYMain.ucRu4_1.FMButton.Click += btRuB_Click;
+            SYMain.ucRu4_2.FMButton.Click += btRuB_Click;
+            SYMain.ucRu5_1.FMButton.Click += btRuB_Click;
+
+
+
             #endregion
 
 
@@ -1309,7 +1333,7 @@ namespace NMS
                     if (Common.clsNMS.presentMUID > 5) ucMUSt.SetMode(2);
                     else ucMUSt.SetMode(3);
                     break;
-                case SUNGNAM_YEOJU:
+                case 성남여주:
                     ucMUSt.SetMode(3);
                     break;
             }
@@ -1617,7 +1641,7 @@ namespace NMS
             {
                 case "분당선":
                 case "경의일산선":
-                case  SUNGNAM_YEOJU:
+                case  성남여주:
                     nmsMUSt_DBSave(muID);   //DB에 저장
                     break;
             }
@@ -1683,7 +1707,7 @@ namespace NMS
             {
                 case "분당선":
                 case "경의일산선":
-                case SUNGNAM_YEOJU:
+                case 성남여주:
                     nmsMuFmSt_DBSave(muID);   //DB에 저장
                     break;
             }
@@ -1856,7 +1880,7 @@ namespace NMS
             {
                 case "분당선":
                 case "경의일산선":
-                case SUNGNAM_YEOJU:
+                case 성남여주:
                     nmsRUSt_DBSave(muID, ruID);     //DB에 저장
                     break;
             }
@@ -1913,7 +1937,7 @@ namespace NMS
             {
                 case "분당선":
                 case "경의일산선":
-                case SUNGNAM_YEOJU:
+                case 성남여주:
                     nmsRuFmSt_DBSave(muID, ruID);     //DB에 저장
                     break;
             }
@@ -3009,11 +3033,21 @@ namespace NMS
                     {
                         case "경의일산선":
                             if (tmpMUId <= 2)
-                                if (tmpRUId == 0) kind = buffer[j++];   //MU인지 RuA인지 구분..
+                                if (tmpRUId == 0) 
+                                    kind = buffer[j++];   //MU인지 RuA인지 구분..
+                            break;
+
+                        case 성남여주:
+                            if( tmpRUId != 0)
+                            {
+                                kind = 2;
+                            }
+
                             break;
 
                         default:
-                            if (tmpRUId == 0) kind = buffer[j++];   //MU인지 RuA인지 구분..
+                            if (tmpRUId == 0) 
+                                kind = buffer[j++];   //MU인지 RuA인지 구분..
                             break;
                     }
 
@@ -3880,7 +3914,7 @@ namespace NMS
             {
                 case "분당선":
                 case "경의일산선":
-                case SUNGNAM_YEOJU:
+                case 성남여주:
                     if (day != DateTime.Now.Day)
                     {   //날자가 변경되면..
                         day = DateTime.Now.Day;
