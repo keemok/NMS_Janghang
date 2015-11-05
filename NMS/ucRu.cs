@@ -12,23 +12,6 @@ namespace NMS
     public partial class ucRu : UserControl
     {
 
-        /// <summary>
-        /// MU 이름 설정
-        /// </summary>
-        public string Title
-        {
-            set
-            {
-                lblTitle.Text = value;
-
-            }
-            get
-            {
-                return lblTitle.Text;
-            }
-        }
-    
-
 
         public ucRu()
         {
@@ -44,13 +27,19 @@ namespace NMS
             }
         }
 
-        public Button FMButton
+        public string ButtonName
         {
+            set
+            {
+                btRU.Text = value;
+            }
             get
             {
-                return btFM;
+                return btRU.Text;
             }
+
         }
+
 
             
             

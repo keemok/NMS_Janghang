@@ -30,9 +30,16 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.ucMU8 = new NMS.ucMU();
             this.ucMU7 = new NMS.ucMU();
             this.ucMU6 = new NMS.ucMU();
@@ -51,49 +58,107 @@
             // label1
             // 
             this.label1.BackColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(49, 199);
+            this.label1.Location = new System.Drawing.Point(251, 290);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(1712, 10);
+            this.label1.Size = new System.Drawing.Size(1426, 10);
             this.label1.TabIndex = 13;
             this.label1.Text = "label1";
             // 
             // label2
             // 
             this.label2.BackColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(49, 396);
+            this.label2.Location = new System.Drawing.Point(307, 534);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(1712, 10);
+            this.label2.Size = new System.Drawing.Size(1365, 10);
             this.label2.TabIndex = 14;
             this.label2.Text = "label2";
-            // 
-            // label3
-            // 
-            this.label3.BackColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(49, 600);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(1135, 10);
-            this.label3.TabIndex = 15;
-            this.label3.Text = "label3";
             // 
             // label4
             // 
             this.label4.BackColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(1751, 208);
+            this.label4.Location = new System.Drawing.Point(1667, 290);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(10, 198);
+            this.label4.Size = new System.Drawing.Size(10, 254);
             this.label4.TabIndex = 16;
+            // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(1059, 148);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(10, 87);
+            this.label3.TabIndex = 17;
             // 
             // label5
             // 
             this.label5.BackColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(49, 395);
+            this.label5.Location = new System.Drawing.Point(963, 145);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(10, 212);
-            this.label5.TabIndex = 17;
+            this.label5.Size = new System.Drawing.Size(200, 10);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "label5";
+            // 
+            // label6
+            // 
+            this.label6.BackColor = System.Drawing.Color.Black;
+            this.label6.Location = new System.Drawing.Point(963, 68);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(10, 87);
+            this.label6.TabIndex = 19;
+            // 
+            // label7
+            // 
+            this.label7.BackColor = System.Drawing.Color.Black;
+            this.label7.Location = new System.Drawing.Point(1153, 68);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(10, 87);
+            this.label7.TabIndex = 20;
+            // 
+            // label8
+            // 
+            this.label8.BackColor = System.Drawing.Color.Black;
+            this.label8.Location = new System.Drawing.Point(1343, 148);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(200, 10);
+            this.label8.TabIndex = 23;
+            this.label8.Text = "label8";
+            // 
+            // label9
+            // 
+            this.label9.BackColor = System.Drawing.Color.Black;
+            this.label9.Location = new System.Drawing.Point(1439, 151);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(10, 87);
+            this.label9.TabIndex = 22;
+            // 
+            // label10
+            // 
+            this.label10.BackColor = System.Drawing.Color.Black;
+            this.label10.Location = new System.Drawing.Point(1343, 71);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(10, 87);
+            this.label10.TabIndex = 24;
+            // 
+            // label11
+            // 
+            this.label11.BackColor = System.Drawing.Color.Black;
+            this.label11.Location = new System.Drawing.Point(1533, 71);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(10, 87);
+            this.label11.TabIndex = 25;
+            // 
+            // label12
+            // 
+            this.label12.BackColor = System.Drawing.Color.Black;
+            this.label12.Location = new System.Drawing.Point(1439, 534);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(10, 137);
+            this.label12.TabIndex = 26;
             // 
             // ucMU8
             // 
-            this.ucMU8.Location = new System.Drawing.Point(810, 516);
+            this.ucMU8.BackColor = System.Drawing.Color.Black;
+            this.ucMU8.Location = new System.Drawing.Point(188, 460);
             this.ucMU8.MaximumSize = new System.Drawing.Size(230, 140);
             this.ucMU8.Name = "ucMU8";
             this.ucMU8.Size = new System.Drawing.Size(230, 140);
@@ -102,7 +167,8 @@
             // 
             // ucMU7
             // 
-            this.ucMU7.Location = new System.Drawing.Point(512, 516);
+            this.ucMU7.BackColor = System.Drawing.Color.Black;
+            this.ucMU7.Location = new System.Drawing.Point(568, 460);
             this.ucMU7.MaximumSize = new System.Drawing.Size(230, 140);
             this.ucMU7.Name = "ucMU7";
             this.ucMU7.Size = new System.Drawing.Size(230, 140);
@@ -111,7 +177,8 @@
             // 
             // ucMU6
             // 
-            this.ucMU6.Location = new System.Drawing.Point(212, 516);
+            this.ucMU6.BackColor = System.Drawing.Color.Black;
+            this.ucMU6.Location = new System.Drawing.Point(948, 476);
             this.ucMU6.MaximumSize = new System.Drawing.Size(230, 140);
             this.ucMU6.Name = "ucMU6";
             this.ucMU6.Size = new System.Drawing.Size(230, 140);
@@ -121,15 +188,16 @@
             // ucRu5_1
             // 
             this.ucRu5_1.BackColor = System.Drawing.Color.Black;
-            this.ucRu5_1.Location = new System.Drawing.Point(1400, 310);
+            this.ucRu5_1.ButtonName = "광 중계장치";
+            this.ucRu5_1.Location = new System.Drawing.Point(1369, 644);
             this.ucRu5_1.Name = "ucRu5_1";
-            this.ucRu5_1.Size = new System.Drawing.Size(230, 140);
+            this.ucRu5_1.Size = new System.Drawing.Size(150, 90);
             this.ucRu5_1.TabIndex = 9;
-            this.ucRu5_1.Title = "신  둔 ";
             // 
             // ucMU5
             // 
-            this.ucMU5.Location = new System.Drawing.Point(1106, 310);
+            this.ucMU5.BackColor = System.Drawing.Color.Black;
+            this.ucMU5.Location = new System.Drawing.Point(1328, 460);
             this.ucMU5.MaximumSize = new System.Drawing.Size(230, 140);
             this.ucMU5.Name = "ucMU5";
             this.ucMU5.Size = new System.Drawing.Size(230, 140);
@@ -139,24 +207,25 @@
             // ucRu4_2
             // 
             this.ucRu4_2.BackColor = System.Drawing.Color.Black;
-            this.ucRu4_2.Location = new System.Drawing.Point(810, 310);
+            this.ucRu4_2.ButtonName = "광 중계장치2";
+            this.ucRu4_2.Location = new System.Drawing.Point(1463, 36);
             this.ucRu4_2.Name = "ucRu4_2";
-            this.ucRu4_2.Size = new System.Drawing.Size(230, 140);
+            this.ucRu4_2.Size = new System.Drawing.Size(150, 90);
             this.ucRu4_2.TabIndex = 7;
-            this.ucRu4_2.Title = "곤 지 암";
             // 
             // ucRu4_1
             // 
             this.ucRu4_1.BackColor = System.Drawing.Color.Black;
-            this.ucRu4_1.Location = new System.Drawing.Point(512, 310);
+            this.ucRu4_1.ButtonName = "광 중계장치1";
+            this.ucRu4_1.Location = new System.Drawing.Point(1289, 36);
             this.ucRu4_1.Name = "ucRu4_1";
-            this.ucRu4_1.Size = new System.Drawing.Size(230, 140);
+            this.ucRu4_1.Size = new System.Drawing.Size(150, 90);
             this.ucRu4_1.TabIndex = 6;
-            this.ucRu4_1.Title = "곤 지 암";
             // 
             // ucMU4
             // 
-            this.ucMU4.Location = new System.Drawing.Point(212, 310);
+            this.ucMU4.BackColor = System.Drawing.Color.Black;
+            this.ucMU4.Location = new System.Drawing.Point(1328, 205);
             this.ucMU4.MaximumSize = new System.Drawing.Size(230, 140);
             this.ucMU4.Name = "ucMU4";
             this.ucMU4.Size = new System.Drawing.Size(230, 140);
@@ -166,24 +235,25 @@
             // ucRu3_2
             // 
             this.ucRu3_2.BackColor = System.Drawing.Color.Black;
-            this.ucRu3_2.Location = new System.Drawing.Point(1400, 114);
+            this.ucRu3_2.ButtonName = "광 중계장치2";
+            this.ucRu3_2.Location = new System.Drawing.Point(1082, 36);
             this.ucRu3_2.Name = "ucRu3_2";
-            this.ucRu3_2.Size = new System.Drawing.Size(230, 140);
+            this.ucRu3_2.Size = new System.Drawing.Size(150, 90);
             this.ucRu3_2.TabIndex = 4;
-            this.ucRu3_2.Title = "광  주";
             // 
             // ucRu3_1
             // 
             this.ucRu3_1.BackColor = System.Drawing.Color.Black;
-            this.ucRu3_1.Location = new System.Drawing.Point(1106, 114);
+            this.ucRu3_1.ButtonName = "광 중계장치1";
+            this.ucRu3_1.Location = new System.Drawing.Point(892, 36);
             this.ucRu3_1.Name = "ucRu3_1";
-            this.ucRu3_1.Size = new System.Drawing.Size(230, 140);
+            this.ucRu3_1.Size = new System.Drawing.Size(150, 90);
             this.ucRu3_1.TabIndex = 3;
-            this.ucRu3_1.Title = "광  주";
             // 
             // ucMU3
             // 
-            this.ucMU3.Location = new System.Drawing.Point(810, 114);
+            this.ucMU3.BackColor = System.Drawing.Color.Black;
+            this.ucMU3.Location = new System.Drawing.Point(948, 205);
             this.ucMU3.MaximumSize = new System.Drawing.Size(230, 140);
             this.ucMU3.Name = "ucMU3";
             this.ucMU3.Size = new System.Drawing.Size(230, 140);
@@ -192,7 +262,8 @@
             // 
             // ucMU2
             // 
-            this.ucMU2.Location = new System.Drawing.Point(512, 114);
+            this.ucMU2.BackColor = System.Drawing.Color.Black;
+            this.ucMU2.Location = new System.Drawing.Point(568, 205);
             this.ucMU2.MaximumSize = new System.Drawing.Size(230, 140);
             this.ucMU2.Name = "ucMU2";
             this.ucMU2.Size = new System.Drawing.Size(230, 140);
@@ -201,7 +272,8 @@
             // 
             // ucMU1
             // 
-            this.ucMU1.Location = new System.Drawing.Point(212, 114);
+            this.ucMU1.BackColor = System.Drawing.Color.Black;
+            this.ucMU1.Location = new System.Drawing.Point(188, 205);
             this.ucMU1.MaximumSize = new System.Drawing.Size(230, 140);
             this.ucMU1.Name = "ucMU1";
             this.ucMU1.Size = new System.Drawing.Size(230, 140);
@@ -230,6 +302,13 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label12);
             this.Name = "ucSYMainScreen";
             this.Size = new System.Drawing.Size(1840, 780);
             this.ResumeLayout(false);
@@ -253,9 +332,16 @@
         internal ucMU ucMU8;
         internal System.Windows.Forms.Label label1;
         internal System.Windows.Forms.Label label2;
-        internal System.Windows.Forms.Label label3;
         internal System.Windows.Forms.Label label4;
+        internal System.Windows.Forms.Label label3;
         internal System.Windows.Forms.Label label5;
+        internal System.Windows.Forms.Label label6;
+        internal System.Windows.Forms.Label label7;
+        internal System.Windows.Forms.Label label8;
+        internal System.Windows.Forms.Label label9;
+        internal System.Windows.Forms.Label label10;
+        internal System.Windows.Forms.Label label11;
+        internal System.Windows.Forms.Label label12;
 
 
 

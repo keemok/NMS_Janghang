@@ -7060,8 +7060,8 @@
             this.pictureBox15 = new System.Windows.Forms.PictureBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
-            this.label34 = new System.Windows.Forms.Label();
             this.panel71 = new System.Windows.Forms.Panel();
+            this.label34 = new System.Windows.Forms.Label();
             this.panel72 = new System.Windows.Forms.Panel();
             this.panel73 = new System.Windows.Forms.Panel();
             this.btGC_RUFM3_1 = new System.Windows.Forms.Button();
@@ -9415,7 +9415,6 @@
             this.panel과천선.Controls.Add(this.label32);
             this.panel과천선.Controls.Add(this.panel32);
             this.panel과천선.Controls.Add(this.label33);
-            this.panel과천선.Controls.Add(this.label34);
             this.panel과천선.Controls.Add(this.panel71);
             this.panel과천선.Controls.Add(this.label35);
             this.panel과천선.Controls.Add(this.panel25);
@@ -10159,23 +10158,24 @@
             this.label33.Size = new System.Drawing.Size(195, 5);
             this.label33.TabIndex = 488;
             // 
-            // label34
-            // 
-            this.label34.BackColor = System.Drawing.Color.Black;
-            this.label34.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label34.Location = new System.Drawing.Point(935, 569);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(145, 5);
-            this.label34.TabIndex = 489;
-            // 
             // panel71
             // 
             this.panel71.BackColor = System.Drawing.Color.Black;
+            this.panel71.Controls.Add(this.label34);
             this.panel71.Controls.Add(this.panel72);
             this.panel71.Location = new System.Drawing.Point(1192, 28);
             this.panel71.Name = "panel71";
             this.panel71.Size = new System.Drawing.Size(118, 317);
             this.panel71.TabIndex = 456;
+            // 
+            // label34
+            // 
+            this.label34.BackColor = System.Drawing.Color.Black;
+            this.label34.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label34.Location = new System.Drawing.Point(0, 0);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(145, 5);
+            this.label34.TabIndex = 489;
             // 
             // panel72
             // 

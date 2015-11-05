@@ -28,62 +28,52 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblTitle = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btRU = new System.Windows.Forms.Button();
-            this.btFM = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // lblTitle
+            // tableLayoutPanel1
             // 
-            this.lblTitle.BackColor = System.Drawing.Color.CadetBlue;
-            this.lblTitle.Font = new System.Drawing.Font("굴림", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lblTitle.ForeColor = System.Drawing.Color.White;
-            this.lblTitle.Location = new System.Drawing.Point(3, 4);
-            this.lblTitle.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(224, 42);
-            this.lblTitle.TabIndex = 1;
-            this.lblTitle.Text = "역 명";
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.btRU, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(147, 70);
+            this.tableLayoutPanel1.TabIndex = 0;
             // 
             // btRU
             // 
+            this.btRU.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btRU.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btRU.Location = new System.Drawing.Point(3, 50);
+            this.btRU.Location = new System.Drawing.Point(3, 3);
             this.btRU.Name = "btRU";
-            this.btRU.Size = new System.Drawing.Size(110, 87);
-            this.btRU.TabIndex = 2;
-            this.btRU.Text = "RU";
+            this.btRU.Size = new System.Drawing.Size(141, 64);
+            this.btRU.TabIndex = 3;
+            this.btRU.Text = "광 중계장치";
             this.btRU.UseVisualStyleBackColor = true;
-            // 
-            // btFM
-            // 
-            this.btFM.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btFM.Location = new System.Drawing.Point(117, 50);
-            this.btFM.Name = "btFM";
-            this.btFM.Size = new System.Drawing.Size(110, 87);
-            this.btFM.TabIndex = 3;
-            this.btFM.Text = "FM";
-            this.btFM.UseVisualStyleBackColor = true;
             // 
             // ucRu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.Controls.Add(this.btFM);
-            this.Controls.Add(this.btRU);
-            this.Controls.Add(this.lblTitle);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "ucRu";
-            this.Size = new System.Drawing.Size(230, 140);
+            this.Size = new System.Drawing.Size(147, 70);
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button btRU;
-        private System.Windows.Forms.Button btFM;
+
     }
 }

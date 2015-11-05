@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lblTitle = new System.Windows.Forms.Label();
             this.btMu = new System.Windows.Forms.Button();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,6 +45,17 @@
             this.panel1.Size = new System.Drawing.Size(230, 140);
             this.panel1.TabIndex = 0;
             // 
+            // btMu
+            // 
+            this.btMu.BackColor = System.Drawing.SystemColors.Control;
+            this.btMu.Font = new System.Drawing.Font("굴림", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btMu.Location = new System.Drawing.Point(1, 45);
+            this.btMu.Name = "btMu";
+            this.btMu.Size = new System.Drawing.Size(228, 94);
+            this.btMu.TabIndex = 1;
+            this.btMu.Text = "기지국 장치";
+            this.btMu.UseVisualStyleBackColor = false;
+            // 
             // lblTitle
             // 
             this.lblTitle.BackColor = System.Drawing.Color.DodgerBlue;
@@ -58,21 +69,11 @@
             this.lblTitle.Text = "기지국명";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btMu
-            // 
-            this.btMu.BackColor = System.Drawing.SystemColors.Control;
-            this.btMu.Font = new System.Drawing.Font("굴림", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btMu.Location = new System.Drawing.Point(2, 45);
-            this.btMu.Name = "btMu";
-            this.btMu.Size = new System.Drawing.Size(225, 92);
-            this.btMu.TabIndex = 1;
-            this.btMu.Text = "MU";
-            this.btMu.UseVisualStyleBackColor = false;
-            // 
             // ucMU
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Black;
             this.Controls.Add(this.panel1);
             this.MaximumSize = new System.Drawing.Size(230, 140);
             this.Name = "ucMU";

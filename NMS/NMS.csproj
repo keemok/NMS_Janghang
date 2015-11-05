@@ -83,12 +83,6 @@
     <Compile Include="ucSYMainScreen.Designer.cs">
       <DependentUpon>ucSYMainScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="ucHistorySearch.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ucHistorySearch.Designer.cs">
-      <DependentUpon>ucHistorySearch.cs</DependentUpon>
-    </Compile>
     <Compile Include="ucMainScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -121,9 +115,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ucSYMainScreen.resx">
       <DependentUpon>ucSYMainScreen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ucHistorySearch.resx">
-      <DependentUpon>ucHistorySearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ucMainScreen.resx">
       <DependentUpon>ucMainScreen.cs</DependentUpon>
