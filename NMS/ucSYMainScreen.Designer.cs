@@ -178,7 +178,7 @@
             // ucMU6
             // 
             this.ucMU6.BackColor = System.Drawing.Color.Black;
-            this.ucMU6.Location = new System.Drawing.Point(948, 476);
+            this.ucMU6.Location = new System.Drawing.Point(948, 460);
             this.ucMU6.MaximumSize = new System.Drawing.Size(230, 140);
             this.ucMU6.Name = "ucMU6";
             this.ucMU6.Size = new System.Drawing.Size(230, 140);
