@@ -52,7 +52,7 @@ namespace NMS
 
         private Common.clsNMSSendDataMake nmsSendDataMake = new Common.clsNMSSendDataMake();
         
-        public const string 성남여주 = "성남여주선";
+        public const string 성남여주선 = "성남여주선";
 
         #region 컨트롤 배열
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -221,7 +221,7 @@ namespace NMS
 
                 case "분당선":
                 case "경의일산선":
-                case 성남여주:
+                case 성남여주선:
                     try
                     {
                         fr = File.OpenText(Common.clsCommon.DefaultPath + Common.clsNMS.nmsGUIUser + ".txt");
@@ -248,7 +248,7 @@ namespace NMS
             {
                 case "과천선":
                 case "분당선":
-                case 성남여주:
+                case 성남여주선:
                     InitializeComponent();
                     break;
 
@@ -377,7 +377,7 @@ namespace NMS
                     btRuBFm[11, 0] = btRUFM12_1; btRuBFm[11, 1] = btRUFM12_2;
                     break;
 
-                case 성남여주:
+                case 성남여주선:
                     Init성남여주선();
                     break;
 
@@ -466,7 +466,7 @@ namespace NMS
                     SetText(lblTitle, "경 의 선 / 일 산 선   열 차 무 선   N M S");
                     break;
 
-                case 성남여주:
+                case 성남여주선:
                     SetText(lblTitle, "성 남 / 여 주 선   열 차 무 선   N M S");
                     break;
             }
@@ -503,7 +503,7 @@ namespace NMS
             {
                 case "분당선":
                 case "경의일산선":
-                case "성남여주선":
+                case 성남여주선:
                     NMSDB_Connect();
                     break;
             }
@@ -532,7 +532,7 @@ namespace NMS
             {
                 case "분당선":
                 case "경의일산선":
-                case  성남여주:
+                case  성남여주선:
                     SetVisible(lblConnectNMS, true);
                     SetVisible(lblRxNMS, true);
                     SetVisible(lblTxNMS, true);
@@ -1116,7 +1116,7 @@ namespace NMS
 
                 case "분당선":
                 case "경의일산선":
-                case "성남여주선":
+                case 성남여주선:
                     try
                     {
                         fr = File.OpenText(Common.clsCommon.DefaultPath + Common.clsNMS.nmsGUIUser + "_MuRuName.ini");
@@ -1342,7 +1342,7 @@ namespace NMS
                     if (Common.clsNMS.presentMUID > 5) ucMUSt.SetMode(2);
                     else ucMUSt.SetMode(3);
                     break;
-                case 성남여주:
+                case 성남여주선:
                     ucMUSt.SetMode(2);
                     break;
             }
@@ -1425,7 +1425,7 @@ namespace NMS
             ucRUSt.SetTitle(nowStation + " 광중계장치 ( B 형 )");
 
 
-             if( Common.clsNMS.nmsGUIUser == 성남여주)
+             if( Common.clsNMS.nmsGUIUser == 성남여주선)
              {
                  ucRUSt.SetEnableFMStatus(false);
              }
@@ -1660,7 +1660,7 @@ namespace NMS
             {
                 case "분당선":
                 case "경의일산선":
-                case  성남여주:
+                case  성남여주선:
                     nmsMUSt_DBSave(muID);   //DB에 저장
                     break;
             }
@@ -1726,7 +1726,7 @@ namespace NMS
             {
                 case "분당선":
                 case "경의일산선":
-                case 성남여주:
+                case 성남여주선:
                     nmsMuFmSt_DBSave(muID);   //DB에 저장
                     break;
             }
@@ -1899,7 +1899,7 @@ namespace NMS
             {
                 case "분당선":
                 case "경의일산선":
-                case 성남여주:
+                case 성남여주선:
                     nmsRUSt_DBSave(muID, ruID);     //DB에 저장
                     break;
             }
@@ -1956,7 +1956,7 @@ namespace NMS
             {
                 case "분당선":
                 case "경의일산선":
-                case 성남여주:
+                case 성남여주선:
                     nmsRuFmSt_DBSave(muID, ruID);     //DB에 저장
                     break;
             }
@@ -2658,7 +2658,7 @@ namespace NMS
             switch(Common.clsNMS.nmsGUIUser)
             {
                 case "분당선":
-                case 성남여주:
+                case 성남여주선:
                     AddStatus("NMS 주장치에 접속하였습니다.");
                     break;
 
@@ -2695,7 +2695,7 @@ namespace NMS
 
                 case "분당선":
                 case "경의일산선":
-                case 성남여주:
+                case 성남여주선:
                     if (flagSend)
                     {
                         Common.clsCommon.flagTx[mainStbyID] = !Common.clsCommon.flagTx[mainStbyID];
@@ -2742,7 +2742,7 @@ namespace NMS
                 {
                     case "분당선":
                     case "경의일산선":
-                    case 성남여주:
+                    case 성남여주선:
                         AddStatus("NMS 주장치 통신이상 복구");
                         break;
 
@@ -2969,7 +2969,7 @@ namespace NMS
                                             DC_RangeOver(0, tmpMUId, tmpRUId, tmpMuData.optDcValue);    //DC 전압 임계치 비고
                                         }
                                         break;
-                                    case 성남여주:
+                                    case 성남여주선:
                                         tmpMuData.mainVer = buffer[j++];    //역용 주 버젼정보
                                         tmpMuData.stbyVer = buffer[j++];    //역용 예비 버젼정보
                                         tmpMuData.acuVer = buffer[j++];     //ACU 버젼정보
@@ -3070,7 +3070,7 @@ namespace NMS
                                     kind = buffer[j++];   //MU인지 RuA인지 구분..
                             break;
 
-                        case 성남여주:
+                        case 성남여주선:
                             if( tmpRUId != 0)
                             {
                                 kind = 2;
@@ -3144,6 +3144,7 @@ namespace NMS
             {
                 case "분당선":
                 case "경의일산선":
+                case 성남여주선:
                     AddStatus("NMS 주장치와의 접속이 끊겼습니다.");
                     break;
 
@@ -3439,6 +3440,11 @@ namespace NMS
             dbMuFmQueue.Enqueue(muruNowData[muID].fmInfo);
         }
 
+        /// <summary>
+        /// RU 상태를 DB에 입력함
+        /// </summary>
+        /// <param name="muID"></param>
+        /// <param name="ruID"></param>
         private void nmsRUSt_DBSave(byte muID, byte ruID)
         {
             Common.RuInfo tmpRuInfo = new Common.RuInfo();
@@ -3982,7 +3988,7 @@ namespace NMS
             {
                 case "분당선":
                 case "경의일산선":
-                case 성남여주:
+                case 성남여주선:
                     if (day != DateTime.Now.Day)
                     {   //날자가 변경되면..
                         day = DateTime.Now.Day;
