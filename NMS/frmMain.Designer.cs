@@ -6975,15 +6975,20 @@
             this.label52 = new System.Windows.Forms.Label();
             this.label51 = new System.Windows.Forms.Label();
             this.gbILSAN_MuAFGain = new System.Windows.Forms.GroupBox();
+            this.ucGainSet_ILSAN = new Common.ucASGainSet_ILSAN();
             this.tabRange = new System.Windows.Forms.TabPage();
+            this.ucRangeSet = new Common.ucRangeSetup();
             this.tabLineTest = new System.Windows.Forms.TabPage();
+            this.ucLT = new Common.ucLineTest();
             this.label1 = new System.Windows.Forms.Label();
             this.panelGroundSearchHistory = new System.Windows.Forms.Panel();
+            this.ucErrorSearch1 = new Common.ucErrorSearch();
             this.label2 = new System.Windows.Forms.Label();
             this.panelGroundMainScreen = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
             this.panelMainBase1 = new System.Windows.Forms.Panel();
             this.panel성남여주 = new System.Windows.Forms.Panel();
+            this.SYMain = new NMS.ucSYMainScreen();
             this.panel과천선 = new System.Windows.Forms.Panel();
             this.panel31 = new System.Windows.Forms.Panel();
             this.btHub1 = new System.Windows.Forms.Button();
@@ -7354,14 +7359,9 @@
             this.label83 = new System.Windows.Forms.Label();
             this.label84 = new System.Windows.Forms.Label();
             this.panelMainBase2 = new System.Windows.Forms.Panel();
-            this.ucGainSet_ILSAN = new Common.ucASGainSet_ILSAN();
-            this.ucRangeSet = new Common.ucRangeSetup();
-            this.ucLT = new Common.ucLineTest();
-            this.ucErrorSearch1 = new Common.ucErrorSearch();
             this.ucMUSt_ILSAN = new Common.ucMUStatus_ILSAN();
             this.ucMUSt = new Common.ucMUStatus();
             this.ucRUSt = new Common.ucRUStatus();
-            this.SYMain = new NMS.ucSYMainScreen();
             this.panelMessageView.SuspendLayout();
             this.panelGroundSetting.SuspendLayout();
             this.gbDB.SuspendLayout();
@@ -9253,6 +9253,15 @@
             this.gbILSAN_MuAFGain.TabStop = false;
             this.gbILSAN_MuAFGain.Text = "송/수신 게인 설정";
             // 
+            // ucGainSet_ILSAN
+            // 
+            this.ucGainSet_ILSAN.BackColor = System.Drawing.Color.White;
+            this.ucGainSet_ILSAN.Location = new System.Drawing.Point(5, 21);
+            this.ucGainSet_ILSAN.Name = "ucGainSet_ILSAN";
+            this.ucGainSet_ILSAN.Size = new System.Drawing.Size(752, 475);
+            this.ucGainSet_ILSAN.TabIndex = 186;
+            this.ucGainSet_ILSAN.gainSetControlClick += new Common.UserControl_Control(this.ucGainSet_ILSAN_gainSetControlClick);
+            // 
             // tabRange
             // 
             this.tabRange.Controls.Add(this.ucRangeSet);
@@ -9263,6 +9272,14 @@
             this.tabRange.Text = "  임계치 설정  ";
             this.tabRange.UseVisualStyleBackColor = true;
             // 
+            // ucRangeSet
+            // 
+            this.ucRangeSet.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ucRangeSet.BackgroundImage")));
+            this.ucRangeSet.Location = new System.Drawing.Point(340, 139);
+            this.ucRangeSet.Name = "ucRangeSet";
+            this.ucRangeSet.Size = new System.Drawing.Size(447, 390);
+            this.ucRangeSet.TabIndex = 0;
+            // 
             // tabLineTest
             // 
             this.tabLineTest.Controls.Add(this.ucLT);
@@ -9272,6 +9289,14 @@
             this.tabLineTest.TabIndex = 4;
             this.tabLineTest.Text = "  회선시험  ";
             this.tabLineTest.UseVisualStyleBackColor = true;
+            // 
+            // ucLT
+            // 
+            this.ucLT.BackColor = System.Drawing.Color.Black;
+            this.ucLT.Location = new System.Drawing.Point(63, 34);
+            this.ucLT.Name = "ucLT";
+            this.ucLT.Size = new System.Drawing.Size(1000, 600);
+            this.ucLT.TabIndex = 0;
             // 
             // label1
             // 
@@ -9295,6 +9320,14 @@
             this.panelGroundSearchHistory.Name = "panelGroundSearchHistory";
             this.panelGroundSearchHistory.Size = new System.Drawing.Size(1880, 870);
             this.panelGroundSearchHistory.TabIndex = 397;
+            // 
+            // ucErrorSearch1
+            // 
+            this.ucErrorSearch1.BackColor = System.Drawing.Color.Black;
+            this.ucErrorSearch1.Location = new System.Drawing.Point(15, 72);
+            this.ucErrorSearch1.Name = "ucErrorSearch1";
+            this.ucErrorSearch1.Size = new System.Drawing.Size(1850, 790);
+            this.ucErrorSearch1.TabIndex = 387;
             // 
             // label2
             // 
@@ -9350,6 +9383,14 @@
             this.panel성남여주.Name = "panel성남여주";
             this.panel성남여주.Size = new System.Drawing.Size(1840, 780);
             this.panel성남여주.TabIndex = 502;
+            // 
+            // SYMain
+            // 
+            this.SYMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SYMain.Location = new System.Drawing.Point(0, 0);
+            this.SYMain.Name = "SYMain";
+            this.SYMain.Size = new System.Drawing.Size(1840, 780);
+            this.SYMain.TabIndex = 0;
             // 
             // panel과천선
             // 
@@ -13320,39 +13361,6 @@
             this.panelMainBase2.Size = new System.Drawing.Size(1850, 790);
             this.panelMainBase2.TabIndex = 476;
             // 
-            // ucGainSet_ILSAN
-            // 
-            this.ucGainSet_ILSAN.BackColor = System.Drawing.Color.White;
-            this.ucGainSet_ILSAN.Location = new System.Drawing.Point(5, 21);
-            this.ucGainSet_ILSAN.Name = "ucGainSet_ILSAN";
-            this.ucGainSet_ILSAN.Size = new System.Drawing.Size(752, 475);
-            this.ucGainSet_ILSAN.TabIndex = 186;
-            this.ucGainSet_ILSAN.gainSetControlClick += new Common.UserControl_Control(this.ucGainSet_ILSAN_gainSetControlClick);
-            // 
-            // ucRangeSet
-            // 
-            this.ucRangeSet.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ucRangeSet.BackgroundImage")));
-            this.ucRangeSet.Location = new System.Drawing.Point(340, 139);
-            this.ucRangeSet.Name = "ucRangeSet";
-            this.ucRangeSet.Size = new System.Drawing.Size(447, 390);
-            this.ucRangeSet.TabIndex = 0;
-            // 
-            // ucLT
-            // 
-            this.ucLT.BackColor = System.Drawing.Color.Black;
-            this.ucLT.Location = new System.Drawing.Point(63, 34);
-            this.ucLT.Name = "ucLT";
-            this.ucLT.Size = new System.Drawing.Size(1000, 600);
-            this.ucLT.TabIndex = 0;
-            // 
-            // ucErrorSearch1
-            // 
-            this.ucErrorSearch1.BackColor = System.Drawing.Color.Black;
-            this.ucErrorSearch1.Location = new System.Drawing.Point(15, 72);
-            this.ucErrorSearch1.Name = "ucErrorSearch1";
-            this.ucErrorSearch1.Size = new System.Drawing.Size(1850, 790);
-            this.ucErrorSearch1.TabIndex = 387;
-            // 
             // ucMUSt_ILSAN
             // 
             this.ucMUSt_ILSAN.BackColor = System.Drawing.Color.Black;
@@ -13379,14 +13387,6 @@
             this.ucRUSt.Size = new System.Drawing.Size(1840, 780);
             this.ucRUSt.TabIndex = 1;
             this.ucRUSt.ruControlClick += new Common.UserControl_Control(this.RuSt_ruControlClick);
-            // 
-            // SYMain
-            // 
-            this.SYMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SYMain.Location = new System.Drawing.Point(0, 0);
-            this.SYMain.Name = "SYMain";
-            this.SYMain.Size = new System.Drawing.Size(1840, 780);
-            this.SYMain.TabIndex = 0;
             // 
             // frmMain
             // 

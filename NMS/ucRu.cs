@@ -27,11 +27,26 @@ namespace NMS
             }
         }
 
+        /// <summary>
+        /// 버튼이름 설정 $n은 NewLine 
+        /// 
+        /// </summary>
+        [Description("버튼이름 설정 $n은 NewLine") ]
         public string ButtonName
         {
             set
             {
-                btRU.Text = value;
+                btRU.Text = ""; 
+
+                string ms = value;
+
+                if( ms.Contains("$n") )
+                {
+                    ms  = ms.Replace("$n", "\r\n");
+                    btRU.Text = ms;
+                }
+                else
+                    btRU.Text = value;
             }
             get
             {

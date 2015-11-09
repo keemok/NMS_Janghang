@@ -49,7 +49,7 @@
             // btRU
             // 
             this.btRU.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btRU.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btRU.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btRU.Location = new System.Drawing.Point(3, 3);
             this.btRU.Name = "btRU";
             this.btRU.Size = new System.Drawing.Size(141, 64);

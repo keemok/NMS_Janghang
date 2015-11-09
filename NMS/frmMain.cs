@@ -573,6 +573,7 @@ namespace NMS
             //MU 설정
             btMu.Add(SYMain.ucMU1.Button); btMu.Add(SYMain.ucMU2.Button); btMu.Add(SYMain.ucMU3.Button); btMu.Add(SYMain.ucMU4.Button);
             btMu.Add(SYMain.ucMU5.Button); btMu.Add(SYMain.ucMU6.Button); btMu.Add(SYMain.ucMU7.Button); btMu.Add(SYMain.ucMU8.Button);
+            btMu.Add(SYMain.ucMU9.Button);
 
             //-------------------ru 설정-----------------------------
             //광주
@@ -581,6 +582,8 @@ namespace NMS
             btRuB[3, 0] = SYMain.ucRu4_1.RuButton; btRuB[3, 1] = SYMain.ucRu4_2.RuButton;
             //신둔
             btRuB[4, 0] = SYMain.ucRu5_1.RuButton;
+            //여주
+            btRuB[7, 0] = SYMain.ucRu8_1.RuButton;
 
             
             //---------------------------------------------------------
@@ -593,15 +596,23 @@ namespace NMS
 
             #region 버튼 이벤트 연결
 
+            foreach( var btn in btMu)
+            {
+                btn.Click += btMU_Click;
+            }
+
+    
+
             //MU
-            SYMain.ucMU1.Button.Click += btMU_Click;
-            SYMain.ucMU2.Button.Click += btMU_Click;
-            SYMain.ucMU3.Button.Click += btMU_Click;
-            SYMain.ucMU4.Button.Click += btMU_Click;
-            SYMain.ucMU5.Button.Click += btMU_Click;
-            SYMain.ucMU6.Button.Click += btMU_Click;
-            SYMain.ucMU7.Button.Click += btMU_Click;
-            SYMain.ucMU8.Button.Click += btMU_Click;
+            //SYMain.ucMU1.Button.Click += btMU_Click;
+            //SYMain.ucMU2.Button.Click += btMU_Click;
+            //SYMain.ucMU3.Button.Click += btMU_Click;
+            //SYMain.ucMU4.Button.Click += btMU_Click;
+            //SYMain.ucMU5.Button.Click += btMU_Click;
+            //SYMain.ucMU6.Button.Click += btMU_Click;
+            //SYMain.ucMU7.Button.Click += btMU_Click;
+            //SYMain.ucMU8.Button.Click += btMU_Click;
+            
             
             //RU
             SYMain.ucRu3_1.RuButton.Click += btRuB_Click;
@@ -609,6 +620,7 @@ namespace NMS
             SYMain.ucRu4_1.RuButton.Click += btRuB_Click;
             SYMain.ucRu4_2.RuButton.Click += btRuB_Click;
             SYMain.ucRu5_1.RuButton.Click += btRuB_Click;
+            SYMain.ucRu8_1.RuButton.Click += btRuB_Click;
 
             //FM
             //SYMain.ucRu3_1.FMButton.Click += btRuB_Click;
