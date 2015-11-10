@@ -29,7 +29,6 @@ namespace NMS
         }
     
 
-
         public ucMU()
         {
             InitializeComponent();

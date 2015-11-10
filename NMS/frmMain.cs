@@ -54,6 +54,7 @@ namespace NMS
         
         public const string 성남여주선 = "성남여주선";
 
+        
         #region 컨트롤 배열
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         //공통
@@ -576,17 +577,27 @@ namespace NMS
             btMu.Add(SYMain.ucMU9.Button);
 
             //-------------------ru 설정-----------------------------
-            //광주
-            btRuB[2, 0] = SYMain.ucRu3_1.RuButton; btRuB[2, 1] = SYMain.ucRu3_2.RuButton;
-            //곤지암
-            btRuB[3, 0] = SYMain.ucRu4_1.RuButton; btRuB[3, 1] = SYMain.ucRu4_2.RuButton;
-            //신둔
-            btRuB[4, 0] = SYMain.ucRu5_1.RuButton;
-            //여주
-            btRuB[7, 0] = SYMain.ucRu8_1.RuButton;
 
-            
+
+            btRuA.Add(SYMain.ucRu3_1.RuButton);
+            btRuA.Add(SYMain.ucRu3_2.RuButton);
+            btRuA.Add(SYMain.ucRu4_1.RuButton);
+            btRuA.Add(SYMain.ucRu4_2.RuButton);
+            btRuA.Add(SYMain.ucRu5_1.RuButton);
+            btRuA.Add(SYMain.ucRu8_1.RuButton);
+
+            //광주
+            //btRuB[2, 0] = SYMain.ucRu3_1.RuButton; btRuB[2, 1] = SYMain.ucRu3_2.RuButton;
+            ////곤지암
+            //btRuB[3, 0] = SYMain.ucRu4_1.RuButton; btRuB[3, 1] = SYMain.ucRu4_2.RuButton;
+            ////신둔
+            //btRuB[4, 0] = SYMain.ucRu5_1.RuButton;
+            ////여주
+            //btRuB[7, 0] = SYMain.ucRu8_1.RuButton;
+
             //---------------------------------------------------------
+
+
 
             //-------------------FM 설정-----------------------------
             //btRuBFm[2, 0] = SYMain.ucRu3_1.FMButton; btRuBFm[2, 1] = SYMain.ucRu3_2.FMButton;
@@ -615,12 +626,12 @@ namespace NMS
             
             
             //RU
-            SYMain.ucRu3_1.RuButton.Click += btRuB_Click;
-            SYMain.ucRu3_2.RuButton.Click += btRuB_Click;
-            SYMain.ucRu4_1.RuButton.Click += btRuB_Click;
-            SYMain.ucRu4_2.RuButton.Click += btRuB_Click;
-            SYMain.ucRu5_1.RuButton.Click += btRuB_Click;
-            SYMain.ucRu8_1.RuButton.Click += btRuB_Click;
+            SYMain.ucRu3_1.RuButton.Click += btRuA_Click;
+            SYMain.ucRu3_2.RuButton.Click += btRuA_Click;
+            SYMain.ucRu4_1.RuButton.Click += btRuA_Click;
+            SYMain.ucRu4_2.RuButton.Click += btRuA_Click;
+            SYMain.ucRu5_1.RuButton.Click += btRuA_Click;
+            SYMain.ucRu8_1.RuButton.Click += btRuA_Click;
 
             //FM
             //SYMain.ucRu3_1.FMButton.Click += btRuB_Click;
@@ -632,6 +643,7 @@ namespace NMS
 
 
             #endregion
+
 
 
         }
@@ -1091,6 +1103,8 @@ namespace NMS
 
                         //fr = File.OpenText(Common.clsCommon.DefaultPath + Common.clsNMS.nmsGUIUser + "_MuRuName.ini");
 
+                       
+
                         int tmpVer = Common.clsCommon.VerCheck_NMSServer(fr.ReadLine());  //Version Read
 
                         switch (tmpVer)
@@ -1099,7 +1113,13 @@ namespace NMS
                                 for (i = 0; i < muruNowData.Length; i++)
                                 {
                                     Common.clsNMS.muruName[i].muName = fr.ReadLine();
-                                    for (j = 0; j < 4; j++) Common.clsNMS.muruName[i].ruName[j].ruName = fr.ReadLine();
+
+                                    for (j = 0; j < 4; j++)
+                                    {
+                                        string name= fr.ReadLine();
+                                        Common.clsNMS.muruName[i].ruName[j].ruName = name; 
+                                      
+                                    }
                                 }
 
                                 //Lif사용 유무
@@ -1131,6 +1151,8 @@ namespace NMS
                 case 성남여주선:
                     try
                     {
+
+                        mRuNames = new List<string>();
                         fr = File.OpenText(Common.clsCommon.DefaultPath + Common.clsNMS.nmsGUIUser + "_MuRuName.ini");
 
                         int tmpVer = Common.clsCommon.VerCheck_NMSServer(fr.ReadLine());  //Version Read
@@ -1141,7 +1163,14 @@ namespace NMS
                                 for (i = 0; i < muruNowData.Length; i++)
                                 {
                                     Common.clsNMS.muruName[i].muName = fr.ReadLine();
-                                    for (j = 0; j < 4; j++) Common.clsNMS.muruName[i].ruName[j].ruName = fr.ReadLine();
+                                    for (j = 0; j < 4; j++)
+                                    {
+                                        string name = fr.ReadLine();
+                                        Common.clsNMS.muruName[i].ruName[j].ruName = name;
+                                        
+                                        if(name.Length > 0)
+                                            mRuNames.Add(name);
+                                    }
                                 }
 
                                 //Lif사용 유무
@@ -1355,7 +1384,8 @@ namespace NMS
                     else ucMUSt.SetMode(3);
                     break;
                 case 성남여주선:
-                    ucMUSt.SetMode(2);
+
+                    ucMUSt.SetMode(4);
                     break;
             }
 
@@ -1378,12 +1408,14 @@ namespace NMS
             }
             else
             {
+
                 SetVisible(ucMUSt, true);   //MU 상세화면
                 SetVisible(ucMUSt_ILSAN, false);
 
                 ucMUSt.SetTitle(nowStation + " 기지국");
             }
         }
+
 
         private void btRuA_Click(int index)
         {
@@ -1407,7 +1439,17 @@ namespace NMS
             SetVisible(ucRUSt, true);   //RU 상세화면
 
             ucRUSt.SetMode(0);
-            ucRUSt.SetTitle(nowStation + " 광중계장치 ( A 형 )");
+                       
+
+            if(clsNMS.nmsGUIUser == 성남여주선)
+            {
+                nowStation =  mRuNames[index];
+                
+                ucRUSt.SetTitle(nowStation + " 광중계장치");
+                ucRUSt.SetEnableFMStatus(false);
+            }
+            else
+                ucRUSt.SetTitle(nowStation + " 광중계장치 ( A 형 )");
         }
 
         private void btRuB_Click(int index)
@@ -1436,11 +1478,6 @@ namespace NMS
             ucRUSt.SetMode(1);
             ucRUSt.SetTitle(nowStation + " 광중계장치 ( B 형 )");
 
-
-             if( Common.clsNMS.nmsGUIUser == 성남여주선)
-             {
-                 ucRUSt.SetEnableFMStatus(false);
-             }
 
         }
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -1989,6 +2026,8 @@ namespace NMS
         #region MU/RU 이름 설정 관련
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         private int lbMuRuNameSelectedIndex = 0;
+        private List<string> mRuNames;
+        
 
         private void tbMuRuName_TextChanged(object sender, EventArgs e)
         {
@@ -3227,10 +3266,24 @@ namespace NMS
                     case 1: //RU_A
                         if (!Common.clsNMS.flagRuBdaError[muID - 1, ruID, 0])
                         {
-                            frmErrMsg.SetText(Common.clsNMS.stationList[muID - 1] + " 광중계장치(RU_A)의 DC 전압(" + tmpValue.ToString() + ")이 범위를 벗어났습니다.");
-                            AddStatus(Common.clsNMS.stationList[muID - 1] + " 광중계장치(RU_A)의 DC 전압(" + tmpValue.ToString() + ")이 범위를 벗어났습니다.");
+                            if (clsNMS.nmsGUIUser == 성남여주선)
+                            {
 
-                            Common.clsNMS.flagRuBdaError[muID - 1, ruID, 0] = true;
+                                string mes = mRuNames[muID-1] + " 광중계장치의 DC 전압(" + tmpValue.ToString() + ")이 범위를 벗어났습니다.";
+
+                                frmErrMsg.SetText(mes);
+                                AddStatus(mes);
+
+                                Common.clsNMS.flagRuBdaError[muID - 1, ruID, 0] = true;
+                            }
+                            else
+                            {
+
+                                frmErrMsg.SetText(Common.clsNMS.stationList[muID - 1] + " 광중계장치(RU_A)의 DC 전압(" + tmpValue.ToString() + ")이 범위를 벗어났습니다.");
+                                AddStatus(Common.clsNMS.stationList[muID - 1] + " 광중계장치(RU_A)의 DC 전압(" + tmpValue.ToString() + ")이 범위를 벗어났습니다.");
+
+                                Common.clsNMS.flagRuBdaError[muID - 1, ruID, 0] = true;
+                            }
                         }
                         return 1;
 
@@ -4071,79 +4124,85 @@ namespace NMS
                     }
                 }
 
-                //MU_FM
-                if (Common.clsNMS.muruComSt[i].cntFm++ > 30)
+                if (clsNMS.nmsGUIUser != 성남여주선)
                 {
-                    Common.clsNMS.muruComSt[i].cntFm = 31;
 
-                    if (Common.clsNMS.muruComSt[i].flagFm)
+                    #region FM 통신이상 관련.
+                    //MU_FM
+                    if (Common.clsNMS.muruComSt[i].cntFm++ > 30)
                     {
-                        AddStatus(Common.clsNMS.stationList[i] + "(MU FM) 통신이상 발생");
+                        Common.clsNMS.muruComSt[i].cntFm = 31;
 
-                        Common.clsNMS.muruComSt[i].flagFm = false;
-
-                        //현재 보고있는 MU화면이 있으면 통신불량 상태로 비활성화 시킨다.
-                        if (i + 1 == Common.clsNMS.presentMUID) MuFmStInit(false);
-
-                        try
+                        if (Common.clsNMS.muruComSt[i].flagFm)
                         {
-                            SetColor(btMuFm[i], colorBase);
-                            SetForeColor(btMuFm[i], Color.Black);
-                        }
-                        catch
-                        {
+                            AddStatus(Common.clsNMS.stationList[i] + "(MU FM) 통신이상 발생");
+
+                            Common.clsNMS.muruComSt[i].flagFm = false;
+
+                            //현재 보고있는 MU화면이 있으면 통신불량 상태로 비활성화 시킨다.
+                            if (i + 1 == Common.clsNMS.presentMUID) MuFmStInit(false);
+
+                            try
+                            {
+                                SetColor(btMuFm[i], colorBase);
+                                SetForeColor(btMuFm[i], Color.Black);
+                            }
+                            catch
+                            {
+                            }
                         }
                     }
-                }
 
-                //RuA
-                if (Common.clsNMS.muruComSt[i].ruBdaCommSt[0].cntRu++ > 30)
-                {
-                    Common.clsNMS.muruComSt[i].ruBdaCommSt[0].cntRu = 31;
-
-                    if (Common.clsNMS.muruComSt[i].ruBdaCommSt[0].flagRu)
+                    //RuA
+                    if (Common.clsNMS.muruComSt[i].ruBdaCommSt[0].cntRu++ > 30)
                     {
-                        AddStatus(Common.clsNMS.muruName[i].muName + "(RU_A) 통신이상 발생");
+                        Common.clsNMS.muruComSt[i].ruBdaCommSt[0].cntRu = 31;
 
-                        Common.clsNMS.muruComSt[i].ruBdaCommSt[0].flagRu = false;
-
-                        //현재 보고있는 MU화면이 있으면 통신불량 상태로 비활성화 시킨다.
-                        if ((i + 1 == Common.clsNMS.presentMUID) && (j + 1 == Common.clsNMS.presentRUID)) RuStInit(false);
-
-                        try
+                        if (Common.clsNMS.muruComSt[i].ruBdaCommSt[0].flagRu)
                         {
-                            SetColor(btRuA[i], colorBase);
-                            SetForeColor(btRuA[i], Color.Black);
-                        }
-                        catch
-                        {
+                            AddStatus(Common.clsNMS.muruName[i].muName + "(RU_A) 통신이상 발생");
+
+                            Common.clsNMS.muruComSt[i].ruBdaCommSt[0].flagRu = false;
+
+                            //현재 보고있는 MU화면이 있으면 통신불량 상태로 비활성화 시킨다.
+                            if ((i + 1 == Common.clsNMS.presentMUID) && (j + 1 == Common.clsNMS.presentRUID)) RuStInit(false);
+
+                            try
+                            {
+                                SetColor(btRuA[i], colorBase);
+                                SetForeColor(btRuA[i], Color.Black);
+                            }
+                            catch
+                            {
+                            }
                         }
                     }
-                }
 
-                //RuA_FM
-                if (Common.clsNMS.muruComSt[i].ruBdaCommSt[0].cntFm++ > 30)
-                {
-                    Common.clsNMS.muruComSt[i].ruBdaCommSt[0].cntFm = 31;
-
-                    if (Common.clsNMS.muruComSt[i].ruBdaCommSt[0].flagFm)
+                    //RuA_FM
+                    if (Common.clsNMS.muruComSt[i].ruBdaCommSt[0].cntFm++ > 30)
                     {
-                        AddStatus(Common.clsNMS.muruName[i].muName + "(RU_A FM) 통신이상 발생");
+                        Common.clsNMS.muruComSt[i].ruBdaCommSt[0].cntFm = 31;
 
-                        Common.clsNMS.muruComSt[i].ruBdaCommSt[0].flagFm = false;
-
-                        //현재 보고있는 MU화면이 있으면 통신불량 상태로 비활성화 시킨다.
-                        if ((i + 1 == Common.clsNMS.presentMUID) && (j + 1 == Common.clsNMS.presentRUID)) RuFmStInit(false);
-
-                        try
+                        if (Common.clsNMS.muruComSt[i].ruBdaCommSt[0].flagFm)
                         {
-                            SetColor(btRuAFm[i], colorBase);
-                            SetForeColor(btRuAFm[i], Color.Black);
-                        }
-                        catch
-                        {
+                            AddStatus(Common.clsNMS.muruName[i].muName + "(RU_A FM) 통신이상 발생");
+
+                            Common.clsNMS.muruComSt[i].ruBdaCommSt[0].flagFm = false;
+
+                            //현재 보고있는 MU화면이 있으면 통신불량 상태로 비활성화 시킨다.
+                            if ((i + 1 == Common.clsNMS.presentMUID) && (j + 1 == Common.clsNMS.presentRUID)) RuFmStInit(false);
+
+                            try
+                            {
+                                SetColor(btRuAFm[i], colorBase);
+                                SetForeColor(btRuAFm[i], Color.Black);
+                            }
+                            catch
+                            {
+                            }
                         }
                     }
+                    #endregion
                 }
 
                 //RuB
@@ -4176,31 +4235,35 @@ namespace NMS
                     }
                 }
 
-                //RuB_FM
-                for (j = 0; j < 4; j++)
+                //성남여주선이 아닐 경우우
+                if (clsNMS.nmsGUIUser != 성남여주선)
                 {
-                    //RU
-                    if (Common.clsNMS.muruComSt[i].ruBdaCommSt[j + 1].cntFm++ > 30)
+                    //RuB_FM
+                    for (j = 0; j < 4; j++)
                     {
-                        Common.clsNMS.muruComSt[i].ruBdaCommSt[j + 1].cntFm = 31;
-
-                        if (Common.clsNMS.muruComSt[i].ruBdaCommSt[j + 1].flagFm)
+                        //RU
+                        if (Common.clsNMS.muruComSt[i].ruBdaCommSt[j + 1].cntFm++ > 30)
                         {
-                            if (Common.clsNMS.muruName[i].ruName[j].ruName != "")
-                                AddStatus(Common.clsNMS.muruName[i].ruName[j].ruName + "(RU_B FM) 통신이상 발생");
+                            Common.clsNMS.muruComSt[i].ruBdaCommSt[j + 1].cntFm = 31;
 
-                            Common.clsNMS.muruComSt[i].ruBdaCommSt[j + 1].flagFm = false;
-
-                            //현재 보고 있는 RU화면이 있으면 통신불량 상태로 비활성화 시킨다.
-                            if ((i + 1 == Common.clsNMS.presentMUID) && (j + 1 == Common.clsNMS.presentRUID)) RuFmStInit(false);
-
-                            try
+                            if (Common.clsNMS.muruComSt[i].ruBdaCommSt[j + 1].flagFm)
                             {
-                                SetColor(btRuBFm[i, j], colorBase);
-                                SetForeColor(btRuBFm[i, j], Color.Black);
-                            }
-                            catch
-                            {
+                                if (Common.clsNMS.muruName[i].ruName[j].ruName != "")
+                                    AddStatus(Common.clsNMS.muruName[i].ruName[j].ruName + "(RU_B FM) 통신이상 발생");
+
+                                Common.clsNMS.muruComSt[i].ruBdaCommSt[j + 1].flagFm = false;
+
+                                //현재 보고 있는 RU화면이 있으면 통신불량 상태로 비활성화 시킨다.
+                                if ((i + 1 == Common.clsNMS.presentMUID) && (j + 1 == Common.clsNMS.presentRUID)) RuFmStInit(false);
+
+                                try
+                                {
+                                    SetColor(btRuBFm[i, j], colorBase);
+                                    SetForeColor(btRuBFm[i, j], Color.Black);
+                                }
+                                catch
+                                {
+                                }
                             }
                         }
                     }

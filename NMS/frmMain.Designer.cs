@@ -13385,8 +13385,7 @@
             this.ucRUSt.Location = new System.Drawing.Point(5, 5);
             this.ucRUSt.Name = "ucRUSt";
             this.ucRUSt.Size = new System.Drawing.Size(1840, 780);
-            this.ucRUSt.TabIndex = 1;
-            this.ucRUSt.ruControlClick += new Common.UserControl_Control(this.RuSt_ruControlClick);
+            this.ucRUSt.TabIndex = 431;
             // 
             // frmMain
             // 
@@ -13701,7 +13700,6 @@
         private jksSock.ucJksSock JksSockMain;
         private System.Windows.Forms.Panel panelMainBase2;
         private Common.ucMUStatus ucMUSt;
-        private Common.ucRUStatus ucRUSt;
         private System.Windows.Forms.Panel panelSetupOther;
         private System.Windows.Forms.Label label274;
         private System.Windows.Forms.GroupBox gbSetupUser;
@@ -14133,6 +14131,7 @@
         private Common.ucLineTest ucLT;
         private System.Windows.Forms.Panel panel성남여주;
         private ucSYMainScreen SYMain;
+        private Common.ucRUStatus ucRUSt;
     }
 }
 
