@@ -416,7 +416,7 @@
             this.btServerStby = new System.Windows.Forms.Button();
             this.panelMainBase2 = new System.Windows.Forms.Panel();
             this.ucMUSt_ILSAN = new Common.ucMUStatus_ILSAN();
-            this.ucMUSt = new Common.ucMUStatus();
+            
             this.ucRUSt = new Common.ucRUStatus();
             this.panelGroundSearchHistory = new System.Windows.Forms.Panel();
             this.ucErrorSearch1 = new Common.ucErrorSearch();
@@ -4877,15 +4877,7 @@
             this.panelMainBase2.Name = "panelMainBase2";
             this.panelMainBase2.Size = new System.Drawing.Size(1230, 790);
             this.panelMainBase2.TabIndex = 476;
-            // 
-            // ucMUSt_ILSAN
-            // 
-            this.ucMUSt_ILSAN.BackColor = System.Drawing.Color.Black;
-            this.ucMUSt_ILSAN.Location = new System.Drawing.Point(5, 5);
-            this.ucMUSt_ILSAN.Name = "ucMUSt_ILSAN";
-            this.ucMUSt_ILSAN.Size = new System.Drawing.Size(1220, 780);
-            this.ucMUSt_ILSAN.TabIndex = 2;
-            this.ucMUSt_ILSAN.muControlClick += new Common.UserControl_Control(this.ucMUSt_ILSAN_muControlClick);
+         
             // 
             // ucMUSt
             // 
@@ -4894,7 +4886,7 @@
             this.ucMUSt.Name = "ucMUSt";
             this.ucMUSt.Size = new System.Drawing.Size(1220, 780);
             this.ucMUSt.TabIndex = 0;
-            this.ucMUSt.muControlClick += new Common.UserControl_Control(this.MUSt_muControlClick);
+            this.ucMUSt.muControlClick += new UserControl_Control(this.MUSt_muControlClick);
             // 
             // ucRUSt
             // 
@@ -6988,7 +6980,6 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.panelMainBase1 = new System.Windows.Forms.Panel();
             this.panel성남여주 = new System.Windows.Forms.Panel();
-            this.SYMain = new NMS.ucSYMainScreen();
             this.panel과천선 = new System.Windows.Forms.Panel();
             this.panel31 = new System.Windows.Forms.Panel();
             this.btHub1 = new System.Windows.Forms.Button();
@@ -7360,8 +7351,9 @@
             this.label84 = new System.Windows.Forms.Label();
             this.panelMainBase2 = new System.Windows.Forms.Panel();
             this.ucMUSt_ILSAN = new Common.ucMUStatus_ILSAN();
-            this.ucMUSt = new Common.ucMUStatus();
             this.ucRUSt = new Common.ucRUStatus();
+            this.SYMain = new NMS.ucSYMainScreen();
+            this.ucMUSt = new NMS.ucSYMUStatus();
             this.panelMessageView.SuspendLayout();
             this.panelGroundSetting.SuspendLayout();
             this.gbDB.SuspendLayout();
@@ -9383,14 +9375,6 @@
             this.panel성남여주.Name = "panel성남여주";
             this.panel성남여주.Size = new System.Drawing.Size(1840, 780);
             this.panel성남여주.TabIndex = 502;
-            // 
-            // SYMain
-            // 
-            this.SYMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SYMain.Location = new System.Drawing.Point(0, 0);
-            this.SYMain.Name = "SYMain";
-            this.SYMain.Size = new System.Drawing.Size(1840, 780);
-            this.SYMain.TabIndex = 0;
             // 
             // panel과천선
             // 
@@ -13353,8 +13337,8 @@
             // panelMainBase2
             // 
             this.panelMainBase2.BackColor = System.Drawing.Color.White;
-            this.panelMainBase2.Controls.Add(this.ucMUSt_ILSAN);
             this.panelMainBase2.Controls.Add(this.ucMUSt);
+            this.panelMainBase2.Controls.Add(this.ucMUSt_ILSAN);
             this.panelMainBase2.Controls.Add(this.ucRUSt);
             this.panelMainBase2.Location = new System.Drawing.Point(15, 72);
             this.panelMainBase2.Name = "panelMainBase2";
@@ -13370,15 +13354,6 @@
             this.ucMUSt_ILSAN.TabIndex = 2;
             this.ucMUSt_ILSAN.muControlClick += new Common.UserControl_Control(this.ucMUSt_ILSAN_muControlClick);
             // 
-            // ucMUSt
-            // 
-            this.ucMUSt.BackColor = System.Drawing.Color.Black;
-            this.ucMUSt.Location = new System.Drawing.Point(5, 5);
-            this.ucMUSt.Name = "ucMUSt";
-            this.ucMUSt.Size = new System.Drawing.Size(1840, 780);
-            this.ucMUSt.TabIndex = 0;
-            this.ucMUSt.muControlClick += new Common.UserControl_Control(this.MUSt_muControlClick);
-            // 
             // ucRUSt
             // 
             this.ucRUSt.BackColor = System.Drawing.Color.Black;
@@ -13386,6 +13361,22 @@
             this.ucRUSt.Name = "ucRUSt";
             this.ucRUSt.Size = new System.Drawing.Size(1840, 780);
             this.ucRUSt.TabIndex = 431;
+            // 
+            // SYMain
+            // 
+            this.SYMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SYMain.Location = new System.Drawing.Point(0, 0);
+            this.SYMain.Name = "SYMain";
+            this.SYMain.Size = new System.Drawing.Size(1840, 780);
+            this.SYMain.TabIndex = 0;
+            // 
+            // ucMUSt
+            // 
+            this.ucMUSt.BackColor = System.Drawing.Color.Black;
+            this.ucMUSt.Location = new System.Drawing.Point(5, 5);
+            this.ucMUSt.Name = "ucMUSt";
+            this.ucMUSt.Size = new System.Drawing.Size(1840, 780);
+            this.ucMUSt.TabIndex = 431;
             // 
             // frmMain
             // 
@@ -13699,7 +13690,6 @@
         private jksSock.ucJksSock JksSockStby;
         private jksSock.ucJksSock JksSockMain;
         private System.Windows.Forms.Panel panelMainBase2;
-        private Common.ucMUStatus ucMUSt;
         private System.Windows.Forms.Panel panelSetupOther;
         private System.Windows.Forms.Label label274;
         private System.Windows.Forms.GroupBox gbSetupUser;
@@ -14132,6 +14122,7 @@
         private System.Windows.Forms.Panel panel성남여주;
         private ucSYMainScreen SYMain;
         private Common.ucRUStatus ucRUSt;
+        private ucSYMUStatus ucMUSt;
     }
 }
 

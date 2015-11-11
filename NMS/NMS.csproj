@@ -65,11 +65,35 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ucLif.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucLif.Designer.cs">
+      <DependentUpon>ucLif.cs</DependentUpon>
+    </Compile>
     <Compile Include="ucMU.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ucMU.Designer.cs">
       <DependentUpon>ucMU.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucSYMUStatus.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucSYMUStatus.designer.cs">
+      <DependentUpon>ucSYMUStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucOpt1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucOpt1.Designer.cs">
+      <DependentUpon>ucOpt1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucOpt2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucOpt2.Designer.cs">
+      <DependentUpon>ucOpt2.cs</DependentUpon>
     </Compile>
     <Compile Include="ucRu.cs">
       <SubType>UserControl</SubType>
@@ -106,9 +130,22 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="ucLif.resx">
+      <DependentUpon>ucLif.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ucMU.resx">
       <DependentUpon>ucMU.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucSYMUStatus.resx">
+      <DependentUpon>ucSYMUStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucOpt1.resx">
+      <DependentUpon>ucOpt1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucOpt2.resx">
+      <DependentUpon>ucOpt2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ucRu.resx">
       <DependentUpon>ucRu.cs</DependentUpon>
@@ -131,6 +168,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Image\st_Error.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Image\st_Normal.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Image\st_OFF.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

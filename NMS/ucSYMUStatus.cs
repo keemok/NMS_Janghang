@@ -6,8 +6,9 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Common;
 
-namespace Common
+namespace NMS
 {
     /// <summary>
     /// 사용자 정의 컨트롤에서의 제어 이벤트
@@ -17,7 +18,7 @@ namespace Common
     /// <param name="value">설정에 필요한 값</param>
     public delegate void UserControl_Control(byte btCode, byte index, byte value);
 
-    public partial class ucMUStatus : UserControl
+    public partial class ucSYMUStatus : UserControl
     {
         /// <summary>
         /// 사용자 정의 컨트롤에서의 제어 이벤트
@@ -74,7 +75,7 @@ namespace Common
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         #endregion
 
-        public ucMUStatus()
+        public ucSYMUStatus()
         {
             switch (Common.clsNMS.nmsGUIUser)
             {
@@ -85,7 +86,7 @@ namespace Common
 
                 case "과천선_Server":
                 case "경의일산선":
-                    InitializeComponent_1280_1024();
+                    //InitializeComponent_1280_1024();
                     break;
 
                 default:
@@ -129,22 +130,22 @@ namespace Common
 
             //private List<PictureBox> pbMuOtherSt1 = new List<PictureBox>();
             pbMuOtherSt1.Add(pbMUAutoManual1); pbMuOtherSt1.Add(pbMUMainSpare1); pbMuOtherSt1.Add(pbMUWideNarrow1);
-            pbMuOtherSt1.Add(pbMUAC); pbMuOtherSt1.Add(pbMUDC);
-            pbMuOtherSt1.Add(pbMUModOpen);
-            pbMuOtherSt1.Add(pbMURCSt1); pbMuOtherSt1.Add(pbMURCSt2);
+            pbMuOtherSt1.Add(pbMUAC); pbMuOtherSt1.Add(ucLif1.pbMUDC);
+            pbMuOtherSt1.Add(ucLif1.pbMUModOpen);
+            pbMuOtherSt1.Add(ucLif1.pbMURCSt1); pbMuOtherSt1.Add(ucLif1.pbMURCSt2);
 
             //private List<PictureBox> pbMuOtherSt = new List<PictureBox>();
             pbMuOtherSt.Add(pbMUAutoManual2); pbMuOtherSt.Add(pbMUMainSpare2); pbMuOtherSt.Add(pbMUWideNarrow2);
 
             //private List<PictureBox> pbMuOtherSt2 = new List<PictureBox>();
-            pbMuOtherSt2.Add(pbMURCSt3); pbMuOtherSt2.Add(pbMURCSt4);
+            pbMuOtherSt2.Add(ucLif1.pbMURCSt3); pbMuOtherSt2.Add(ucLif1.pbMURCSt4);
             pbMuOtherSt2.Add(pbMUSRSt1); pbMuOtherSt2.Add(pbMUSRSt2); pbMuOtherSt2.Add(pbMUSRSt3); pbMuOtherSt2.Add(pbMUSRSt4); pbMuOtherSt2.Add(pbMUSRSt5);
 
             //private List<Label> lblRcName = new List<Label>();
-            lblRcName.Add(lblRcName1); lblRcName.Add(lblRcName2); lblRcName.Add(lblRcName3); lblRcName.Add(lblRcName4); lblRcName.Add(lblRcName5); lblRcName.Add(lblRcName6);
+            lblRcName.Add(ucLif1.lblRcName1); lblRcName.Add(ucLif1.lblRcName2); lblRcName.Add(ucLif1.lblRcName3); lblRcName.Add(ucLif1.lblRcName4); lblRcName.Add(ucLif1.lblRcName5); lblRcName.Add(ucLif1.lblRcName6);
 
             //private List<PictureBox> pbMULifSt = new List<PictureBox>();
-            pbMULifSt.Add(pbMULifSt1); pbMULifSt.Add(pbMULifSt2); pbMULifSt.Add(pbMULifSt3); pbMULifSt.Add(pbMULifSt4); pbMULifSt.Add(pbMULifSt5); pbMULifSt.Add(pbMULifSt6);
+            pbMULifSt.Add(ucLif1.pbMULifSt1); pbMULifSt.Add(ucLif1.pbMULifSt2); pbMULifSt.Add(ucLif1.pbMULifSt3); pbMULifSt.Add(ucLif1.pbMULifSt4); pbMULifSt.Add(ucLif1.pbMULifSt5); pbMULifSt.Add(ucLif1.pbMULifSt6);
 
             //OPT 상태 관련
             //private List<PictureBox> pbOptMonSt = new List<PictureBox>();
@@ -623,6 +624,8 @@ namespace Common
 
             flagMUEnabel = flagAction;
 
+            SetEnable(ucLif1, flagAction);
+
             //SetEnable(panelMuAntennaMatchungUnit, flagAction);
             SetColor(btMUMainSpare1, SystemColors.Control);
             SetColor(btMUMainSpare2, SystemColors.Control);
@@ -671,8 +674,8 @@ namespace Common
             SetEnable(pbMUMon3, flagAction);
 
             //SetEnable(panelMu광전송부감시상태, flagAction);
-			SetEnable(lbl통신상태, flagAction);
-			SetEnable(lblPtt, flagAction);
+            SetEnable(ucLif1.lbl통신상태, flagAction);
+            SetEnable(ucLif1.lblPtt, flagAction);
 			SetEnable(lbl광전송부감시상태1, flagAction);
             SetEnable(lbl광전송부감시상태2, flagAction);
             SetEnable(lbl광전송부감시상태3, flagAction);
@@ -722,37 +725,37 @@ namespace Common
             SetEnable(lblMUPowerStby, flagAction);
 
             //SetEnable(panelMu유무선부감시장치, flagAction);
-            SetEnable(lbl유무선감시장치1, flagAction);
-            SetEnable(lbl유무선감시장치2, flagAction);
-            SetEnable(lblRcName1, flagAction);
-            SetEnable(lblRcName2, flagAction);
-            SetEnable(lblRcName3, flagAction);
-            SetEnable(lblRcName4, flagAction);
-            SetEnable(lblRcName5, flagAction);
-			SetEnable(lblRcName6, flagAction);
-			SetEnable(lblMUDCValue, flagAction);
-            SetImage(pbMUDC, Common.Properties.Resources.st_OFF);
-            SetImage(pbMUModOpen, Common.Properties.Resources.st_OFF);
-            SetImage(pbMURCSt1, Common.Properties.Resources.st_OFF);
-            SetImage(pbMURCSt2, Common.Properties.Resources.st_OFF);
-            SetImage(pbMURCSt3, Common.Properties.Resources.st_OFF);
-            SetImage(pbMURCSt4, Common.Properties.Resources.st_OFF);
-            SetImage(pbMURCSt5, Common.Properties.Resources.st_OFF);
-			SetImage(pbMURCSt6, Common.Properties.Resources.st_OFF);
+            SetEnable(ucLif1.lbl유무선감시장치1, flagAction);
+            SetEnable(ucLif1.lbl유무선감시장치2, flagAction);
+            SetEnable(ucLif1.lblRcName1, flagAction);
+            SetEnable(ucLif1.lblRcName2, flagAction);
+            SetEnable(ucLif1.lblRcName3, flagAction);
+            SetEnable(ucLif1.lblRcName4, flagAction);
+            SetEnable(ucLif1.lblRcName5, flagAction);
+            SetEnable(ucLif1.lblRcName6, flagAction);
+            SetEnable(ucLif1.lblMUDCValue, flagAction);
+            SetImage(ucLif1.pbMUDC, Common.Properties.Resources.st_OFF);
+            SetImage(ucLif1.pbMUModOpen, Common.Properties.Resources.st_OFF);
+            SetImage(ucLif1.pbMURCSt1, Common.Properties.Resources.st_OFF);
+            SetImage(ucLif1.pbMURCSt2, Common.Properties.Resources.st_OFF);
+            SetImage(ucLif1.pbMURCSt3, Common.Properties.Resources.st_OFF);
+            SetImage(ucLif1.pbMURCSt4, Common.Properties.Resources.st_OFF);
+            SetImage(ucLif1.pbMURCSt5, Common.Properties.Resources.st_OFF);
+            SetImage(ucLif1.pbMURCSt6, Common.Properties.Resources.st_OFF);
 
 			for (i = 0; i < 6; i++)
 				SetImage(pbMULifSt[i], Common.Properties.Resources.st_OFF);
 
-			SetEnable(pbMUDC, flagAction);
-            SetEnable(pbMUModOpen, flagAction);
-            SetEnable(pbMURCSt1, flagAction);
-            SetEnable(pbMURCSt2, flagAction);
-            SetEnable(pbMURCSt3, flagAction);
-            SetEnable(pbMURCSt4, flagAction);
-            SetEnable(pbMURCSt5, flagAction);
+            SetEnable(ucLif1.pbMUDC, flagAction);
+            SetEnable(ucLif1.pbMUModOpen, flagAction);
+            SetEnable(ucLif1.pbMURCSt1, flagAction);
+            SetEnable(ucLif1.pbMURCSt2, flagAction);
+            SetEnable(ucLif1.pbMURCSt3, flagAction);
+            SetEnable(ucLif1.pbMURCSt4, flagAction);
+            SetEnable(ucLif1.pbMURCSt5, flagAction);
 
-			SetEnable(lblRepeat, flagAction);
-			SetImage(pbMURepeatPttSt, Common.Properties.Resources.st_OFF);
+            SetEnable(ucLif1.lblRepeat, flagAction);
+            SetImage(ucLif1.pbMURepeatPttSt, Common.Properties.Resources.st_OFF);
 
             //SetEnable(panelMu기타상태, flagAction);
             SetEnable(lblMUMon4, flagAction);
@@ -934,7 +937,7 @@ namespace Common
 
             //MU의 DC전원값
             double tmpDcValue = muData.dcValue / 10.0;
-            SetText(lblMUDCValue, tmpDcValue.ToString("0.0") + " V");
+            SetText(ucLif1.lblMUDCValue, tmpDcValue.ToString("0.0") + " V");
 
             //MU의 주/예비 RF 출력값
             double tmpRfValue = 0;
@@ -1025,14 +1028,14 @@ namespace Common
             
 
             //각 PTT 상태 : 0:CCE2 PTT, 1:RC4 PTT, 2:REPEAT PTT
-            if (muData.pttSt[0] == 0) SetImage(pbMURCSt5, Common.Properties.Resources.st_OFF);
-			else SetImage(pbMURCSt5, Common.Properties.Resources.st_ON);
+             if (muData.pttSt[0] == 0) SetImage(ucLif1.pbMURCSt5, Common.Properties.Resources.st_OFF);
+             else SetImage(ucLif1.pbMURCSt5, Common.Properties.Resources.st_ON);
 
-			if (muData.pttSt[1] == 0) SetImage(pbMURCSt6, Common.Properties.Resources.st_OFF);
-			else SetImage(pbMURCSt6, Common.Properties.Resources.st_ON);
+             if (muData.pttSt[1] == 0) SetImage(ucLif1.pbMURCSt6, Common.Properties.Resources.st_OFF);
+             else SetImage(ucLif1.pbMURCSt6, Common.Properties.Resources.st_ON);
 
-			if (muData.pttSt[2] == 0) SetImage(pbMURepeatPttSt, Common.Properties.Resources.st_OFF);
-			else SetImage(pbMURepeatPttSt, Common.Properties.Resources.st_ON);
+             if (muData.pttSt[2] == 0) SetImage(ucLif1.pbMURepeatPttSt, Common.Properties.Resources.st_OFF);
+             else SetImage(ucLif1.pbMURepeatPttSt, Common.Properties.Resources.st_ON);
 
 			//LIF 통신 상태
 			for (i = 0; i < 6; i++)
@@ -1250,6 +1253,11 @@ namespace Common
             }
 
             tmrSendOutTest.Start();
+        }
+
+        internal void SetLIF(int count)
+        {
+            ucLif1.AddOpt(count);
         }
     }
 }

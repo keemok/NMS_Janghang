@@ -579,21 +579,21 @@ namespace NMS
             //-------------------ru 설정-----------------------------
 
 
-            btRuA.Add(SYMain.ucRu3_1.RuButton);
-            btRuA.Add(SYMain.ucRu3_2.RuButton);
-            btRuA.Add(SYMain.ucRu4_1.RuButton);
-            btRuA.Add(SYMain.ucRu4_2.RuButton);
-            btRuA.Add(SYMain.ucRu5_1.RuButton);
-            btRuA.Add(SYMain.ucRu8_1.RuButton);
+            //btRuA.Add(SYMain.ucRu3_1.RuButton);
+            //btRuA.Add(SYMain.ucRu3_2.RuButton);
+            //btRuA.Add(SYMain.ucRu4_1.RuButton);
+            //btRuA.Add(SYMain.ucRu4_2.RuButton);
+            //btRuA.Add(SYMain.ucRu5_1.RuButton);
+            //btRuA.Add(SYMain.ucRu8_1.RuButton);
 
             //광주
-            //btRuB[2, 0] = SYMain.ucRu3_1.RuButton; btRuB[2, 1] = SYMain.ucRu3_2.RuButton;
-            ////곤지암
-            //btRuB[3, 0] = SYMain.ucRu4_1.RuButton; btRuB[3, 1] = SYMain.ucRu4_2.RuButton;
-            ////신둔
-            //btRuB[4, 0] = SYMain.ucRu5_1.RuButton;
-            ////여주
-            //btRuB[7, 0] = SYMain.ucRu8_1.RuButton;
+            btRuB[2, 1] = SYMain.ucRu3_1.RuButton; btRuB[2, 2] = SYMain.ucRu3_2.RuButton;
+            //곤지암
+            btRuB[3, 1] = SYMain.ucRu4_1.RuButton; btRuB[3, 2] = SYMain.ucRu4_2.RuButton;
+            //신둔
+            btRuB[4, 1] = SYMain.ucRu5_1.RuButton;
+            //여주
+            btRuB[7, 1] = SYMain.ucRu8_1.RuButton;
 
             //---------------------------------------------------------
 
@@ -626,12 +626,12 @@ namespace NMS
             
             
             //RU
-            SYMain.ucRu3_1.RuButton.Click += btRuA_Click;
-            SYMain.ucRu3_2.RuButton.Click += btRuA_Click;
-            SYMain.ucRu4_1.RuButton.Click += btRuA_Click;
-            SYMain.ucRu4_2.RuButton.Click += btRuA_Click;
-            SYMain.ucRu5_1.RuButton.Click += btRuA_Click;
-            SYMain.ucRu8_1.RuButton.Click += btRuA_Click;
+            SYMain.ucRu3_1.RuButton.Click += btRuB_Click;
+            SYMain.ucRu3_2.RuButton.Click += btRuB_Click;
+            SYMain.ucRu4_1.RuButton.Click += btRuB_Click;
+            SYMain.ucRu4_2.RuButton.Click += btRuB_Click;
+            SYMain.ucRu5_1.RuButton.Click += btRuB_Click;
+            SYMain.ucRu8_1.RuButton.Click += btRuB_Click;
 
             //FM
             //SYMain.ucRu3_1.FMButton.Click += btRuB_Click;
@@ -1386,6 +1386,21 @@ namespace NMS
                 case 성남여주선:
 
                     ucMUSt.SetMode(4);
+                    
+                    
+                    int count =0;
+                    foreach( var i in  clsNMS.muruName[index].ruName)
+                    {
+                        if( i.ruName.Length > 0 )
+                        {
+                            count++;
+                        }
+                    }
+
+                    ucMUSt.SetLIF(count);
+                    
+
+
                     break;
             }
 
@@ -1478,8 +1493,8 @@ namespace NMS
             ucRUSt.SetMode(1);
             ucRUSt.SetTitle(nowStation + " 광중계장치 ( B 형 )");
 
-
         }
+
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         #endregion
 

@@ -117,14 +117,30 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="st_Error" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Image\st_Error.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="st_Normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Image\st_Normal.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="st_OFF" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Image\st_OFF.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="pbMUDC.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        Qk3mBAAAAAAAADYAAAAoAAAAFAAAABQAAAABABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA////////
+        ////////////1+jrzdvfwMjOt7vDtLe/tLe/t7rBvcTLzNjd1+fq////////////////////////////
+        ////////0+LmvcPKs7S8ra21qamyp6ewp6ewqqqyrq62srO7usDG0eDk////////////////////////
+        ////yNPWtbnAra23oqKsmpqmmpqmm5unm5unmpqmmpqmoqKsrq+4tbnAxM3U1+jr////////////////
+        ytbbs7W8pqawmpqmm5unnp6poKCsoaGtoaGtoKCsnp6pm5unmpqmp6evsrO7xdDV////////////1OTn
+        tbnBpqawmpqmnJyooaGtpaWxp6ezqai0qai0p6ezpaWxoaGtnJyompqmp6evtbnA0eDk////////vcLJ
+        rq64mpqmnJyooqKup6ezrKu3r666sK+7sK+7r666rKu3p6ezoqKunJyompqmrq+4usDG1+fq0N7hsrS9
+        oqKsm5unoaGtp6ezray4srG8tbS+t7a/t7a/tbS+srG8ray4p6ezoaGtm5unoqKssrO7zNjdwcnPra63
+        mpqmnp6ppaWxrKu3srG8t7a/urrCvLzDvLzDurrCt7a/srG8rKu3paWxnp6pmpqmrq64vsXMusDGqqqy
+        mpqmoKCsp6ezr666tbS+urrCv77FwsHHwsHHv77FurrCtbS+r666p6ezoKCsmpqmqqqyt7zCt7vCpqaw
+        m5unoaGtqai0sK+7t7a/vLzDwsHHxsbLxsbLwsHHvLzDt7a/sK+7qai0oaGtm5unp6ewtLjAt7vCp6ew
+        m5unoaGtqai0sK+7t7a/vLzDwsHHxsbLxsbLwsHHvLzDt7a/sK+7qai0oaGtm5unp6ewtLjAvMLJqqqy
+        mpqmoKCsp6ezr666tbS+urrCv77FwsHHwsHHv77FurrCtbS+r666p6ezoKCsmpqmqamyt7vDw8vQrK22
+        mpqmnp6ppaWxrKu3srG8t7a/urrCvLzDvLzDurrCt7a/srG8rKu3paWxnp6pmpqmrq63v8fN0eDks7a+
+        oqKsm5unoaGtp6ezray4srG8tbS+t7a/t7a/tbS+srG8ray4p6ezoaGtm5unoqKss7S8zdvf////vsXM
+        rq+3mpqmnJyooqKup6ezrKu3r666sK+7sK+7r666rKu3p6ezoqKunJyompqmra23vMHI1+jr////1eXp
+        trnBp6ewmpqmnJyooaGtpaWxp6ezqai0qai0p6ezpaWxoaGtnJyompqmpqawtbnA0+Lm////////////
+        zdvftLe/p6ewmpqmm5unnp6poKCsoaGtoaGtoKCsnp6pm5unmpqmpqawsrS8ydba////////////////
+        ////zNfdtrnBrq+3oqKsmpqmmpqmm5unm5unmpqmmpqmoqKsra63tbnByNTY////////////////////
+        ////////1eXpwcrQs7a+rK22qqqyp6ewp6ewqqqyra22srS9vsbM1OTn////////////////////////
+        ////////////////0eDkxdDUvMLJuL3EuL3EvMLIw8zS0N7h////////////////////////
+</value>
   </data>
 </root>
