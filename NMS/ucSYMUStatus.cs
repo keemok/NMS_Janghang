@@ -930,8 +930,6 @@ namespace NMS
                 //ACU 카드 상태
                 if (muData.otherSt2[7] == 0) SetImage(pbMUACU, Common.Properties.Resources.st_Normal);
                 else SetImage(pbMUACU, Common.Properties.Resources.st_Error);
-
-
                 
                 
 
@@ -1102,6 +1100,29 @@ namespace NMS
                         SetImage(pbDC, Common.Properties.Resources.st_OFF);
                     }
                     break;
+
+                
+                    
+            }
+
+            SetOptData(muData);
+
+        }
+
+        private void SetOptData(MUData muData)
+        {
+            if (clsNMS.nmsGUIUser == "성남여주선")
+            {
+                var pbs = GetOptPictureBoxs();
+                var optData = muData.optData;
+
+                for (int i = 0; i < pbs.Length; i++)
+                {
+                    if (optData[i] == 0)
+                        SetImage(pbs[i], Common.Properties.Resources.st_Normal);
+                    if (optData[i] == 1)
+                        SetImage(pbs[i], Common.Properties.Resources.st_Error);
+                }
             }
         }
 
@@ -1137,8 +1158,9 @@ namespace NMS
             {
                 this.muControlClick(0, index, 0);
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
             }
         }
 
@@ -1255,9 +1277,24 @@ namespace NMS
             tmrSendOutTest.Start();
         }
 
+        /// <summary>
+        /// LIF에 Opt를 추가함. 성남여주에서 사용함
+        /// </summary>
+        /// <param name="count"></param>
         internal void SetLIF(int count)
         {
             ucLif1.AddOpt(count);
+
+            
+        }
+
+        /// <summary>
+        /// Opt용 PictureBox를 가져옮
+        /// </summary>
+        /// <returns></returns>
+        internal PictureBox[] GetOptPictureBoxs()
+        {
+            return ucLif1.GetOptPictureBoxs();
         }
     }
 }

@@ -44,6 +44,8 @@ namespace NMS
 
             if( i == 0 && panelOpt.Visible )
             {
+                Console.WriteLine(" i :" + i);
+
                 panelOpt.SendToBack();
                
                 panelOpt.Visible = false;
@@ -72,9 +74,13 @@ namespace NMS
                 panelOpt.Controls.Add(opt2);
 
             }
+
+            if( !panelOpt.Visible )
+                ResizeComponent();
+
             panelOpt.Visible = true;
             
-            ResizeComponent();
+            
         }
 
         private void RestoreLocation()
@@ -138,9 +144,20 @@ namespace NMS
             ctrl.Location = new Point(xpos - x, ctrl.Location.Y);
 
         }
-
-
-
-
+        
+        /// <summary>
+        /// Opt에서 사용하는 PictureBox를 반환함
+        /// </summary>
+        /// <returns></returns>
+        internal  PictureBox[] GetOptPictureBoxs()
+        {
+            if (opt1 != null)
+                return opt1.GetItems();
+            else if (opt2 != null)
+                return opt2.GetItems();
+            else
+                return null;
+                
+        }
     }
 }

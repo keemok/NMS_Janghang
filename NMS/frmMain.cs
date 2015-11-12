@@ -65,6 +65,8 @@ namespace NMS
         private List<Panel> panelMainBase = new List<Panel>();
 
         //전체 감시화면 관련
+
+        //MU 에 색표시 용도
         private List<Button> btMu = new List<Button>();
         private List<Button> btRuA = new List<Button>();
         private Button[,] btRuB = new Button[99, 4];
@@ -571,13 +573,14 @@ namespace NMS
             SetVisible(panel경의일산선, false);
             SetVisible(panel성남여주, true);
 
+            ucMUSt.muControlClick += MUSt_muControlClick;
+
             //MU 설정
             btMu.Add(SYMain.ucMU1.Button); btMu.Add(SYMain.ucMU2.Button); btMu.Add(SYMain.ucMU3.Button); btMu.Add(SYMain.ucMU4.Button);
             btMu.Add(SYMain.ucMU5.Button); btMu.Add(SYMain.ucMU6.Button); btMu.Add(SYMain.ucMU7.Button); btMu.Add(SYMain.ucMU8.Button);
             btMu.Add(SYMain.ucMU9.Button);
 
             //-------------------ru 설정-----------------------------
-
 
             //btRuA.Add(SYMain.ucRu3_1.RuButton);
             //btRuA.Add(SYMain.ucRu3_2.RuButton);
@@ -611,8 +614,6 @@ namespace NMS
             {
                 btn.Click += btMU_Click;
             }
-
-    
 
             //MU
             //SYMain.ucMU1.Button.Click += btMU_Click;
@@ -1289,6 +1290,10 @@ namespace NMS
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         #endregion
 
+        /// <summary>
+        /// Mu 상태 화면 초기화
+        /// </summary>
+        /// <param name="flagAction"></param>
         private void MuStInit(bool flagAction)
         {
             if (flagILSAN) ucMUSt_ILSAN.MuStInit(flagAction);
@@ -1535,6 +1540,8 @@ namespace NMS
                     if (MessageBox.Show("자동/수동 절체시 통화가 끊어질수 있습니다. 절체 하시겠습니까?",
                         "경고", MessageBoxButtons.YesNo, MessageBoxIcon.Stop) != DialogResult.Yes) return;
 
+
+
                     sendBuf = nmsSendDataMake.EditData_CTL_AutoManualChange(Common.clsNMS.presentMUID, Common.clsNMS.presentRUID, Common.clsCommon.HexaConvert(index));
                     JksSockMain.ClientSendData(sendBuf, (byte)sendBuf.Length);
                     JksSockStby.ClientSendData(sendBuf, (byte)sendBuf.Length);
@@ -1667,6 +1674,12 @@ namespace NMS
             }
         }
 
+        /// <summary>
+        /// MU 정보 업데이트
+        /// </summary>
+        /// <param name="myID"></param>
+        /// <param name="muID"></param>
+        /// <param name="muData"></param>
         void MuStatusReport(int myID, byte muID, Common.MUData muData)
         {
             int i = 0;
@@ -3066,26 +3079,49 @@ namespace NMS
                             {   //A : RU A형
                                 Common.RUDetailData tmpRuAData = new Common.RUDetailData();
 
-                                tmpRuAData.otherSt1 = Common.clsCommon.BitInfoToByte(buffer[j++]);   //기타상태1
-                                tmpRuAData.otherSt2 = Common.clsCommon.BitInfoToByte(buffer[j++]);   //기타상태2
+                                
+                                switch( Common.clsNMS.nmsGUIUser)
+                                {
+                                    case 성남여주선:
+                                        byte opt = buffer[10];
 
-                                tmpRuAData.dcValue = buffer[j++];    //DC전원값
+                                        muruNowData[tmpMUId].muData.optData = Common.clsCommon.BitInfoToByte(opt);
 
-                                tmpRuAData.rfValue = buffer[j++]; //주 RF 출력값
-                                tmpRuAData.rfValueInquiry = Common.clsNMS.ruRfValueCalculation(buffer[j++]); //주 RF 출력조회값
 
-                                tmpRuAData.rxRssiValue = buffer[j++];    //예비 RX RSSI 감도
-                                tmpRuAData.repeatPtt = buffer[j++];     //REPEAT PTT
+                                        MuStatusReport(0, tmpMUId, muruNowData[tmpMUId].muData);
 
-                                tmpRuAData.optOtherSt = Common.clsCommon.BitInfoToByte(buffer[j++]);   //OPT 기타상태
-                                tmpRuAData.optDcValue = buffer[j++];   //OPT DC값
-                                tmpRuAData.optAlarmSt = Common.clsCommon.BitInfoToByte(buffer[j++]);   //OPT 알람상태
+                                        break;
 
-                                DC_RangeOver(1, tmpMUId, tmpRUId, tmpRuAData.dcValue);
+                                    default:
+                                        tmpRuAData.otherSt1 = Common.clsCommon.BitInfoToByte(buffer[j++]);   //기타상태1
+                                        tmpRuAData.otherSt2 = Common.clsCommon.BitInfoToByte(buffer[j++]);   //기타상태2
 
-                                RF_RangeOver(tmpMUId, tmpRUId, tmpRuAData);   //송신출력 임계치 비교
+                                        tmpRuAData.dcValue = buffer[j++];    //DC전원값
 
-                                RuStatusReport(0, tmpMUId, tmpRUId, tmpRuAData);
+                                        tmpRuAData.rfValue = buffer[j++]; //주 RF 출력값
+                                        tmpRuAData.rfValueInquiry = Common.clsNMS.ruRfValueCalculation(buffer[j++]); //주 RF 출력조회값
+
+                                        tmpRuAData.rxRssiValue = buffer[j++];    //예비 RX RSSI 감도
+                                        tmpRuAData.repeatPtt = buffer[j++];     //REPEAT PTT
+
+                                        tmpRuAData.optOtherSt = Common.clsCommon.BitInfoToByte(buffer[j++]);   //OPT 기타상태
+                                        tmpRuAData.optDcValue = buffer[j++];   //OPT DC값
+                                        tmpRuAData.optAlarmSt = Common.clsCommon.BitInfoToByte(buffer[j++]);   //OPT 알람상태
+
+                                        DC_RangeOver(1, tmpMUId, tmpRUId, tmpRuAData.dcValue);
+
+                                        RF_RangeOver(tmpMUId, tmpRUId, tmpRuAData);   //송신출력 임계치 비교
+
+                                        RuStatusReport(0, tmpMUId, tmpRUId, tmpRuAData);
+                                        break;
+                                }
+
+
+
+
+
+
+                             
                             }
                         }
                         else
@@ -3755,6 +3791,10 @@ namespace NMS
                 SetColor(btMu[muID - 1], colorError);
                 SetForeColor(btMu[muID - 1], Color.White);
             }
+
+          
+
+
 
             //Error 상태 저장
             if (tmpResult == 0) Common.clsNMS.flagMuError[muID - 1] = false;

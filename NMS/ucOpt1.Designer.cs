@@ -28,147 +28,166 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pbOptLD1 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.pbOptLD2 = new System.Windows.Forms.PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.labelTitle = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.pbOptPD2 = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
             this.pbOptPD1 = new System.Windows.Forms.PictureBox();
-            this.labelTitle = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pbOptLD1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbOptLD2)).BeginInit();
+            this.label2 = new System.Windows.Forms.Label();
+            this.pbOptLD2 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pbOptLD1 = new System.Windows.Forms.PictureBox();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbOptPD2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbOptPD1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbOptLD2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbOptLD1)).BeginInit();
             this.SuspendLayout();
             // 
-            // pbOptLD1
+            // panel1
             // 
-            this.pbOptLD1.BackColor = System.Drawing.Color.Transparent;
-            this.pbOptLD1.BackgroundImage = global::NMS.Properties.Resources.st_OFF;
-            this.pbOptLD1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbOptLD1.Location = new System.Drawing.Point(44, 107);
-            this.pbOptLD1.Name = "pbOptLD1";
-            this.pbOptLD1.Size = new System.Drawing.Size(24, 24);
-            this.pbOptLD1.TabIndex = 0;
-            this.pbOptLD1.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(97, 113);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 12);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Opt LD1";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(97, 158);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(49, 12);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Opt LD2";
-            // 
-            // pbOptLD2
-            // 
-            this.pbOptLD2.BackColor = System.Drawing.Color.Transparent;
-            this.pbOptLD2.BackgroundImage = global::NMS.Properties.Resources.st_OFF;
-            this.pbOptLD2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbOptLD2.Location = new System.Drawing.Point(44, 152);
-            this.pbOptLD2.Name = "pbOptLD2";
-            this.pbOptLD2.Size = new System.Drawing.Size(24, 24);
-            this.pbOptLD2.TabIndex = 2;
-            this.pbOptLD2.TabStop = false;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(97, 255);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(50, 12);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Opt PD2";
-            // 
-            // pbOptPD2
-            // 
-            this.pbOptPD2.BackColor = System.Drawing.Color.Transparent;
-            this.pbOptPD2.BackgroundImage = global::NMS.Properties.Resources.st_OFF;
-            this.pbOptPD2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbOptPD2.Location = new System.Drawing.Point(44, 249);
-            this.pbOptPD2.Name = "pbOptPD2";
-            this.pbOptPD2.Size = new System.Drawing.Size(24, 24);
-            this.pbOptPD2.TabIndex = 6;
-            this.pbOptPD2.TabStop = false;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(97, 210);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(50, 12);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Opt PD1";
-            // 
-            // pbOptPD1
-            // 
-            this.pbOptPD1.BackColor = System.Drawing.Color.Transparent;
-            this.pbOptPD1.BackgroundImage = global::NMS.Properties.Resources.st_OFF;
-            this.pbOptPD1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbOptPD1.Location = new System.Drawing.Point(44, 204);
-            this.pbOptPD1.Name = "pbOptPD1";
-            this.pbOptPD1.Size = new System.Drawing.Size(24, 24);
-            this.pbOptPD1.TabIndex = 4;
-            this.pbOptPD1.TabStop = false;
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.labelTitle);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.pbOptPD2);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.pbOptPD1);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.pbOptLD2);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.pbOptLD1);
+            this.panel1.Location = new System.Drawing.Point(3, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(188, 342);
+            this.panel1.TabIndex = 0;
             // 
             // labelTitle
             // 
             this.labelTitle.BackColor = System.Drawing.Color.DodgerBlue;
             this.labelTitle.Font = new System.Drawing.Font("굴림", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.labelTitle.ForeColor = System.Drawing.Color.White;
-            this.labelTitle.Location = new System.Drawing.Point(0, 0);
+            this.labelTitle.Location = new System.Drawing.Point(-3, 0);
             this.labelTitle.Name = "labelTitle";
             this.labelTitle.Size = new System.Drawing.Size(191, 45);
-            this.labelTitle.TabIndex = 220;
+            this.labelTitle.TabIndex = 229;
             this.labelTitle.Text = "광 접속 상태";
             this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label3.Location = new System.Drawing.Point(94, 255);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(57, 12);
+            this.label3.TabIndex = 228;
+            this.label3.Text = "Opt PD2";
+            // 
+            // pbOptPD2
+            // 
+            this.pbOptPD2.BackColor = System.Drawing.Color.Transparent;
+            this.pbOptPD2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pbOptPD2.Image = global::NMS.Properties.Resources.st_OFF;
+            this.pbOptPD2.Location = new System.Drawing.Point(44, 247);
+            this.pbOptPD2.Name = "pbOptPD2";
+            this.pbOptPD2.Size = new System.Drawing.Size(20, 20);
+            this.pbOptPD2.TabIndex = 227;
+            this.pbOptPD2.TabStop = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label4.Location = new System.Drawing.Point(94, 210);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(57, 12);
+            this.label4.TabIndex = 226;
+            this.label4.Text = "Opt PD1";
+            // 
+            // pbOptPD1
+            // 
+            this.pbOptPD1.BackColor = System.Drawing.Color.Transparent;
+            this.pbOptPD1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pbOptPD1.Image = global::NMS.Properties.Resources.st_OFF;
+            this.pbOptPD1.Location = new System.Drawing.Point(44, 202);
+            this.pbOptPD1.Name = "pbOptPD1";
+            this.pbOptPD1.Size = new System.Drawing.Size(20, 20);
+            this.pbOptPD1.TabIndex = 225;
+            this.pbOptPD1.TabStop = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label2.Location = new System.Drawing.Point(94, 158);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(56, 12);
+            this.label2.TabIndex = 224;
+            this.label2.Text = "Opt LD2";
+            // 
+            // pbOptLD2
+            // 
+            this.pbOptLD2.BackColor = System.Drawing.Color.Transparent;
+            this.pbOptLD2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pbOptLD2.Image = global::NMS.Properties.Resources.st_OFF;
+            this.pbOptLD2.Location = new System.Drawing.Point(44, 150);
+            this.pbOptLD2.Name = "pbOptLD2";
+            this.pbOptLD2.Size = new System.Drawing.Size(20, 20);
+            this.pbOptLD2.TabIndex = 223;
+            this.pbOptLD2.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label1.Location = new System.Drawing.Point(94, 113);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(56, 12);
+            this.label1.TabIndex = 222;
+            this.label1.Text = "Opt LD1";
+            // 
+            // pbOptLD1
+            // 
+            this.pbOptLD1.BackColor = System.Drawing.Color.Transparent;
+            this.pbOptLD1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pbOptLD1.Image = global::NMS.Properties.Resources.st_OFF;
+            this.pbOptLD1.Location = new System.Drawing.Point(44, 105);
+            this.pbOptLD1.Name = "pbOptLD1";
+            this.pbOptLD1.Size = new System.Drawing.Size(20, 20);
+            this.pbOptLD1.TabIndex = 221;
+            this.pbOptLD1.TabStop = false;
             // 
             // ucOpt1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.labelTitle);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.pbOptPD2);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.pbOptPD1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.pbOptLD2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.pbOptLD1);
+            this.BackColor = System.Drawing.Color.Black;
+            this.Controls.Add(this.panel1);
             this.Name = "ucOpt1";
             this.Size = new System.Drawing.Size(191, 342);
-            ((System.ComponentModel.ISupportInitialize)(this.pbOptLD1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbOptLD2)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbOptPD2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbOptPD1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbOptLD2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbOptLD1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pbOptLD1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.PictureBox pbOptLD2;
+        private System.Windows.Forms.Panel panel1;
+        internal System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.PictureBox pbOptPD2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.PictureBox pbOptPD1;
-        internal System.Windows.Forms.Label labelTitle;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PictureBox pbOptLD2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox pbOptLD1;
+
     }
 }

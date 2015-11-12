@@ -15,5 +15,14 @@ namespace NMS
         {
             InitializeComponent();
         }
+
+        public PictureBox[] GetItems()
+        {
+            PictureBox[] list = {
+                                    pbOptLD1, pbOptLD2, pbOptPD1, pbOptPD2
+                                };
+
+            return list;
+        }
     }
 }
