@@ -20,12 +20,26 @@ namespace NMS
         public PictureBox[] GetItems()
         {
             PictureBox[] list = {
-                                    pbOpt1LD1, pbOpt1LD2, pbOpt1PD1, pbOpt1PD2,
-                                    pbOpt2LD1, pbOpt2LD2, pbOpt2PD1, pbOpt2PD2
+                                    pbOpt1LD1, pbOpt1LD2, pbOpt2LD1, pbOpt2LD2
                                 };
 
             return list;
 
+        }
+
+        internal PictureBox[] GetOptLDs()
+        {
+            PictureBox[] list = {
+                                     pbOpt1LD1, pbOpt1LD2, pbOpt2LD1, pbOpt2LD2
+                                };
+            return list;
+        }
+
+        internal PictureBox[] GetOptPBs()
+        {
+            PictureBox[] list = { pbOpt1PD1, pbOpt1PD2,
+                                     pbOpt2PD1, pbOpt2PD2};
+            return list;
         }
     }
 }

@@ -169,6 +169,7 @@
             // ucMU9
             // 
             this.ucMU9.BackColor = System.Drawing.Color.Black;
+            this.ucMU9.HasRuA = false;
             this.ucMU9.Location = new System.Drawing.Point(941, 624);
             this.ucMU9.MaximumSize = new System.Drawing.Size(230, 140);
             this.ucMU9.Name = "ucMU9";
@@ -188,6 +189,7 @@
             // ucMU8
             // 
             this.ucMU8.BackColor = System.Drawing.Color.Black;
+            this.ucMU8.HasRuA = true;
             this.ucMU8.Location = new System.Drawing.Point(181, 463);
             this.ucMU8.MaximumSize = new System.Drawing.Size(230, 140);
             this.ucMU8.Name = "ucMU8";
@@ -198,6 +200,7 @@
             // ucMU7
             // 
             this.ucMU7.BackColor = System.Drawing.Color.Black;
+            this.ucMU7.HasRuA = false;
             this.ucMU7.Location = new System.Drawing.Point(561, 463);
             this.ucMU7.MaximumSize = new System.Drawing.Size(230, 140);
             this.ucMU7.Name = "ucMU7";
@@ -208,6 +211,7 @@
             // ucMU6
             // 
             this.ucMU6.BackColor = System.Drawing.Color.Black;
+            this.ucMU6.HasRuA = false;
             this.ucMU6.Location = new System.Drawing.Point(941, 463);
             this.ucMU6.MaximumSize = new System.Drawing.Size(230, 140);
             this.ucMU6.Name = "ucMU6";
@@ -227,6 +231,7 @@
             // ucMU5
             // 
             this.ucMU5.BackColor = System.Drawing.Color.Black;
+            this.ucMU5.HasRuA = true;
             this.ucMU5.Location = new System.Drawing.Point(1321, 463);
             this.ucMU5.MaximumSize = new System.Drawing.Size(230, 140);
             this.ucMU5.Name = "ucMU5";
@@ -255,6 +260,7 @@
             // ucMU4
             // 
             this.ucMU4.BackColor = System.Drawing.Color.Black;
+            this.ucMU4.HasRuA = true;
             this.ucMU4.Location = new System.Drawing.Point(1321, 208);
             this.ucMU4.MaximumSize = new System.Drawing.Size(230, 140);
             this.ucMU4.Name = "ucMU4";
@@ -283,6 +289,7 @@
             // ucMU3
             // 
             this.ucMU3.BackColor = System.Drawing.Color.Black;
+            this.ucMU3.HasRuA = true;
             this.ucMU3.Location = new System.Drawing.Point(941, 208);
             this.ucMU3.MaximumSize = new System.Drawing.Size(230, 140);
             this.ucMU3.Name = "ucMU3";
@@ -293,6 +300,7 @@
             // ucMU2
             // 
             this.ucMU2.BackColor = System.Drawing.Color.Black;
+            this.ucMU2.HasRuA = false;
             this.ucMU2.Location = new System.Drawing.Point(561, 208);
             this.ucMU2.MaximumSize = new System.Drawing.Size(230, 140);
             this.ucMU2.Name = "ucMU2";
@@ -303,6 +311,7 @@
             // ucMU1
             // 
             this.ucMU1.BackColor = System.Drawing.Color.Black;
+            this.ucMU1.HasRuA = false;
             this.ucMU1.Location = new System.Drawing.Point(181, 208);
             this.ucMU1.MaximumSize = new System.Drawing.Size(230, 140);
             this.ucMU1.Name = "ucMU1";

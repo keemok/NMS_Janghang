@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{67DC5CFC-E180-471E-9D51-13B56FC642DD}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NMS</RootNamespace>
     <AssemblyName>NMS</AssemblyName>
@@ -107,12 +107,6 @@
     <Compile Include="ucSYMainScreen.Designer.cs">
       <DependentUpon>ucSYMainScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="ucMainScreen.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ucMainScreen.Designer.cs">
-      <DependentUpon>ucMainScreen.cs</DependentUpon>
-    </Compile>
     <Compile Include="ucSetting.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -152,9 +146,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ucSYMainScreen.resx">
       <DependentUpon>ucSYMainScreen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ucMainScreen.resx">
-      <DependentUpon>ucMainScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ucSetting.resx">
       <DependentUpon>ucSetting.cs</DependentUpon>

@@ -24,5 +24,17 @@ namespace NMS
 
             return list;
         }
+
+        internal PictureBox[] GetOptLDs()
+        {
+            PictureBox[] p =  { pbOptLD1, pbOptLD2 };
+            return p;
+        }
+
+        internal PictureBox[] GetOptPBs()
+        {
+            PictureBox[] p ={  pbOptPD1, pbOptPD2 };
+            return p;
+        }
     }
 }

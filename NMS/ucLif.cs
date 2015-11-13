@@ -61,6 +61,8 @@ namespace NMS
 
             else if( i == 1)
             {
+                opt2 = null;
+
                 opt1 = new ucOpt1();
 
                 opt1.Dock = DockStyle.Fill;
@@ -69,13 +71,14 @@ namespace NMS
             }
             else
             {
+                opt1 = null;
                 opt2 = new ucOpt2();
                 opt2.Dock = DockStyle.Fill;
                 panelOpt.Controls.Add(opt2);
 
             }
 
-            if( !panelOpt.Visible )
+            if( labelTitle.Width >= 490 )
                 ResizeComponent();
 
             panelOpt.Visible = true;
@@ -87,7 +90,7 @@ namespace NMS
         {
             labelTitle.Width = 490;
 
-            panelComponent.Location =  InitLocation[0];
+            panelComponent.Location = new Point(73, 48);
             panelComponent.Width += 20;
 
 
@@ -158,6 +161,64 @@ namespace NMS
             else
                 return null;
                 
+        }
+
+        internal PictureBox[] GetOptLDs()
+        {
+            if (opt1 != null)
+                return opt1.GetOptLDs();
+            else if (opt2 != null)
+                return opt2.GetOptLDs();
+            else
+                return null;
+        }
+
+        internal PictureBox[] GetOptPBs()
+        {
+
+            if (opt1 != null)
+                return opt1.GetOptPBs();
+            else if (opt2 != null)
+                return opt2.GetOptPBs();
+            else
+                return null;
+            
+        }
+
+        internal void InitOptImage()
+        {
+            if (opt1 != null)
+            {
+                var pbs = opt1.GetOptLDs();
+
+                SetImage(pbs);
+
+                pbs = opt1.GetOptPBs();
+
+                SetImage(pbs);
+            }
+            else if(opt2 != null)
+            {
+                var pbs = opt2.GetOptLDs();
+
+                SetImage(pbs);
+
+                pbs = opt2.GetOptPBs();
+
+                SetImage(pbs);
+            }
+        }
+
+        private static void SetImage(PictureBox[] pbs)
+        {
+            foreach (var i in pbs)
+            {
+                i.Invoke(new MethodInvoker(delegate()
+                {
+                        i.Image = Common.Properties.Resources.st_OFF;
+                }));
+                
+            }
         }
     }
 }

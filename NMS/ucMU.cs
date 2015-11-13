@@ -27,6 +27,27 @@ namespace NMS
                 return lblTitle.Text;
             }
         }
+
+        /// <summary>
+        /// Ru A를 가지고 있는지 설정함
+        /// </summary>
+        [Description ("해당 Mu에 Ru A가 있는지 설정한다.")]
+        public bool HasRuA
+        {
+            set
+            {
+                RuA = value;
+            }
+
+            get
+            {
+                return RuA;
+            }
+        }
+
+        private bool RuA = false;
+        private byte[] mOptData;
+
     
 
         public ucMU()
@@ -42,5 +63,15 @@ namespace NMS
             }
                 
          }
+
+        internal void SetOptData(byte[] data)
+        {
+            mOptData = data;
+        }
+
+        public byte[] GetOptData()
+        {
+            return mOptData;
+        }
     }
 }

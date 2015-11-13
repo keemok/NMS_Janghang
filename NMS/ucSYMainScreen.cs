@@ -15,5 +15,33 @@ namespace NMS
         {
             InitializeComponent();
         }
+
+        /// <summary>
+        /// Mu 버튼을 가져옮
+        /// </summary>
+        /// <returns></returns>
+        public Button[] GetMuButtons()
+        {
+            Button[] btns ={
+                               ucMU1.Button,ucMU2.Button,ucMU3.Button,ucMU4.Button,ucMU5.Button,ucMU6.Button,ucMU7.Button,ucMU8.Button,ucMU9.Button
+                           };
+
+            return btns;
+        }
+
+        /// <summary>
+        /// Mu 목록을 가져옮
+        /// </summary>
+        /// <returns></returns>
+        public List<ucMU> GetMuList()
+        {
+            List<ucMU> list = new List<ucMU>();
+
+            list.Add(ucMU1); list.Add(ucMU2); list.Add(ucMU3);
+            list.Add(ucMU4); list.Add(ucMU5); list.Add(ucMU6);
+            list.Add(ucMU7); list.Add(ucMU8); list.Add(ucMU9);
+
+            return list;
+        }
     }
 }

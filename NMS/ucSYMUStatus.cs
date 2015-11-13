@@ -72,6 +72,7 @@ namespace NMS
         /// RU A 표시 상태
         /// </summary>
         private bool mRuAState = true;
+        private ucSYMainScreen mMainScreen;
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         #endregion
 
@@ -483,10 +484,13 @@ namespace NMS
             {
                 pbMUACU.Location = new Point(76, 99);
                 lblMUACU.Location = new Point(104, 103);
-
                 mRuAState = visible;
-                
-
+            }
+            else
+            {
+                pbMUACU.Location = new Point(76, 74);
+                lblMUACU.Location = new Point(104, 78);
+                mRuAState = visible;
             }
 
             pbMURUASt.Visible = visible;
@@ -743,6 +747,8 @@ namespace NMS
             SetImage(ucLif1.pbMURCSt5, Common.Properties.Resources.st_OFF);
             SetImage(ucLif1.pbMURCSt6, Common.Properties.Resources.st_OFF);
 
+            ucLif1.InitOptImage();
+
 			for (i = 0; i < 6; i++)
 				SetImage(pbMULifSt[i], Common.Properties.Resources.st_OFF);
 
@@ -771,8 +777,12 @@ namespace NMS
 			SetEnable(pbMUACU, flagAction);
 
             SetEnable(lblMURUASt, flagAction);
-            SetImage(pbMURUASt, Common.Properties.Resources.st_OFF);
-            SetEnable(pbMURUASt, flagAction);
+
+            if (mRuAState)
+            {
+                SetImage(pbMURUASt, Common.Properties.Resources.st_OFF);
+                SetEnable(pbMURUASt, flagAction);
+            }
 
             //SetEnable(panelMUVer, flagAction);
             SetEnable(gbMainVer, flagAction);
@@ -1018,11 +1028,14 @@ namespace NMS
                 if (muData.pllLockErrorSt[i] == 0) SetImage(pbPllLockSt[i], Common.Properties.Resources.st_Normal);
                 else SetImage(pbPllLockSt[i], Common.Properties.Resources.st_Error);
             }
-            
 
-            //RUA 장애 상태(2015년 09월 10일 추가)
-             if (muData.pllLockErrorSt[3] == 0) SetImage(pbMURUASt, Common.Properties.Resources.st_Normal);
-             else SetImage(pbMURUASt, Common.Properties.Resources.st_Error);
+            if (mRuAState)
+            {
+                //RUA 장애 상태(2015년 09월 10일 추가)
+                if (muData.pllLockErrorSt[3] == 0) SetImage(pbMURUASt, Common.Properties.Resources.st_Normal);
+
+                else SetImage(pbMURUASt, Common.Properties.Resources.st_Error);
+            }
             
 
             //각 PTT 상태 : 0:CCE2 PTT, 1:RC4 PTT, 2:REPEAT PTT
@@ -1105,25 +1118,63 @@ namespace NMS
                     
             }
 
-            SetOptData(muData);
+            var t = mMainScreen.GetMuList()[muID];
+
+            SetOptData(t.GetOptData());
 
         }
 
-        private void SetOptData(MUData muData)
+        /// <summary>
+        /// 광 장치 값
+        /// </summary>
+        /// <param name="muData"></param>
+        private void SetOptData(byte[] data)
         {
+
+            if (data == null)
+                return;
+
             if (clsNMS.nmsGUIUser == "성남여주선")
             {
-                var pbs = GetOptPictureBoxs();
-                var optData = muData.optData;
+                var lds = ucLif1.GetOptLDs();
+                var pds = ucLif1.GetOptPBs();
 
-                for (int i = 0; i < pbs.Length; i++)
+
+                if (pds == null || lds == null)
+                    return;
+
+                var optData = data;
+
+                for (int i = 0; i < 4; i++)
                 {
+                    if (i >= lds.Length)
+                        break;
+
                     if (optData[i] == 0)
-                        SetImage(pbs[i], Common.Properties.Resources.st_Normal);
+                        SetImage(lds[i], Common.Properties.Resources.st_Normal);
                     if (optData[i] == 1)
-                        SetImage(pbs[i], Common.Properties.Resources.st_Error);
+                        SetImage(lds[i], Common.Properties.Resources.st_Error);
+                }
+
+                int j = 0;
+                for (int i = 4; i < 8; i++)
+                {
+                    if (j >= pds.Length)
+                        break;
+
+                    if (optData[i] == 0)
+                        SetImage(pds[j], Common.Properties.Resources.st_Normal);
+                    if (optData[i] == 1)
+                        SetImage(pds[j], Common.Properties.Resources.st_Error);
+
+                    j++;
                 }
             }
+        }
+
+        private object GetOptLDs()
+        {
+            throw new NotImplementedException();
         }
 
         public void nmsFMSt_Display(FM_Info fmInfo)
@@ -1295,6 +1346,17 @@ namespace NMS
         internal PictureBox[] GetOptPictureBoxs()
         {
             return ucLif1.GetOptPictureBoxs();
+        }
+
+        internal void SetOptValue(int muId, byte[] p)
+        {
+
+            SetOptData(p);
+        }
+
+        internal void SetMainScreen(ucSYMainScreen SYMain)
+        {
+            mMainScreen = SYMain;
         }
     }
 }
