@@ -29,45 +29,63 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btMu = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.btMu = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Black;
-            this.panel1.Controls.Add(this.btMu);
-            this.panel1.Controls.Add(this.lblTitle);
+            this.panel1.Controls.Add(this.tableLayoutPanel1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(230, 140);
             this.panel1.TabIndex = 0;
             // 
-            // btMu
+            // tableLayoutPanel1
             // 
-            this.btMu.BackColor = System.Drawing.SystemColors.Control;
-            this.btMu.Font = new System.Drawing.Font("굴림", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btMu.Location = new System.Drawing.Point(1, 45);
-            this.btMu.Name = "btMu";
-            this.btMu.Size = new System.Drawing.Size(228, 94);
-            this.btMu.TabIndex = 1;
-            this.btMu.Text = "기지국 장치";
-            this.btMu.UseVisualStyleBackColor = false;
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.lblTitle, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btMu, 0, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(230, 140);
+            this.tableLayoutPanel1.TabIndex = 0;
             // 
             // lblTitle
             // 
             this.lblTitle.BackColor = System.Drawing.Color.DodgerBlue;
+            this.lblTitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTitle.Font = new System.Drawing.Font("굴림", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblTitle.ForeColor = System.Drawing.Color.White;
-            this.lblTitle.Location = new System.Drawing.Point(3, 2);
-            this.lblTitle.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
+            this.lblTitle.Location = new System.Drawing.Point(3, 3);
+            this.lblTitle.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(224, 42);
-            this.lblTitle.TabIndex = 0;
+            this.lblTitle.Size = new System.Drawing.Size(224, 37);
+            this.lblTitle.TabIndex = 5;
             this.lblTitle.Text = "기지국명";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btMu
+            // 
+            this.btMu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btMu.Font = new System.Drawing.Font("굴림", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btMu.Location = new System.Drawing.Point(3, 40);
+            this.btMu.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
+            this.btMu.Name = "btMu";
+            this.btMu.Size = new System.Drawing.Size(224, 97);
+            this.btMu.TabIndex = 6;
+            this.btMu.Text = "기지국 장치";
+            this.btMu.UseVisualStyleBackColor = true;
             // 
             // ucMU
             // 
@@ -79,6 +97,7 @@
             this.Name = "ucMU";
             this.Size = new System.Drawing.Size(230, 140);
             this.panel1.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -86,6 +105,7 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btMu;
     }

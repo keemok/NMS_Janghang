@@ -42,22 +42,24 @@ namespace NMS
         {
             panelOpt.Controls.Clear();
 
-            if( i == 0 && panelOpt.Visible )
+            if( i == 0 )
             {
-                Console.WriteLine(" i :" + i);
 
-                panelOpt.SendToBack();
-               
-                panelOpt.Visible = false;
+                if (labelTitle.Width < 490)
+                {
+
+                    Console.WriteLine(" i :" + i);
+
+                    panelOpt.SendToBack();
+
+                    panelOpt.Visible = false;
 
 
-                RestoreLocation();
+                    RestoreLocation();
+                }
                 return;
             }
-            else if( i == 0)
-            {
-                return;
-            }
+           
 
             else if( i == 1)
             {
@@ -163,6 +165,10 @@ namespace NMS
                 
         }
 
+        /// <summary>
+        /// Opt LD를 자식 컨트롤로 부터 가져온다.
+        /// </summary>
+        /// <returns></returns>
         internal PictureBox[] GetOptLDs()
         {
             if (opt1 != null)
@@ -173,6 +179,10 @@ namespace NMS
                 return null;
         }
 
+        /// <summary>
+        /// Opt PB를 자식 컨트롤로 부터 가져온다.
+        /// </summary>
+        /// <returns></returns>
         internal PictureBox[] GetOptPBs()
         {
 
@@ -185,6 +195,9 @@ namespace NMS
             
         }
 
+        /// <summary>
+        /// Opt 상태 이미지를 초기화한다.
+        /// </summary>
         internal void InitOptImage()
         {
             if (opt1 != null)
@@ -209,6 +222,10 @@ namespace NMS
             }
         }
 
+        /// <summary>
+        /// PictureBox에 이미지 설정
+        /// </summary>
+        /// <param name="pbs"></param>
         private static void SetImage(PictureBox[] pbs)
         {
             foreach (var i in pbs)

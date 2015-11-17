@@ -607,6 +607,7 @@ namespace NMS
             btRuB[3, 0] = SYMain.ucRu4_1.RuButton; btRuB[3, 1] = SYMain.ucRu4_2.RuButton;
             //신둔
             btRuB[4, 0] = SYMain.ucRu5_1.RuButton;
+
             //여주
             btRuB[7, 0] = SYMain.ucRu8_1.RuButton;
 
@@ -649,9 +650,17 @@ namespace NMS
             //SYMain.ucRu4_1.FMButton.Click += btRuB_Click;
             //SYMain.ucRu4_2.FMButton.Click += btRuB_Click;
             //SYMain.ucRu5_1.FMButton.Click += btRuB_Click;
+            foreach(var bda in  SYMain.GetBDAs())
+            {
+                bda.ClickBDA += bda_ClickBDA;
+            }
+
+
 
             #endregion 버튼 이벤트 연결
         }
+
+        
 
         #region 컨트롤 제어(문자출력, 활성화 변경, 색변경)
 
@@ -1379,6 +1388,29 @@ namespace NMS
         {
             btRuB_Click(Convert.ToInt32(((Button)sender).Tag));
         }
+        
+        /// <summary>
+        ///  BDA 
+        /// </summary>
+        /// <param name="muID"></param>
+        /// <param name="BDA_Count"></param>
+        private void bda_ClickBDA(byte muID, int BDA_Count)
+        {
+
+            SetVisible(panelMainBase[0], false);
+            SetVisible(panelMainBase[1], true);
+            SetVisible(ucMUSt, false);  //MU 상세화면
+            SetVisible(ucMUSt_ILSAN, false);
+            SetVisible(ucRUSt, false);   //RU 상세화면
+            SetVisible(ucBDASt, true);
+            
+            string name = Common.clsNMS.stationList[muID];
+            ucBDASt.SetTitle(name);
+
+        }
+
+        
+
 
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
@@ -1480,9 +1512,11 @@ namespace NMS
             SetVisible(panelMainBase[0], false);
             SetVisible(panelMainBase[0], false);
             SetVisible(panelMainBase[1], true);
+            SetVisible(ucBDASt, false);
             SetVisible(ucMUSt, false);  //MU 상세화면
             SetVisible(ucMUSt_ILSAN, false);
             SetVisible(ucRUSt, true);   //RU 상세화면
+            
 
             ucRUSt.SetMode(0);
 
@@ -1518,8 +1552,9 @@ namespace NMS
             SetVisible(panelMainBase[1], true);
             SetVisible(ucMUSt, false);  //MU 상세화면
             SetVisible(ucMUSt_ILSAN, false);
+            SetVisible(ucBDASt, false); //bda
             SetVisible(ucRUSt, true);   //RU 상세화면
-
+            
             ucRUSt.SetMode(1);
 
             if (clsNMS.nmsGUIUser == 성남여주선)
@@ -3327,6 +3362,18 @@ namespace NMS
                     //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
                     #endregion CCE, RC1, RC2, RC3, CCE2, RC4, Repeat의 TX/RX/MON AF Gain값 요청에 대한 응답 처리
+
+                    break;
+
+                case Common.clsNMSSendDataMake.CMD_BDA_Status:
+
+
+                    #region BDA 정보 처리
+
+                    
+
+
+                    #endregion
 
                     break;
             }

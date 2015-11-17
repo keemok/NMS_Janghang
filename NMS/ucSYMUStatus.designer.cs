@@ -31,81 +31,55 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucSYMUStatus));
             this.panelMu광전송부감시상태 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.pbMUOptAlarm8 = new System.Windows.Forms.PictureBox();
             this.label223 = new System.Windows.Forms.Label();
             this.lblOptPd3 = new System.Windows.Forms.Label();
-            this.pbMUOther1 = new System.Windows.Forms.PictureBox();
             this.lblOptLd3 = new System.Windows.Forms.Label();
-            this.pbMUOptAlarm4 = new System.Windows.Forms.PictureBox();
-            this.pbMUOther2 = new System.Windows.Forms.PictureBox();
             this.lblMUOPTDCValue = new System.Windows.Forms.Label();
             this.lblOptLd1 = new System.Windows.Forms.Label();
             this.lbl광전송부감시상태1 = new System.Windows.Forms.Label();
-            this.pbMUOptAlarm3 = new System.Windows.Forms.PictureBox();
             this.lblOptLd2 = new System.Windows.Forms.Label();
-            this.pbMUOptAlarm6 = new System.Windows.Forms.PictureBox();
             this.lblOptPd4 = new System.Windows.Forms.Label();
             this.lbl광전송부감시상태2 = new System.Windows.Forms.Label();
-            this.pbMUOptAlarm5 = new System.Windows.Forms.PictureBox();
             this.lblOptPd1 = new System.Windows.Forms.Label();
             this.lbl광전송부감시상태3 = new System.Windows.Forms.Label();
-            this.pbMUOptAlarm7 = new System.Windows.Forms.PictureBox();
             this.lblOptPd2 = new System.Windows.Forms.Label();
-            this.pbMUOptAlarm2 = new System.Windows.Forms.PictureBox();
             this.lblOptLd4 = new System.Windows.Forms.Label();
-            this.pbMUOther3 = new System.Windows.Forms.PictureBox();
-            this.pbMUOptAlarm1 = new System.Windows.Forms.PictureBox();
             this.panelMu무선수신기 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.label222 = new System.Windows.Forms.Label();
             this.gbMu감청수신기_장애상태 = new System.Windows.Forms.GroupBox();
-            this.pbMUMon3 = new System.Windows.Forms.PictureBox();
             this.lblMUPllLock3 = new System.Windows.Forms.Label();
-            this.pbMUPllLock3 = new System.Windows.Forms.PictureBox();
             this.lblMUMon3 = new System.Windows.Forms.Label();
             this.gbMu감청수신기_채널정보 = new System.Windows.Forms.GroupBox();
             this.lblMUCHInfo3 = new System.Windows.Forms.Label();
             this.gbMu감청수신기_동작상태 = new System.Windows.Forms.GroupBox();
             this.label36 = new System.Windows.Forms.Label();
-            this.pbMUSRSt5 = new System.Windows.Forms.PictureBox();
             this.gbNMSOtherSet5 = new System.Windows.Forms.GroupBox();
             this.lblMURXRSSI3 = new System.Windows.Forms.Label();
             this.lblMainTitle = new System.Windows.Forms.Label();
             this.panelMu기타상태 = new System.Windows.Forms.Panel();
             this.panel11 = new System.Windows.Forms.Panel();
-            this.pbMURUASt = new System.Windows.Forms.PictureBox();
             this.lblMURUASt = new System.Windows.Forms.Label();
-            this.pbMUACU = new System.Windows.Forms.PictureBox();
             this.lblMUACU = new System.Windows.Forms.Label();
             this.lblMUMon5 = new System.Windows.Forms.Label();
             this.lblMUMon4 = new System.Windows.Forms.Label();
-            this.pbMUMon6 = new System.Windows.Forms.PictureBox();
-            this.pbMUMon5 = new System.Windows.Forms.PictureBox();
             this.lblMUMon6 = new System.Windows.Forms.Label();
-            this.pbMUMon4 = new System.Windows.Forms.PictureBox();
             this.label226 = new System.Windows.Forms.Label();
             this.panelMuPowerSupply = new System.Windows.Forms.Panel();
             this.panel12 = new System.Windows.Forms.Panel();
             this.lblMUPowerStby = new System.Windows.Forms.Label();
-            this.pbMUAC = new System.Windows.Forms.PictureBox();
-            this.pbMUPowerStby = new System.Windows.Forms.PictureBox();
             this.lblMUPowerMain = new System.Windows.Forms.Label();
             this.lblPowerSupply = new System.Windows.Forms.Label();
-            this.pbMUPowerMain = new System.Windows.Forms.PictureBox();
             this.label227 = new System.Windows.Forms.Label();
             this.panelMu무전기형식 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btMUWideNarrowChange = new System.Windows.Forms.Button();
             this.label225 = new System.Windows.Forms.Label();
-            this.pbMUWideNarrow2 = new System.Windows.Forms.PictureBox();
             this.lblMUWideNarrowChange1 = new System.Windows.Forms.Label();
             this.lblMUWideNarrowChange2 = new System.Windows.Forms.Label();
-            this.pbMUWideNarrow1 = new System.Windows.Forms.PictureBox();
             this.panelMu무선송수신기 = new System.Windows.Forms.Panel();
             this.panel9 = new System.Windows.Forms.Panel();
             this.gbMu주_송수신장애상태 = new System.Windows.Forms.GroupBox();
-            this.pbMUPllLock1 = new System.Windows.Forms.PictureBox();
-            this.pbMUMon1 = new System.Windows.Forms.PictureBox();
             this.lblMUPllLock1 = new System.Windows.Forms.Label();
             this.lblMUMon1 = new System.Windows.Forms.Label();
             this.label221 = new System.Windows.Forms.Label();
@@ -127,18 +101,14 @@
             this.groupBox59 = new System.Windows.Forms.GroupBox();
             this.lblMURXRSSI1 = new System.Windows.Forms.Label();
             this.label70 = new System.Windows.Forms.Label();
-            this.pbMUSRSt2 = new System.Windows.Forms.PictureBox();
             this.label71 = new System.Windows.Forms.Label();
-            this.pbMUSRSt1 = new System.Windows.Forms.PictureBox();
             this.panelMu무선송수신기예비 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
             this.btMUSendOutTest1 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.gbMu예비_송수신장애상태 = new System.Windows.Forms.GroupBox();
             this.lblMUMon2 = new System.Windows.Forms.Label();
-            this.pbMUPllLock2 = new System.Windows.Forms.PictureBox();
             this.lblMUPllLock2 = new System.Windows.Forms.Label();
-            this.pbMUMon2 = new System.Windows.Forms.PictureBox();
             this.gbMu예비_송수신기채널정보 = new System.Windows.Forms.GroupBox();
             this.lblMUCHInfo2 = new System.Windows.Forms.Label();
             this.gbMu예비_송신출력설정 = new System.Windows.Forms.GroupBox();
@@ -155,8 +125,6 @@
             this.lblMURfSpare = new System.Windows.Forms.Label();
             this.groupBox70 = new System.Windows.Forms.GroupBox();
             this.lblMURXRSSI2 = new System.Windows.Forms.Label();
-            this.pbMUSRSt4 = new System.Windows.Forms.PictureBox();
-            this.pbMUSRSt3 = new System.Windows.Forms.PictureBox();
             this.label104 = new System.Windows.Forms.Label();
             this.label106 = new System.Windows.Forms.Label();
             this.panelMu채널복귀 = new System.Windows.Forms.Panel();
@@ -173,16 +141,11 @@
             this.btMUAutoManual2 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.btMUAutoManual1 = new System.Windows.Forms.Button();
-            this.pbMUMainSpare1 = new System.Windows.Forms.PictureBox();
-            this.pbMUMainSpare2 = new System.Windows.Forms.PictureBox();
             this.btMUMainSpare2 = new System.Windows.Forms.Button();
-            this.pbMUAutoManual2 = new System.Windows.Forms.PictureBox();
-            this.pbMUAutoManual1 = new System.Windows.Forms.PictureBox();
             this.panelBase = new System.Windows.Forms.Panel();
             this.panelMuVer = new System.Windows.Forms.Panel();
             this.panelMUVerBase = new System.Windows.Forms.Panel();
             this.gbDC = new System.Windows.Forms.GroupBox();
-            this.pbDC = new System.Windows.Forms.PictureBox();
             this.lblDcValue = new System.Windows.Forms.Label();
             this.lblDC = new System.Windows.Forms.Label();
             this.gbWN = new System.Windows.Forms.GroupBox();
@@ -212,9 +175,7 @@
             this.label37 = new System.Windows.Forms.Label();
             this.lblBetteryChangeCurrent = new System.Windows.Forms.Label();
             this.gbPower = new System.Windows.Forms.GroupBox();
-            this.pbAcInputFail = new System.Windows.Forms.PictureBox();
             this.lblAcInputFail = new System.Windows.Forms.Label();
-            this.pbDCOutputFail = new System.Windows.Forms.PictureBox();
             this.lblDCOutputFail = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.gbOther = new System.Windows.Forms.GroupBox();
@@ -227,12 +188,10 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.lblPDPower = new System.Windows.Forms.Label();
-            this.pbPDAlarm = new System.Windows.Forms.PictureBox();
             this.lblPDAlarm = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
             this.lblLDPower = new System.Windows.Forms.Label();
-            this.pbLDAlarm = new System.Windows.Forms.PictureBox();
             this.lblLDAlarm = new System.Windows.Forms.Label();
             this.gbTSSI = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -241,82 +200,86 @@
             this.lblTssiRev = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.lblTssiFwd = new System.Windows.Forms.Label();
+            this.pbDC = new System.Windows.Forms.PictureBox();
+            this.pbMUMon3 = new System.Windows.Forms.PictureBox();
+            this.pbMUPllLock3 = new System.Windows.Forms.PictureBox();
+            this.pbMUSRSt5 = new System.Windows.Forms.PictureBox();
+            this.pbMUPllLock1 = new System.Windows.Forms.PictureBox();
+            this.pbMUMon1 = new System.Windows.Forms.PictureBox();
+            this.pbMUSRSt2 = new System.Windows.Forms.PictureBox();
+            this.pbMUSRSt1 = new System.Windows.Forms.PictureBox();
+            this.pbMUMainSpare1 = new System.Windows.Forms.PictureBox();
+            this.pbMUMainSpare2 = new System.Windows.Forms.PictureBox();
+            this.pbMUAutoManual2 = new System.Windows.Forms.PictureBox();
+            this.pbMUAutoManual1 = new System.Windows.Forms.PictureBox();
+            this.pbMUPllLock2 = new System.Windows.Forms.PictureBox();
+            this.pbMUMon2 = new System.Windows.Forms.PictureBox();
+            this.pbMUSRSt4 = new System.Windows.Forms.PictureBox();
+            this.pbMUSRSt3 = new System.Windows.Forms.PictureBox();
+            this.pbMUWideNarrow2 = new System.Windows.Forms.PictureBox();
+            this.pbMUWideNarrow1 = new System.Windows.Forms.PictureBox();
+            this.pbMUAC = new System.Windows.Forms.PictureBox();
+            this.pbMUPowerStby = new System.Windows.Forms.PictureBox();
+            this.pbMUPowerMain = new System.Windows.Forms.PictureBox();
+            this.pbMURUASt = new System.Windows.Forms.PictureBox();
+            this.pbMUACU = new System.Windows.Forms.PictureBox();
+            this.pbMUMon6 = new System.Windows.Forms.PictureBox();
+            this.pbMUMon5 = new System.Windows.Forms.PictureBox();
+            this.pbMUMon4 = new System.Windows.Forms.PictureBox();
+            this.pbMUOptAlarm8 = new System.Windows.Forms.PictureBox();
+            this.pbMUOther1 = new System.Windows.Forms.PictureBox();
+            this.pbMUOptAlarm4 = new System.Windows.Forms.PictureBox();
+            this.pbMUOther2 = new System.Windows.Forms.PictureBox();
+            this.pbMUOptAlarm3 = new System.Windows.Forms.PictureBox();
+            this.pbMUOptAlarm6 = new System.Windows.Forms.PictureBox();
+            this.pbMUOptAlarm5 = new System.Windows.Forms.PictureBox();
+            this.pbMUOptAlarm7 = new System.Windows.Forms.PictureBox();
+            this.pbMUOptAlarm2 = new System.Windows.Forms.PictureBox();
+            this.pbMUOther3 = new System.Windows.Forms.PictureBox();
+            this.pbMUOptAlarm1 = new System.Windows.Forms.PictureBox();
+            this.pbAcInputFail = new System.Windows.Forms.PictureBox();
+            this.pbDCOutputFail = new System.Windows.Forms.PictureBox();
+            this.pbPDAlarm = new System.Windows.Forms.PictureBox();
+            this.pbLDAlarm = new System.Windows.Forms.PictureBox();
             this.ucLif1 = new NMS.ucLif();
             this.panelMu광전송부감시상태.SuspendLayout();
             this.panel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUOther1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUOther2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUOther3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm1)).BeginInit();
             this.panelMu무선수신기.SuspendLayout();
             this.panel5.SuspendLayout();
             this.gbMu감청수신기_장애상태.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUMon3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUPllLock3)).BeginInit();
             this.gbMu감청수신기_채널정보.SuspendLayout();
             this.gbMu감청수신기_동작상태.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUSRSt5)).BeginInit();
             this.gbNMSOtherSet5.SuspendLayout();
             this.panelMu기타상태.SuspendLayout();
             this.panel11.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMURUASt)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUACU)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUMon6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUMon5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUMon4)).BeginInit();
             this.panelMuPowerSupply.SuspendLayout();
             this.panel12.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUAC)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUPowerStby)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUPowerMain)).BeginInit();
             this.panelMu무전기형식.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUWideNarrow2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUWideNarrow1)).BeginInit();
             this.panelMu무선송수신기.SuspendLayout();
             this.panel9.SuspendLayout();
             this.gbMu주_송수신장애상태.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUPllLock1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUMon1)).BeginInit();
             this.gbMu주_송신출력설정.SuspendLayout();
             this.gbMu주_송수신기채널정보.SuspendLayout();
             this.gbMu주_송수신동작상태.SuspendLayout();
             this.groupBox58.SuspendLayout();
             this.groupBox59.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUSRSt2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUSRSt1)).BeginInit();
             this.panelMu무선송수신기예비.SuspendLayout();
             this.panel8.SuspendLayout();
             this.gbMu예비_송수신장애상태.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUPllLock2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUMon2)).BeginInit();
             this.gbMu예비_송수신기채널정보.SuspendLayout();
             this.gbMu예비_송신출력설정.SuspendLayout();
             this.gbMu예비_송수신동작상태.SuspendLayout();
             this.groupBox71.SuspendLayout();
             this.groupBox70.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUSRSt4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUSRSt3)).BeginInit();
             this.panelMu채널복귀.SuspendLayout();
             this.panel채널복귀내부.SuspendLayout();
             this.panelMuAntennaMatchungUnit.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUMainSpare1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUMainSpare2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUAutoManual2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUAutoManual1)).BeginInit();
             this.panelBase.SuspendLayout();
             this.panelMuVer.SuspendLayout();
             this.panelMUVerBase.SuspendLayout();
             this.gbDC.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbDC)).BeginInit();
             this.gbWN.SuspendLayout();
             this.gbAcuVer.SuspendLayout();
             this.gbMonVer.SuspendLayout();
@@ -329,16 +292,53 @@
             this.gbBetteryVoltage.SuspendLayout();
             this.gbBetteryChangeCurrent.SuspendLayout();
             this.gbPower.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbAcInputFail)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbDCOutputFail)).BeginInit();
             this.gbOther.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPDAlarm)).BeginInit();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbLDAlarm)).BeginInit();
             this.gbTSSI.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbDC)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUMon3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUPllLock3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUSRSt5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUPllLock1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUMon1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUSRSt2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUSRSt1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUMainSpare1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUMainSpare2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUAutoManual2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUAutoManual1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUPllLock2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUMon2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUSRSt4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUSRSt3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUWideNarrow2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUWideNarrow1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUAC)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUPowerStby)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUPowerMain)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMURUASt)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUACU)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUMon6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUMon5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUMon4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUOther1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUOther2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUOther3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbAcInputFail)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbDCOutputFail)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPDAlarm)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLDAlarm)).BeginInit();
             this.SuspendLayout();
             // 
             // panelMu광전송부감시상태
@@ -383,15 +383,6 @@
             this.panel7.Size = new System.Drawing.Size(490, 342);
             this.panel7.TabIndex = 247;
             // 
-            // pbMUOptAlarm8
-            // 
-            this.pbMUOptAlarm8.Location = new System.Drawing.Point(282, 298);
-            this.pbMUOptAlarm8.Name = "pbMUOptAlarm8";
-            this.pbMUOptAlarm8.Size = new System.Drawing.Size(20, 20);
-            this.pbMUOptAlarm8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUOptAlarm8.TabIndex = 57;
-            this.pbMUOptAlarm8.TabStop = false;
-            // 
             // label223
             // 
             this.label223.BackColor = System.Drawing.Color.DodgerBlue;
@@ -415,15 +406,6 @@
             this.lblOptPd3.Text = "OPT3 PD";
             this.lblOptPd3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // pbMUOther1
-            // 
-            this.pbMUOther1.Location = new System.Drawing.Point(105, 68);
-            this.pbMUOther1.Name = "pbMUOther1";
-            this.pbMUOther1.Size = new System.Drawing.Size(20, 20);
-            this.pbMUOther1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUOther1.TabIndex = 37;
-            this.pbMUOther1.TabStop = false;
-            // 
             // lblOptLd3
             // 
             this.lblOptLd3.AutoSize = true;
@@ -434,24 +416,6 @@
             this.lblOptLd3.TabIndex = 51;
             this.lblOptLd3.Text = "OPT3 LD";
             this.lblOptLd3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // pbMUOptAlarm4
-            // 
-            this.pbMUOptAlarm4.Location = new System.Drawing.Point(104, 298);
-            this.pbMUOptAlarm4.Name = "pbMUOptAlarm4";
-            this.pbMUOptAlarm4.Size = new System.Drawing.Size(20, 20);
-            this.pbMUOptAlarm4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUOptAlarm4.TabIndex = 58;
-            this.pbMUOptAlarm4.TabStop = false;
-            // 
-            // pbMUOther2
-            // 
-            this.pbMUOther2.Location = new System.Drawing.Point(105, 114);
-            this.pbMUOther2.Name = "pbMUOther2";
-            this.pbMUOther2.Size = new System.Drawing.Size(20, 20);
-            this.pbMUOther2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUOther2.TabIndex = 41;
-            this.pbMUOther2.TabStop = false;
             // 
             // lblMUOPTDCValue
             // 
@@ -486,15 +450,6 @@
             this.lbl광전송부감시상태1.Text = "DC 고장";
             this.lbl광전송부감시상태1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // pbMUOptAlarm3
-            // 
-            this.pbMUOptAlarm3.Location = new System.Drawing.Point(105, 252);
-            this.pbMUOptAlarm3.Name = "pbMUOptAlarm3";
-            this.pbMUOptAlarm3.Size = new System.Drawing.Size(20, 20);
-            this.pbMUOptAlarm3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUOptAlarm3.TabIndex = 54;
-            this.pbMUOptAlarm3.TabStop = false;
-            // 
             // lblOptLd2
             // 
             this.lblOptLd2.AutoSize = true;
@@ -505,15 +460,6 @@
             this.lblOptLd2.TabIndex = 47;
             this.lblOptLd2.Text = "OPT2 LD";
             this.lblOptLd2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // pbMUOptAlarm6
-            // 
-            this.pbMUOptAlarm6.Location = new System.Drawing.Point(283, 206);
-            this.pbMUOptAlarm6.Name = "pbMUOptAlarm6";
-            this.pbMUOptAlarm6.Size = new System.Drawing.Size(20, 20);
-            this.pbMUOptAlarm6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUOptAlarm6.TabIndex = 49;
-            this.pbMUOptAlarm6.TabStop = false;
             // 
             // lblOptPd4
             // 
@@ -537,15 +483,6 @@
             this.lbl광전송부감시상태2.Text = "OPT UNIT";
             this.lbl광전송부감시상태2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // pbMUOptAlarm5
-            // 
-            this.pbMUOptAlarm5.Location = new System.Drawing.Point(283, 160);
-            this.pbMUOptAlarm5.Name = "pbMUOptAlarm5";
-            this.pbMUOptAlarm5.Size = new System.Drawing.Size(20, 20);
-            this.pbMUOptAlarm5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUOptAlarm5.TabIndex = 45;
-            this.pbMUOptAlarm5.TabStop = false;
-            // 
             // lblOptPd1
             // 
             this.lblOptPd1.AutoSize = true;
@@ -568,15 +505,6 @@
             this.lbl광전송부감시상태3.Text = "OPT PTT";
             this.lbl광전송부감시상태3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // pbMUOptAlarm7
-            // 
-            this.pbMUOptAlarm7.Location = new System.Drawing.Point(283, 252);
-            this.pbMUOptAlarm7.Name = "pbMUOptAlarm7";
-            this.pbMUOptAlarm7.Size = new System.Drawing.Size(20, 20);
-            this.pbMUOptAlarm7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUOptAlarm7.TabIndex = 53;
-            this.pbMUOptAlarm7.TabStop = false;
-            // 
             // lblOptPd2
             // 
             this.lblOptPd2.AutoSize = true;
@@ -588,15 +516,6 @@
             this.lblOptPd2.Text = "OPT2 PD";
             this.lblOptPd2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // pbMUOptAlarm2
-            // 
-            this.pbMUOptAlarm2.Location = new System.Drawing.Point(105, 206);
-            this.pbMUOptAlarm2.Name = "pbMUOptAlarm2";
-            this.pbMUOptAlarm2.Size = new System.Drawing.Size(20, 20);
-            this.pbMUOptAlarm2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUOptAlarm2.TabIndex = 50;
-            this.pbMUOptAlarm2.TabStop = false;
-            // 
             // lblOptLd4
             // 
             this.lblOptLd4.AutoSize = true;
@@ -607,24 +526,6 @@
             this.lblOptLd4.TabIndex = 55;
             this.lblOptLd4.Text = "OPT4 LD";
             this.lblOptLd4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // pbMUOther3
-            // 
-            this.pbMUOther3.Location = new System.Drawing.Point(283, 114);
-            this.pbMUOther3.Name = "pbMUOther3";
-            this.pbMUOther3.Size = new System.Drawing.Size(20, 20);
-            this.pbMUOther3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUOther3.TabIndex = 39;
-            this.pbMUOther3.TabStop = false;
-            // 
-            // pbMUOptAlarm1
-            // 
-            this.pbMUOptAlarm1.Location = new System.Drawing.Point(105, 160);
-            this.pbMUOptAlarm1.Name = "pbMUOptAlarm1";
-            this.pbMUOptAlarm1.Size = new System.Drawing.Size(20, 20);
-            this.pbMUOptAlarm1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUOptAlarm1.TabIndex = 46;
-            this.pbMUOptAlarm1.TabStop = false;
             // 
             // panelMu무선수신기
             // 
@@ -673,15 +574,6 @@
             this.gbMu감청수신기_장애상태.TabStop = false;
             this.gbMu감청수신기_장애상태.Text = "장애 상태";
             // 
-            // pbMUMon3
-            // 
-            this.pbMUMon3.Location = new System.Drawing.Point(11, 67);
-            this.pbMUMon3.Name = "pbMUMon3";
-            this.pbMUMon3.Size = new System.Drawing.Size(20, 20);
-            this.pbMUMon3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUMon3.TabIndex = 35;
-            this.pbMUMon3.TabStop = false;
-            // 
             // lblMUPllLock3
             // 
             this.lblMUPllLock3.AutoSize = true;
@@ -692,15 +584,6 @@
             this.lblMUPllLock3.TabIndex = 41;
             this.lblMUPllLock3.Text = "PLL LOCK 장애";
             this.lblMUPllLock3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // pbMUPllLock3
-            // 
-            this.pbMUPllLock3.Location = new System.Drawing.Point(11, 29);
-            this.pbMUPllLock3.Name = "pbMUPllLock3";
-            this.pbMUPllLock3.Size = new System.Drawing.Size(20, 20);
-            this.pbMUPllLock3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUPllLock3.TabIndex = 40;
-            this.pbMUPllLock3.TabStop = false;
             // 
             // lblMUMon3
             // 
@@ -757,15 +640,6 @@
             this.label36.TabIndex = 36;
             this.label36.Text = "수신";
             this.label36.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // pbMUSRSt5
-            // 
-            this.pbMUSRSt5.Location = new System.Drawing.Point(11, 57);
-            this.pbMUSRSt5.Name = "pbMUSRSt5";
-            this.pbMUSRSt5.Size = new System.Drawing.Size(20, 20);
-            this.pbMUSRSt5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUSRSt5.TabIndex = 31;
-            this.pbMUSRSt5.TabStop = false;
             // 
             // gbNMSOtherSet5
             // 
@@ -827,15 +701,6 @@
             this.panel11.Size = new System.Drawing.Size(276, 166);
             this.panel11.TabIndex = 251;
             // 
-            // pbMURUASt
-            // 
-            this.pbMURUASt.Location = new System.Drawing.Point(76, 118);
-            this.pbMURUASt.Name = "pbMURUASt";
-            this.pbMURUASt.Size = new System.Drawing.Size(20, 20);
-            this.pbMURUASt.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMURUASt.TabIndex = 227;
-            this.pbMURUASt.TabStop = false;
-            // 
             // lblMURUASt
             // 
             this.lblMURUASt.AutoSize = true;
@@ -846,15 +711,6 @@
             this.lblMURUASt.TabIndex = 226;
             this.lblMURUASt.Text = "RUA 상태";
             this.lblMURUASt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // pbMUACU
-            // 
-            this.pbMUACU.Location = new System.Drawing.Point(76, 74);
-            this.pbMUACU.Name = "pbMUACU";
-            this.pbMUACU.Size = new System.Drawing.Size(20, 20);
-            this.pbMUACU.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUACU.TabIndex = 225;
-            this.pbMUACU.TabStop = false;
             // 
             // lblMUACU
             // 
@@ -891,26 +747,6 @@
             this.lblMUMon4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblMUMon4.Visible = false;
             // 
-            // pbMUMon6
-            // 
-            this.pbMUMon6.Location = new System.Drawing.Point(131, 0);
-            this.pbMUMon6.Name = "pbMUMon6";
-            this.pbMUMon6.Size = new System.Drawing.Size(20, 20);
-            this.pbMUMon6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUMon6.TabIndex = 48;
-            this.pbMUMon6.TabStop = false;
-            this.pbMUMon6.Visible = false;
-            // 
-            // pbMUMon5
-            // 
-            this.pbMUMon5.Location = new System.Drawing.Point(0, 22);
-            this.pbMUMon5.Name = "pbMUMon5";
-            this.pbMUMon5.Size = new System.Drawing.Size(20, 20);
-            this.pbMUMon5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUMon5.TabIndex = 46;
-            this.pbMUMon5.TabStop = false;
-            this.pbMUMon5.Visible = false;
-            // 
             // lblMUMon6
             // 
             this.lblMUMon6.AutoSize = true;
@@ -922,16 +758,6 @@
             this.lblMUMon6.Text = "MU UPS 연결";
             this.lblMUMon6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblMUMon6.Visible = false;
-            // 
-            // pbMUMon4
-            // 
-            this.pbMUMon4.Location = new System.Drawing.Point(0, 0);
-            this.pbMUMon4.Name = "pbMUMon4";
-            this.pbMUMon4.Size = new System.Drawing.Size(20, 20);
-            this.pbMUMon4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUMon4.TabIndex = 44;
-            this.pbMUMon4.TabStop = false;
-            this.pbMUMon4.Visible = false;
             // 
             // label226
             // 
@@ -980,25 +806,6 @@
             this.lblMUPowerStby.Text = "Stby 전원부 고장";
             this.lblMUPowerStby.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pbMUAC
-            // 
-            this.pbMUAC.Location = new System.Drawing.Point(4, 2);
-            this.pbMUAC.Name = "pbMUAC";
-            this.pbMUAC.Size = new System.Drawing.Size(20, 20);
-            this.pbMUAC.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUAC.TabIndex = 24;
-            this.pbMUAC.TabStop = false;
-            this.pbMUAC.Visible = false;
-            // 
-            // pbMUPowerStby
-            // 
-            this.pbMUPowerStby.Location = new System.Drawing.Point(65, 118);
-            this.pbMUPowerStby.Name = "pbMUPowerStby";
-            this.pbMUPowerStby.Size = new System.Drawing.Size(20, 20);
-            this.pbMUPowerStby.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUPowerStby.TabIndex = 226;
-            this.pbMUPowerStby.TabStop = false;
-            // 
             // lblMUPowerMain
             // 
             this.lblMUPowerMain.AutoSize = true;
@@ -1021,15 +828,6 @@
             this.lblPowerSupply.Text = "전원부 고장";
             this.lblPowerSupply.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblPowerSupply.Visible = false;
-            // 
-            // pbMUPowerMain
-            // 
-            this.pbMUPowerMain.Location = new System.Drawing.Point(65, 74);
-            this.pbMUPowerMain.Name = "pbMUPowerMain";
-            this.pbMUPowerMain.Size = new System.Drawing.Size(20, 20);
-            this.pbMUPowerMain.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUPowerMain.TabIndex = 224;
-            this.pbMUPowerMain.TabStop = false;
             // 
             // label227
             // 
@@ -1092,15 +890,6 @@
             this.label225.Text = "무전기 형식";
             this.label225.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pbMUWideNarrow2
-            // 
-            this.pbMUWideNarrow2.Location = new System.Drawing.Point(65, 118);
-            this.pbMUWideNarrow2.Name = "pbMUWideNarrow2";
-            this.pbMUWideNarrow2.Size = new System.Drawing.Size(20, 20);
-            this.pbMUWideNarrow2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUWideNarrow2.TabIndex = 24;
-            this.pbMUWideNarrow2.TabStop = false;
-            // 
             // lblMUWideNarrowChange1
             // 
             this.lblMUWideNarrowChange1.AutoSize = true;
@@ -1122,15 +911,6 @@
             this.lblMUWideNarrowChange2.TabIndex = 11;
             this.lblMUWideNarrowChange2.Text = "Narrow";
             this.lblMUWideNarrowChange2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // pbMUWideNarrow1
-            // 
-            this.pbMUWideNarrow1.Location = new System.Drawing.Point(65, 74);
-            this.pbMUWideNarrow1.Name = "pbMUWideNarrow1";
-            this.pbMUWideNarrow1.Size = new System.Drawing.Size(20, 20);
-            this.pbMUWideNarrow1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUWideNarrow1.TabIndex = 23;
-            this.pbMUWideNarrow1.TabStop = false;
             // 
             // panelMu무선송수신기
             // 
@@ -1168,24 +948,6 @@
             this.gbMu주_송수신장애상태.TabIndex = 38;
             this.gbMu주_송수신장애상태.TabStop = false;
             this.gbMu주_송수신장애상태.Text = "장애 상태";
-            // 
-            // pbMUPllLock1
-            // 
-            this.pbMUPllLock1.Location = new System.Drawing.Point(18, 31);
-            this.pbMUPllLock1.Name = "pbMUPllLock1";
-            this.pbMUPllLock1.Size = new System.Drawing.Size(20, 20);
-            this.pbMUPllLock1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUPllLock1.TabIndex = 36;
-            this.pbMUPllLock1.TabStop = false;
-            // 
-            // pbMUMon1
-            // 
-            this.pbMUMon1.Location = new System.Drawing.Point(18, 64);
-            this.pbMUMon1.Name = "pbMUMon1";
-            this.pbMUMon1.Size = new System.Drawing.Size(20, 20);
-            this.pbMUMon1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUMon1.TabIndex = 34;
-            this.pbMUMon1.TabStop = false;
             // 
             // lblMUPllLock1
             // 
@@ -1425,15 +1187,6 @@
             this.label70.Text = "수신";
             this.label70.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // pbMUSRSt2
-            // 
-            this.pbMUSRSt2.Location = new System.Drawing.Point(19, 70);
-            this.pbMUSRSt2.Name = "pbMUSRSt2";
-            this.pbMUSRSt2.Size = new System.Drawing.Size(20, 20);
-            this.pbMUSRSt2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUSRSt2.TabIndex = 28;
-            this.pbMUSRSt2.TabStop = false;
-            // 
             // label71
             // 
             this.label71.AutoSize = true;
@@ -1444,15 +1197,6 @@
             this.label71.TabIndex = 30;
             this.label71.Text = "송신";
             this.label71.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // pbMUSRSt1
-            // 
-            this.pbMUSRSt1.Location = new System.Drawing.Point(19, 32);
-            this.pbMUSRSt1.Name = "pbMUSRSt1";
-            this.pbMUSRSt1.Size = new System.Drawing.Size(20, 20);
-            this.pbMUSRSt1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUSRSt1.TabIndex = 28;
-            this.pbMUSRSt1.TabStop = false;
             // 
             // panelMu무선송수신기예비
             // 
@@ -1527,15 +1271,6 @@
             this.lblMUMon2.Text = "STBY TRANSCEIVER";
             this.lblMUMon2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // pbMUPllLock2
-            // 
-            this.pbMUPllLock2.Location = new System.Drawing.Point(17, 31);
-            this.pbMUPllLock2.Name = "pbMUPllLock2";
-            this.pbMUPllLock2.Size = new System.Drawing.Size(20, 20);
-            this.pbMUPllLock2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUPllLock2.TabIndex = 38;
-            this.pbMUPllLock2.TabStop = false;
-            // 
             // lblMUPllLock2
             // 
             this.lblMUPllLock2.AutoSize = true;
@@ -1546,15 +1281,6 @@
             this.lblMUPllLock2.TabIndex = 39;
             this.lblMUPllLock2.Text = "PLL LOCK 장애";
             this.lblMUPllLock2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // pbMUMon2
-            // 
-            this.pbMUMon2.Location = new System.Drawing.Point(17, 64);
-            this.pbMUMon2.Name = "pbMUMon2";
-            this.pbMUMon2.Size = new System.Drawing.Size(20, 20);
-            this.pbMUMon2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUMon2.TabIndex = 33;
-            this.pbMUMon2.TabStop = false;
             // 
             // gbMu예비_송수신기채널정보
             // 
@@ -1735,24 +1461,6 @@
             this.lblMURXRSSI2.TabIndex = 5;
             this.lblMURXRSSI2.Text = "0 dBm";
             this.lblMURXRSSI2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // pbMUSRSt4
-            // 
-            this.pbMUSRSt4.Location = new System.Drawing.Point(19, 70);
-            this.pbMUSRSt4.Name = "pbMUSRSt4";
-            this.pbMUSRSt4.Size = new System.Drawing.Size(20, 20);
-            this.pbMUSRSt4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUSRSt4.TabIndex = 30;
-            this.pbMUSRSt4.TabStop = false;
-            // 
-            // pbMUSRSt3
-            // 
-            this.pbMUSRSt3.Location = new System.Drawing.Point(19, 32);
-            this.pbMUSRSt3.Name = "pbMUSRSt3";
-            this.pbMUSRSt3.Size = new System.Drawing.Size(20, 20);
-            this.pbMUSRSt3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUSRSt3.TabIndex = 29;
-            this.pbMUSRSt3.TabStop = false;
             // 
             // label104
             // 
@@ -1942,24 +1650,6 @@
             this.btMUAutoManual1.UseVisualStyleBackColor = false;
             this.btMUAutoManual1.Click += new System.EventHandler(this.btMUAutoManualChange_Click);
             // 
-            // pbMUMainSpare1
-            // 
-            this.pbMUMainSpare1.Location = new System.Drawing.Point(27, 77);
-            this.pbMUMainSpare1.Name = "pbMUMainSpare1";
-            this.pbMUMainSpare1.Size = new System.Drawing.Size(20, 20);
-            this.pbMUMainSpare1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUMainSpare1.TabIndex = 223;
-            this.pbMUMainSpare1.TabStop = false;
-            // 
-            // pbMUMainSpare2
-            // 
-            this.pbMUMainSpare2.Location = new System.Drawing.Point(111, 76);
-            this.pbMUMainSpare2.Name = "pbMUMainSpare2";
-            this.pbMUMainSpare2.Size = new System.Drawing.Size(20, 20);
-            this.pbMUMainSpare2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUMainSpare2.TabIndex = 224;
-            this.pbMUMainSpare2.TabStop = false;
-            // 
             // btMUMainSpare2
             // 
             this.btMUMainSpare2.BackColor = System.Drawing.SystemColors.Control;
@@ -1972,24 +1662,6 @@
             this.btMUMainSpare2.Text = "STBY";
             this.btMUMainSpare2.UseVisualStyleBackColor = false;
             this.btMUMainSpare2.Click += new System.EventHandler(this.btMUMainSpareChange_Click);
-            // 
-            // pbMUAutoManual2
-            // 
-            this.pbMUAutoManual2.Location = new System.Drawing.Point(111, 112);
-            this.pbMUAutoManual2.Name = "pbMUAutoManual2";
-            this.pbMUAutoManual2.Size = new System.Drawing.Size(20, 20);
-            this.pbMUAutoManual2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUAutoManual2.TabIndex = 228;
-            this.pbMUAutoManual2.TabStop = false;
-            // 
-            // pbMUAutoManual1
-            // 
-            this.pbMUAutoManual1.Location = new System.Drawing.Point(10, 112);
-            this.pbMUAutoManual1.Name = "pbMUAutoManual1";
-            this.pbMUAutoManual1.Size = new System.Drawing.Size(20, 20);
-            this.pbMUAutoManual1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMUAutoManual1.TabIndex = 227;
-            this.pbMUAutoManual1.TabStop = false;
             // 
             // panelBase
             // 
@@ -2047,16 +1719,6 @@
             this.gbDC.TabIndex = 223;
             this.gbDC.TabStop = false;
             this.gbDC.Text = "DC 및 Battery 상태";
-            // 
-            // pbDC
-            // 
-            this.pbDC.Image = ((System.Drawing.Image)(resources.GetObject("pbDC.Image")));
-            this.pbDC.Location = new System.Drawing.Point(46, 37);
-            this.pbDC.Name = "pbDC";
-            this.pbDC.Size = new System.Drawing.Size(20, 20);
-            this.pbDC.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbDC.TabIndex = 266;
-            this.pbDC.TabStop = false;
             // 
             // lblDcValue
             // 
@@ -2370,16 +2032,6 @@
             this.gbPower.TabStop = false;
             this.gbPower.Text = "전원부 상태";
             // 
-            // pbAcInputFail
-            // 
-            this.pbAcInputFail.Image = ((System.Drawing.Image)(resources.GetObject("pbAcInputFail.Image")));
-            this.pbAcInputFail.Location = new System.Drawing.Point(33, 29);
-            this.pbAcInputFail.Name = "pbAcInputFail";
-            this.pbAcInputFail.Size = new System.Drawing.Size(20, 20);
-            this.pbAcInputFail.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbAcInputFail.TabIndex = 242;
-            this.pbAcInputFail.TabStop = false;
-            // 
             // lblAcInputFail
             // 
             this.lblAcInputFail.AutoSize = true;
@@ -2390,16 +2042,6 @@
             this.lblAcInputFail.TabIndex = 241;
             this.lblAcInputFail.Text = "AC Input Fail";
             this.lblAcInputFail.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // pbDCOutputFail
-            // 
-            this.pbDCOutputFail.Image = ((System.Drawing.Image)(resources.GetObject("pbDCOutputFail.Image")));
-            this.pbDCOutputFail.Location = new System.Drawing.Point(33, 55);
-            this.pbDCOutputFail.Name = "pbDCOutputFail";
-            this.pbDCOutputFail.Size = new System.Drawing.Size(20, 20);
-            this.pbDCOutputFail.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbDCOutputFail.TabIndex = 244;
-            this.pbDCOutputFail.TabStop = false;
             // 
             // lblDCOutputFail
             // 
@@ -2540,16 +2182,6 @@
             this.lblPDPower.Text = "0";
             this.lblPDPower.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // pbPDAlarm
-            // 
-            this.pbPDAlarm.Image = ((System.Drawing.Image)(resources.GetObject("pbPDAlarm.Image")));
-            this.pbPDAlarm.Location = new System.Drawing.Point(126, 30);
-            this.pbPDAlarm.Name = "pbPDAlarm";
-            this.pbPDAlarm.Size = new System.Drawing.Size(20, 20);
-            this.pbPDAlarm.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbPDAlarm.TabIndex = 262;
-            this.pbPDAlarm.TabStop = false;
-            // 
             // lblPDAlarm
             // 
             this.lblPDAlarm.AutoSize = true;
@@ -2592,16 +2224,6 @@
             this.lblLDPower.TabIndex = 241;
             this.lblLDPower.Text = "0";
             this.lblLDPower.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // pbLDAlarm
-            // 
-            this.pbLDAlarm.Image = ((System.Drawing.Image)(resources.GetObject("pbLDAlarm.Image")));
-            this.pbLDAlarm.Location = new System.Drawing.Point(12, 30);
-            this.pbLDAlarm.Name = "pbLDAlarm";
-            this.pbLDAlarm.Size = new System.Drawing.Size(20, 20);
-            this.pbLDAlarm.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbLDAlarm.TabIndex = 245;
-            this.pbLDAlarm.TabStop = false;
             // 
             // lblLDAlarm
             // 
@@ -2690,6 +2312,384 @@
             this.lblTssiFwd.Text = "0";
             this.lblTssiFwd.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // pbDC
+            // 
+            this.pbDC.Image = ((System.Drawing.Image)(resources.GetObject("pbDC.Image")));
+            this.pbDC.Location = new System.Drawing.Point(46, 37);
+            this.pbDC.Name = "pbDC";
+            this.pbDC.Size = new System.Drawing.Size(20, 20);
+            this.pbDC.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbDC.TabIndex = 266;
+            this.pbDC.TabStop = false;
+            // 
+            // pbMUMon3
+            // 
+            this.pbMUMon3.Location = new System.Drawing.Point(11, 67);
+            this.pbMUMon3.Name = "pbMUMon3";
+            this.pbMUMon3.Size = new System.Drawing.Size(20, 20);
+            this.pbMUMon3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUMon3.TabIndex = 35;
+            this.pbMUMon3.TabStop = false;
+            // 
+            // pbMUPllLock3
+            // 
+            this.pbMUPllLock3.Location = new System.Drawing.Point(11, 29);
+            this.pbMUPllLock3.Name = "pbMUPllLock3";
+            this.pbMUPllLock3.Size = new System.Drawing.Size(20, 20);
+            this.pbMUPllLock3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUPllLock3.TabIndex = 40;
+            this.pbMUPllLock3.TabStop = false;
+            // 
+            // pbMUSRSt5
+            // 
+            this.pbMUSRSt5.Location = new System.Drawing.Point(11, 57);
+            this.pbMUSRSt5.Name = "pbMUSRSt5";
+            this.pbMUSRSt5.Size = new System.Drawing.Size(20, 20);
+            this.pbMUSRSt5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUSRSt5.TabIndex = 31;
+            this.pbMUSRSt5.TabStop = false;
+            // 
+            // pbMUPllLock1
+            // 
+            this.pbMUPllLock1.Location = new System.Drawing.Point(18, 31);
+            this.pbMUPllLock1.Name = "pbMUPllLock1";
+            this.pbMUPllLock1.Size = new System.Drawing.Size(20, 20);
+            this.pbMUPllLock1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUPllLock1.TabIndex = 36;
+            this.pbMUPllLock1.TabStop = false;
+            // 
+            // pbMUMon1
+            // 
+            this.pbMUMon1.Location = new System.Drawing.Point(18, 64);
+            this.pbMUMon1.Name = "pbMUMon1";
+            this.pbMUMon1.Size = new System.Drawing.Size(20, 20);
+            this.pbMUMon1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUMon1.TabIndex = 34;
+            this.pbMUMon1.TabStop = false;
+            // 
+            // pbMUSRSt2
+            // 
+            this.pbMUSRSt2.Location = new System.Drawing.Point(19, 70);
+            this.pbMUSRSt2.Name = "pbMUSRSt2";
+            this.pbMUSRSt2.Size = new System.Drawing.Size(20, 20);
+            this.pbMUSRSt2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUSRSt2.TabIndex = 28;
+            this.pbMUSRSt2.TabStop = false;
+            // 
+            // pbMUSRSt1
+            // 
+            this.pbMUSRSt1.Location = new System.Drawing.Point(19, 32);
+            this.pbMUSRSt1.Name = "pbMUSRSt1";
+            this.pbMUSRSt1.Size = new System.Drawing.Size(20, 20);
+            this.pbMUSRSt1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUSRSt1.TabIndex = 28;
+            this.pbMUSRSt1.TabStop = false;
+            // 
+            // pbMUMainSpare1
+            // 
+            this.pbMUMainSpare1.Location = new System.Drawing.Point(27, 77);
+            this.pbMUMainSpare1.Name = "pbMUMainSpare1";
+            this.pbMUMainSpare1.Size = new System.Drawing.Size(20, 20);
+            this.pbMUMainSpare1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUMainSpare1.TabIndex = 223;
+            this.pbMUMainSpare1.TabStop = false;
+            // 
+            // pbMUMainSpare2
+            // 
+            this.pbMUMainSpare2.Location = new System.Drawing.Point(111, 76);
+            this.pbMUMainSpare2.Name = "pbMUMainSpare2";
+            this.pbMUMainSpare2.Size = new System.Drawing.Size(20, 20);
+            this.pbMUMainSpare2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUMainSpare2.TabIndex = 224;
+            this.pbMUMainSpare2.TabStop = false;
+            // 
+            // pbMUAutoManual2
+            // 
+            this.pbMUAutoManual2.Location = new System.Drawing.Point(111, 112);
+            this.pbMUAutoManual2.Name = "pbMUAutoManual2";
+            this.pbMUAutoManual2.Size = new System.Drawing.Size(20, 20);
+            this.pbMUAutoManual2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUAutoManual2.TabIndex = 228;
+            this.pbMUAutoManual2.TabStop = false;
+            // 
+            // pbMUAutoManual1
+            // 
+            this.pbMUAutoManual1.Location = new System.Drawing.Point(10, 112);
+            this.pbMUAutoManual1.Name = "pbMUAutoManual1";
+            this.pbMUAutoManual1.Size = new System.Drawing.Size(20, 20);
+            this.pbMUAutoManual1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUAutoManual1.TabIndex = 227;
+            this.pbMUAutoManual1.TabStop = false;
+            // 
+            // pbMUPllLock2
+            // 
+            this.pbMUPllLock2.Location = new System.Drawing.Point(17, 31);
+            this.pbMUPllLock2.Name = "pbMUPllLock2";
+            this.pbMUPllLock2.Size = new System.Drawing.Size(20, 20);
+            this.pbMUPllLock2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUPllLock2.TabIndex = 38;
+            this.pbMUPllLock2.TabStop = false;
+            // 
+            // pbMUMon2
+            // 
+            this.pbMUMon2.Location = new System.Drawing.Point(17, 64);
+            this.pbMUMon2.Name = "pbMUMon2";
+            this.pbMUMon2.Size = new System.Drawing.Size(20, 20);
+            this.pbMUMon2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUMon2.TabIndex = 33;
+            this.pbMUMon2.TabStop = false;
+            // 
+            // pbMUSRSt4
+            // 
+            this.pbMUSRSt4.Location = new System.Drawing.Point(19, 70);
+            this.pbMUSRSt4.Name = "pbMUSRSt4";
+            this.pbMUSRSt4.Size = new System.Drawing.Size(20, 20);
+            this.pbMUSRSt4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUSRSt4.TabIndex = 30;
+            this.pbMUSRSt4.TabStop = false;
+            // 
+            // pbMUSRSt3
+            // 
+            this.pbMUSRSt3.Location = new System.Drawing.Point(19, 32);
+            this.pbMUSRSt3.Name = "pbMUSRSt3";
+            this.pbMUSRSt3.Size = new System.Drawing.Size(20, 20);
+            this.pbMUSRSt3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUSRSt3.TabIndex = 29;
+            this.pbMUSRSt3.TabStop = false;
+            // 
+            // pbMUWideNarrow2
+            // 
+            this.pbMUWideNarrow2.Location = new System.Drawing.Point(65, 118);
+            this.pbMUWideNarrow2.Name = "pbMUWideNarrow2";
+            this.pbMUWideNarrow2.Size = new System.Drawing.Size(20, 20);
+            this.pbMUWideNarrow2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUWideNarrow2.TabIndex = 24;
+            this.pbMUWideNarrow2.TabStop = false;
+            // 
+            // pbMUWideNarrow1
+            // 
+            this.pbMUWideNarrow1.Location = new System.Drawing.Point(65, 74);
+            this.pbMUWideNarrow1.Name = "pbMUWideNarrow1";
+            this.pbMUWideNarrow1.Size = new System.Drawing.Size(20, 20);
+            this.pbMUWideNarrow1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUWideNarrow1.TabIndex = 23;
+            this.pbMUWideNarrow1.TabStop = false;
+            // 
+            // pbMUAC
+            // 
+            this.pbMUAC.Location = new System.Drawing.Point(4, 2);
+            this.pbMUAC.Name = "pbMUAC";
+            this.pbMUAC.Size = new System.Drawing.Size(20, 20);
+            this.pbMUAC.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUAC.TabIndex = 24;
+            this.pbMUAC.TabStop = false;
+            this.pbMUAC.Visible = false;
+            // 
+            // pbMUPowerStby
+            // 
+            this.pbMUPowerStby.Location = new System.Drawing.Point(65, 118);
+            this.pbMUPowerStby.Name = "pbMUPowerStby";
+            this.pbMUPowerStby.Size = new System.Drawing.Size(20, 20);
+            this.pbMUPowerStby.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUPowerStby.TabIndex = 226;
+            this.pbMUPowerStby.TabStop = false;
+            // 
+            // pbMUPowerMain
+            // 
+            this.pbMUPowerMain.Location = new System.Drawing.Point(65, 74);
+            this.pbMUPowerMain.Name = "pbMUPowerMain";
+            this.pbMUPowerMain.Size = new System.Drawing.Size(20, 20);
+            this.pbMUPowerMain.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUPowerMain.TabIndex = 224;
+            this.pbMUPowerMain.TabStop = false;
+            // 
+            // pbMURUASt
+            // 
+            this.pbMURUASt.Location = new System.Drawing.Point(76, 118);
+            this.pbMURUASt.Name = "pbMURUASt";
+            this.pbMURUASt.Size = new System.Drawing.Size(20, 20);
+            this.pbMURUASt.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMURUASt.TabIndex = 227;
+            this.pbMURUASt.TabStop = false;
+            // 
+            // pbMUACU
+            // 
+            this.pbMUACU.Location = new System.Drawing.Point(76, 74);
+            this.pbMUACU.Name = "pbMUACU";
+            this.pbMUACU.Size = new System.Drawing.Size(20, 20);
+            this.pbMUACU.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUACU.TabIndex = 225;
+            this.pbMUACU.TabStop = false;
+            // 
+            // pbMUMon6
+            // 
+            this.pbMUMon6.Location = new System.Drawing.Point(131, 0);
+            this.pbMUMon6.Name = "pbMUMon6";
+            this.pbMUMon6.Size = new System.Drawing.Size(20, 20);
+            this.pbMUMon6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUMon6.TabIndex = 48;
+            this.pbMUMon6.TabStop = false;
+            this.pbMUMon6.Visible = false;
+            // 
+            // pbMUMon5
+            // 
+            this.pbMUMon5.Location = new System.Drawing.Point(0, 22);
+            this.pbMUMon5.Name = "pbMUMon5";
+            this.pbMUMon5.Size = new System.Drawing.Size(20, 20);
+            this.pbMUMon5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUMon5.TabIndex = 46;
+            this.pbMUMon5.TabStop = false;
+            this.pbMUMon5.Visible = false;
+            // 
+            // pbMUMon4
+            // 
+            this.pbMUMon4.Location = new System.Drawing.Point(0, 0);
+            this.pbMUMon4.Name = "pbMUMon4";
+            this.pbMUMon4.Size = new System.Drawing.Size(20, 20);
+            this.pbMUMon4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUMon4.TabIndex = 44;
+            this.pbMUMon4.TabStop = false;
+            this.pbMUMon4.Visible = false;
+            // 
+            // pbMUOptAlarm8
+            // 
+            this.pbMUOptAlarm8.Location = new System.Drawing.Point(282, 298);
+            this.pbMUOptAlarm8.Name = "pbMUOptAlarm8";
+            this.pbMUOptAlarm8.Size = new System.Drawing.Size(20, 20);
+            this.pbMUOptAlarm8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUOptAlarm8.TabIndex = 57;
+            this.pbMUOptAlarm8.TabStop = false;
+            // 
+            // pbMUOther1
+            // 
+            this.pbMUOther1.Location = new System.Drawing.Point(105, 68);
+            this.pbMUOther1.Name = "pbMUOther1";
+            this.pbMUOther1.Size = new System.Drawing.Size(20, 20);
+            this.pbMUOther1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUOther1.TabIndex = 37;
+            this.pbMUOther1.TabStop = false;
+            // 
+            // pbMUOptAlarm4
+            // 
+            this.pbMUOptAlarm4.Location = new System.Drawing.Point(104, 298);
+            this.pbMUOptAlarm4.Name = "pbMUOptAlarm4";
+            this.pbMUOptAlarm4.Size = new System.Drawing.Size(20, 20);
+            this.pbMUOptAlarm4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUOptAlarm4.TabIndex = 58;
+            this.pbMUOptAlarm4.TabStop = false;
+            // 
+            // pbMUOther2
+            // 
+            this.pbMUOther2.Location = new System.Drawing.Point(105, 114);
+            this.pbMUOther2.Name = "pbMUOther2";
+            this.pbMUOther2.Size = new System.Drawing.Size(20, 20);
+            this.pbMUOther2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUOther2.TabIndex = 41;
+            this.pbMUOther2.TabStop = false;
+            // 
+            // pbMUOptAlarm3
+            // 
+            this.pbMUOptAlarm3.Location = new System.Drawing.Point(105, 252);
+            this.pbMUOptAlarm3.Name = "pbMUOptAlarm3";
+            this.pbMUOptAlarm3.Size = new System.Drawing.Size(20, 20);
+            this.pbMUOptAlarm3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUOptAlarm3.TabIndex = 54;
+            this.pbMUOptAlarm3.TabStop = false;
+            // 
+            // pbMUOptAlarm6
+            // 
+            this.pbMUOptAlarm6.Location = new System.Drawing.Point(283, 206);
+            this.pbMUOptAlarm6.Name = "pbMUOptAlarm6";
+            this.pbMUOptAlarm6.Size = new System.Drawing.Size(20, 20);
+            this.pbMUOptAlarm6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUOptAlarm6.TabIndex = 49;
+            this.pbMUOptAlarm6.TabStop = false;
+            // 
+            // pbMUOptAlarm5
+            // 
+            this.pbMUOptAlarm5.Location = new System.Drawing.Point(283, 160);
+            this.pbMUOptAlarm5.Name = "pbMUOptAlarm5";
+            this.pbMUOptAlarm5.Size = new System.Drawing.Size(20, 20);
+            this.pbMUOptAlarm5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUOptAlarm5.TabIndex = 45;
+            this.pbMUOptAlarm5.TabStop = false;
+            // 
+            // pbMUOptAlarm7
+            // 
+            this.pbMUOptAlarm7.Location = new System.Drawing.Point(283, 252);
+            this.pbMUOptAlarm7.Name = "pbMUOptAlarm7";
+            this.pbMUOptAlarm7.Size = new System.Drawing.Size(20, 20);
+            this.pbMUOptAlarm7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUOptAlarm7.TabIndex = 53;
+            this.pbMUOptAlarm7.TabStop = false;
+            // 
+            // pbMUOptAlarm2
+            // 
+            this.pbMUOptAlarm2.Location = new System.Drawing.Point(105, 206);
+            this.pbMUOptAlarm2.Name = "pbMUOptAlarm2";
+            this.pbMUOptAlarm2.Size = new System.Drawing.Size(20, 20);
+            this.pbMUOptAlarm2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUOptAlarm2.TabIndex = 50;
+            this.pbMUOptAlarm2.TabStop = false;
+            // 
+            // pbMUOther3
+            // 
+            this.pbMUOther3.Location = new System.Drawing.Point(283, 114);
+            this.pbMUOther3.Name = "pbMUOther3";
+            this.pbMUOther3.Size = new System.Drawing.Size(20, 20);
+            this.pbMUOther3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUOther3.TabIndex = 39;
+            this.pbMUOther3.TabStop = false;
+            // 
+            // pbMUOptAlarm1
+            // 
+            this.pbMUOptAlarm1.Location = new System.Drawing.Point(105, 160);
+            this.pbMUOptAlarm1.Name = "pbMUOptAlarm1";
+            this.pbMUOptAlarm1.Size = new System.Drawing.Size(20, 20);
+            this.pbMUOptAlarm1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMUOptAlarm1.TabIndex = 46;
+            this.pbMUOptAlarm1.TabStop = false;
+            // 
+            // pbAcInputFail
+            // 
+            this.pbAcInputFail.Image = ((System.Drawing.Image)(resources.GetObject("pbAcInputFail.Image")));
+            this.pbAcInputFail.Location = new System.Drawing.Point(33, 29);
+            this.pbAcInputFail.Name = "pbAcInputFail";
+            this.pbAcInputFail.Size = new System.Drawing.Size(20, 20);
+            this.pbAcInputFail.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbAcInputFail.TabIndex = 242;
+            this.pbAcInputFail.TabStop = false;
+            // 
+            // pbDCOutputFail
+            // 
+            this.pbDCOutputFail.Image = ((System.Drawing.Image)(resources.GetObject("pbDCOutputFail.Image")));
+            this.pbDCOutputFail.Location = new System.Drawing.Point(33, 55);
+            this.pbDCOutputFail.Name = "pbDCOutputFail";
+            this.pbDCOutputFail.Size = new System.Drawing.Size(20, 20);
+            this.pbDCOutputFail.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbDCOutputFail.TabIndex = 244;
+            this.pbDCOutputFail.TabStop = false;
+            // 
+            // pbPDAlarm
+            // 
+            this.pbPDAlarm.Image = ((System.Drawing.Image)(resources.GetObject("pbPDAlarm.Image")));
+            this.pbPDAlarm.Location = new System.Drawing.Point(126, 30);
+            this.pbPDAlarm.Name = "pbPDAlarm";
+            this.pbPDAlarm.Size = new System.Drawing.Size(20, 20);
+            this.pbPDAlarm.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbPDAlarm.TabIndex = 262;
+            this.pbPDAlarm.TabStop = false;
+            // 
+            // pbLDAlarm
+            // 
+            this.pbLDAlarm.Image = ((System.Drawing.Image)(resources.GetObject("pbLDAlarm.Image")));
+            this.pbLDAlarm.Location = new System.Drawing.Point(12, 30);
+            this.pbLDAlarm.Name = "pbLDAlarm";
+            this.pbLDAlarm.Size = new System.Drawing.Size(20, 20);
+            this.pbLDAlarm.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbLDAlarm.TabIndex = 245;
+            this.pbLDAlarm.TabStop = false;
+            // 
             // ucLif1
             // 
             this.ucLif1.Location = new System.Drawing.Point(2, 2);
@@ -2709,53 +2709,27 @@
             this.panelMu광전송부감시상태.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUOther1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUOther2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUOther3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm1)).EndInit();
             this.panelMu무선수신기.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.gbMu감청수신기_장애상태.ResumeLayout(false);
             this.gbMu감청수신기_장애상태.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUMon3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUPllLock3)).EndInit();
             this.gbMu감청수신기_채널정보.ResumeLayout(false);
             this.gbMu감청수신기_동작상태.ResumeLayout(false);
             this.gbMu감청수신기_동작상태.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUSRSt5)).EndInit();
             this.gbNMSOtherSet5.ResumeLayout(false);
             this.panelMu기타상태.ResumeLayout(false);
             this.panel11.ResumeLayout(false);
             this.panel11.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMURUASt)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUACU)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUMon6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUMon5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUMon4)).EndInit();
             this.panelMuPowerSupply.ResumeLayout(false);
             this.panel12.ResumeLayout(false);
             this.panel12.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUAC)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUPowerStby)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUPowerMain)).EndInit();
             this.panelMu무전기형식.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUWideNarrow2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUWideNarrow1)).EndInit();
             this.panelMu무선송수신기.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
             this.gbMu주_송수신장애상태.ResumeLayout(false);
             this.gbMu주_송수신장애상태.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUPllLock1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUMon1)).EndInit();
             this.gbMu주_송신출력설정.ResumeLayout(false);
             this.gbMu주_송신출력설정.PerformLayout();
             this.gbMu주_송수신기채널정보.ResumeLayout(false);
@@ -2763,14 +2737,10 @@
             this.gbMu주_송수신동작상태.PerformLayout();
             this.groupBox58.ResumeLayout(false);
             this.groupBox59.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUSRSt2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUSRSt1)).EndInit();
             this.panelMu무선송수신기예비.ResumeLayout(false);
             this.panel8.ResumeLayout(false);
             this.gbMu예비_송수신장애상태.ResumeLayout(false);
             this.gbMu예비_송수신장애상태.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUPllLock2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUMon2)).EndInit();
             this.gbMu예비_송수신기채널정보.ResumeLayout(false);
             this.gbMu예비_송신출력설정.ResumeLayout(false);
             this.gbMu예비_송신출력설정.PerformLayout();
@@ -2778,23 +2748,16 @@
             this.gbMu예비_송수신동작상태.PerformLayout();
             this.groupBox71.ResumeLayout(false);
             this.groupBox70.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUSRSt4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUSRSt3)).EndInit();
             this.panelMu채널복귀.ResumeLayout(false);
             this.panel채널복귀내부.ResumeLayout(false);
             this.panel채널복귀내부.PerformLayout();
             this.panelMuAntennaMatchungUnit.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUMainSpare1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUMainSpare2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUAutoManual2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMUAutoManual1)).EndInit();
             this.panelBase.ResumeLayout(false);
             this.panelMuVer.ResumeLayout(false);
             this.panelMUVerBase.ResumeLayout(false);
             this.gbDC.ResumeLayout(false);
             this.gbDC.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbDC)).EndInit();
             this.gbWN.ResumeLayout(false);
             this.gbAcuVer.ResumeLayout(false);
             this.gbMonVer.ResumeLayout(false);
@@ -2808,17 +2771,54 @@
             this.gbBetteryChangeCurrent.ResumeLayout(false);
             this.gbPower.ResumeLayout(false);
             this.gbPower.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbAcInputFail)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbDCOutputFail)).EndInit();
             this.gbOther.ResumeLayout(false);
             this.gbOther.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbPDAlarm)).EndInit();
             this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbLDAlarm)).EndInit();
             this.gbTSSI.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbDC)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUMon3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUPllLock3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUSRSt5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUPllLock1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUMon1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUSRSt2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUSRSt1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUMainSpare1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUMainSpare2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUAutoManual2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUAutoManual1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUPllLock2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUMon2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUSRSt4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUSRSt3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUWideNarrow2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUWideNarrow1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUAC)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUPowerStby)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUPowerMain)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMURUASt)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUACU)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUMon6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUMon5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUMon4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUOther1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUOther2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUOther3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbAcInputFail)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbDCOutputFail)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPDAlarm)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLDAlarm)).EndInit();
             this.ResumeLayout(false);
 
         }

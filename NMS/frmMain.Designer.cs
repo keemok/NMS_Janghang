@@ -6980,6 +6980,7 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.panelMainBase1 = new System.Windows.Forms.Panel();
             this.panel성남여주 = new System.Windows.Forms.Panel();
+            this.SYMain = new NMS.ucSYMainScreen();
             this.panel과천선 = new System.Windows.Forms.Panel();
             this.panel31 = new System.Windows.Forms.Panel();
             this.btHub1 = new System.Windows.Forms.Button();
@@ -7350,10 +7351,10 @@
             this.label83 = new System.Windows.Forms.Label();
             this.label84 = new System.Windows.Forms.Label();
             this.panelMainBase2 = new System.Windows.Forms.Panel();
+            this.ucBDASt = new NMS.ucBDAStatus();
+            this.ucMUSt = new NMS.ucSYMUStatus();
             this.ucMUSt_ILSAN = new Common.ucMUStatus_ILSAN();
             this.ucRUSt = new Common.ucRUStatus();
-            this.SYMain = new NMS.ucSYMainScreen();
-            this.ucMUSt = new NMS.ucSYMUStatus();
             this.panelMessageView.SuspendLayout();
             this.panelGroundSetting.SuspendLayout();
             this.gbDB.SuspendLayout();
@@ -9375,6 +9376,14 @@
             this.panel성남여주.Name = "panel성남여주";
             this.panel성남여주.Size = new System.Drawing.Size(1840, 780);
             this.panel성남여주.TabIndex = 502;
+            // 
+            // SYMain
+            // 
+            this.SYMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SYMain.Location = new System.Drawing.Point(0, 0);
+            this.SYMain.Name = "SYMain";
+            this.SYMain.Size = new System.Drawing.Size(1840, 780);
+            this.SYMain.TabIndex = 0;
             // 
             // panel과천선
             // 
@@ -13338,12 +13347,28 @@
             // 
             this.panelMainBase2.BackColor = System.Drawing.Color.White;
             this.panelMainBase2.Controls.Add(this.ucMUSt);
+            this.panelMainBase2.Controls.Add(this.ucBDASt);
             this.panelMainBase2.Controls.Add(this.ucMUSt_ILSAN);
             this.panelMainBase2.Controls.Add(this.ucRUSt);
             this.panelMainBase2.Location = new System.Drawing.Point(15, 72);
             this.panelMainBase2.Name = "panelMainBase2";
             this.panelMainBase2.Size = new System.Drawing.Size(1850, 790);
             this.panelMainBase2.TabIndex = 476;
+            // 
+            // ucBDASt
+            // 
+            this.ucBDASt.Location = new System.Drawing.Point(5, 5);
+            this.ucBDASt.Name = "ucBDASt";
+            this.ucBDASt.Size = new System.Drawing.Size(1840, 780);
+            this.ucBDASt.TabIndex = 431;
+            // 
+            // ucMUSt
+            // 
+            this.ucMUSt.BackColor = System.Drawing.Color.Black;
+            this.ucMUSt.Location = new System.Drawing.Point(5, 5);
+            this.ucMUSt.Name = "ucMUSt";
+            this.ucMUSt.Size = new System.Drawing.Size(1840, 780);
+            this.ucMUSt.TabIndex = 431;
             // 
             // ucMUSt_ILSAN
             // 
@@ -13361,22 +13386,6 @@
             this.ucRUSt.Name = "ucRUSt";
             this.ucRUSt.Size = new System.Drawing.Size(1840, 780);
             this.ucRUSt.TabIndex = 431;
-            // 
-            // SYMain
-            // 
-            this.SYMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SYMain.Location = new System.Drawing.Point(0, 0);
-            this.SYMain.Name = "SYMain";
-            this.SYMain.Size = new System.Drawing.Size(1840, 780);
-            this.SYMain.TabIndex = 0;
-            // 
-            // ucMUSt
-            // 
-            this.ucMUSt.BackColor = System.Drawing.Color.Black;
-            this.ucMUSt.Location = new System.Drawing.Point(5, 5);
-            this.ucMUSt.Name = "ucMUSt";
-            this.ucMUSt.Size = new System.Drawing.Size(1840, 780);
-            this.ucMUSt.TabIndex = 431;
             // 
             // frmMain
             // 
@@ -14123,6 +14132,7 @@
         private ucSYMainScreen SYMain;
         private Common.ucRUStatus ucRUSt;
         private ucSYMUStatus ucMUSt;
+        private ucBDAStatus ucBDASt;
     }
 }
 

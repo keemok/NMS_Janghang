@@ -29,6 +29,17 @@ namespace NMS
             return btns;
         }
 
+        public ucBDA[] GetBDAs()
+        {
+            ucBDA[] bdas ={
+                              ucBDA1,  ucBDA2,ucBDA3,ucBDA4,ucBDA5,ucBDA6,ucBDA7
+                          };
+            return bdas;
+
+        }
+
+
+
         /// <summary>
         /// Mu 목록을 가져옮
         /// </summary>
@@ -43,5 +54,7 @@ namespace NMS
 
             return list;
         }
+
+        
     }
 }
