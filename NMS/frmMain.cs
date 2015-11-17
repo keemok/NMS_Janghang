@@ -102,18 +102,46 @@ namespace NMS
 
         #endregion 컨트롤 배열
 
+
+        
+
         private string nowStation = string.Empty;
 
         private Color colorSelect = new Color();    //선택 색
         private Color colorError = new Color();    //선택 색
         private Color colorBase = new Color();      //기본 색
 
-        #region MU/RU 상태 저장 변수
+        #region MU/RU/BDA 상태 저장 변수
 
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         private Common.MURUData[] muruNowData = null;
 
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+
+        #region 성남여주용 BDA 정보
+
+        public class BDAData
+        {
+            public byte muID;
+            /// <summary>
+            /// BDA에 대한 정보를 저장할 배열
+            /// </summary>
+            public Common.BDA_St[] bdaData;
+            
+            
+            public BDAData()
+            {
+                bdaData = new BDA_St[20];
+            }
+            
+        }
+
+        BDAData[] BDA_Data = new BDAData[20];
+
+
+        #endregion
+
 
         #endregion MU/RU 상태 저장 변수
 
@@ -587,6 +615,8 @@ namespace NMS
             ucMUSt.muControlClick += MUSt_muControlClick;
             ucRUSt.ruControlClick += RuSt_ruControlClick;
 
+            ucBDASt.SetData(BDA_Data, this);
+
             //MU 설정
             btMu.Add(SYMain.ucMU1.Button); btMu.Add(SYMain.ucMU2.Button); btMu.Add(SYMain.ucMU3.Button); btMu.Add(SYMain.ucMU4.Button);
             btMu.Add(SYMain.ucMU5.Button); btMu.Add(SYMain.ucMU6.Button); btMu.Add(SYMain.ucMU7.Button); btMu.Add(SYMain.ucMU8.Button);
@@ -686,12 +716,12 @@ namespace NMS
         }
 
         //컨트롤에 문자를 출력하기 위함
-        private void SetText(Control control, string text)
+        public static void SetText(Control control, string text)
         {
             if (control.InvokeRequired)
             {
                 Common.SetTextCallback d = new Common.SetTextCallback(SetText);
-                this.Invoke(d, new object[] { control, text });
+                control.Invoke(d, new object[] { control, text });
             }
             else
             {
@@ -813,12 +843,12 @@ namespace NMS
         }
 
         //PictureBox에 그림을 변경하기 위함
-        private void SetImage(PictureBox control, Bitmap bitmap)
+        public static void SetImage(PictureBox control, Bitmap bitmap)
         {
             if (control.InvokeRequired)
             {
                 Common.SetImageCallback d = new Common.SetImageCallback(SetImage);
-                this.Invoke(d, new object[] { control, bitmap });
+                control.Invoke(d, new object[] { control, bitmap });
             }
             else
             {
@@ -1405,8 +1435,10 @@ namespace NMS
             SetVisible(ucBDASt, true);
             
             string name = Common.clsNMS.stationList[muID];
+                        
             ucBDASt.SetTitle(name);
-
+            ucBDASt.SetBDACount(BDA_Count);
+            
         }
 
         
@@ -3365,19 +3397,107 @@ namespace NMS
 
                     break;
 
-                case Common.clsNMSSendDataMake.CMD_BDA_Status:
+                case Common.clsNMSSendDataMake.CMD_BDA_Status: //s : BDA 정보
 
 
                     #region BDA 정보 처리
 
-                    
+                    int index = tmpMUId - 1;
 
+                    BDA_St tmpBDASt = new BDA_St();
+
+                    byte tmpBdaID = buffer[j++];   //BDA ID
+                
+                    int tmpPttValue = 0;
+
+                    //온도
+                    tmpBDASt.fmTemperature = (sbyte)buffer[j++];
+                    
+                    //fm dbm
+                    tmpBDASt.fmTssi = (sbyte)buffer[j++];
+
+                    //알람
+                    tmpBDASt.fmAlarm = buffer[j++];
+
+                    //current mode
+                    j++;
+
+                    //bypass mode
+                    tmpBDASt.vhfBypass = buffer[j++];
+
+                    //ac
+                    tmpBDASt.vhfAcAlarm = buffer[j++];
+                    //dc
+                    tmpBDASt.vhfDcAlarm = buffer[j++];
+                    //battery
+                    tmpBDASt.vhfBatteryAlarm = buffer[j++];
+
+                    j++;j++; //sense1
+                    j++;j++; //sense2
+
+
+                    //tmpPttValue = buffer[j++] + (buffer[j++] * 0x100);
+
+
+                    //if (tmpPttValue > 300) 
+                    //    tmpBDASt.vhfPtt1 = 1;
+
+                    //else 
+                    //    tmpBDASt.vhfPtt1 = 0;
+
+                    //tmpPttValue = buffer[j++] + (buffer[j++] * 0x100);
+
+
+                    //if (tmpPttValue > 300) 
+                    //    tmpBDASt.vhfPtt2 = 1;
+                    //else 
+                    //    tmpBDASt.vhfPtt2 = 0;
+                    
+                    tmpBDASt.bdaAMPSt[0] = buffer[j++];
+                    tmpBDASt.bdaAMPSt[1] = buffer[j++];
+                    //switch state
+                    j++;
+                    
+                    //UHF
+
+                    //current mode
+                    j++;
+                    
+                    //bypass
+                    tmpBDASt.uhfBypass = buffer[j++];
+                    //ac
+                    tmpBDASt.uhfAcAlarm = buffer[j++];
+                    //dc
+                    tmpBDASt.uhfDcAlarm = buffer[j++];
+                    //battery
+                    tmpBDASt.uhfBatteryAlarm = buffer[j++];
+
+                    j++; j++;
+                    j++; j++;
+
+
+
+                    //tmpPttValue = buffer[j++] + (buffer[j++] * 0x100);
+                    //if (tmpPttValue > 300) tmpBDASt.uhfPtt1 = 1;
+                    //else tmpBDASt.uhfPtt1 = 0;
+                    //tmpPttValue = buffer[j++] + (buffer[j++] * 0x100);
+                    //if (tmpPttValue > 300) tmpBDASt.uhfPtt2 = 1;
+                    //else tmpBDASt.uhfPtt2 = 0;
+
+                    var tmpData = new BDAData();
+                    tmpData.bdaData[tmpBdaID] = tmpBDASt;
+
+                    BDA_Data[index] = tmpData;
+                    
+                    nmsBDA_Status_Display((byte)index, tmpBdaID);
 
                     #endregion
 
                     break;
             }
         }
+
+     
 
         private void JksSockServer_closeEvent(int mainStbyID)
         {
@@ -3807,6 +3927,28 @@ namespace NMS
 
         #endregion DataBase 저장 관련
 
+
+        private void nmsBDA_Status_Display(byte muID, byte bdaID)
+        {
+            ucBDA[] list = SYMain.GetBDAs();
+
+            ucBDA sel = null;
+            
+            foreach(var i in list)
+            {
+                if( i.MuID  == (char)(muID+'A'))
+                {
+
+                    sel = i;
+                    break;
+                }
+            }
+
+            sel.SetEnable(bdaID);
+
+            ucBDASt.DisplayData(muID, bdaID);
+        }
+
         /// <summary>
         /// MU 상태 표시
         /// </summary>
@@ -4155,6 +4297,28 @@ namespace NMS
             }
         }
 
+
+        internal void DisableBDA(short muID)
+        {
+            ucBDA[] list = SYMain.GetBDAs();
+
+            ucBDA sel = null;
+
+            foreach (var i in list)
+            {
+                if (i.MuID == (char)(muID + 'A'))
+                {
+
+                    sel = i;
+                    break;
+                }
+            }
+
+            for (int i = 0; i < sel.BDA_Number; i++ )
+                sel.SetEnable(i,false);
+        }
+
+
         private void nmsRuFmError_Display(byte muID, byte ruID)
         {   //전체화면에 주예비 상태 및 장애 표시
             /*
@@ -4494,5 +4658,7 @@ namespace NMS
         {
             AddStatus("프로그램을 종료합니다.");
         }
+
+        
     }
 }

@@ -43,9 +43,9 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.ucBDA7 = new NMS.ucBDA();
-            this.ucBDA5 = new NMS.ucBDA();
+            this.label16 = new System.Windows.Forms.Label();
             this.ucBDA6 = new NMS.ucBDA();
+            this.ucBDA5 = new NMS.ucBDA();
             this.ucBDA4 = new NMS.ucBDA();
             this.ucBDA3 = new NMS.ucBDA();
             this.ucBDA2 = new NMS.ucBDA();
@@ -121,9 +121,9 @@
             // label7
             // 
             this.label7.BackColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(1061, 102);
+            this.label7.Location = new System.Drawing.Point(1061, 69);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(10, 149);
+            this.label7.Size = new System.Drawing.Size(10, 182);
             this.label7.TabIndex = 20;
             // 
             // label8
@@ -191,14 +191,23 @@
             this.label15.Size = new System.Drawing.Size(11, 132);
             this.label15.TabIndex = 34;
             // 
-            // ucBDA7
+            // label16
             // 
-            this.ucBDA7.BDA_Number = 0;
-            this.ucBDA7.Location = new System.Drawing.Point(235, 671);
-            this.ucBDA7.MuID = 'H';
-            this.ucBDA7.Name = "ucBDA7";
-            this.ucBDA7.Size = new System.Drawing.Size(100, 80);
-            this.ucBDA7.TabIndex = 37;
+            this.label16.BackColor = System.Drawing.Color.Black;
+            this.label16.Location = new System.Drawing.Point(869, 68);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(201, 11);
+            this.label16.TabIndex = 38;
+            this.label16.Text = "label16";
+            // 
+            // ucBDA6
+            // 
+            this.ucBDA6.BDA_Number = 1;
+            this.ucBDA6.Location = new System.Drawing.Point(235, 671);
+            this.ucBDA6.MuID = 'H';
+            this.ucBDA6.Name = "ucBDA6";
+            this.ucBDA6.Size = new System.Drawing.Size(100, 80);
+            this.ucBDA6.TabIndex = 37;
             // 
             // ucBDA5
             // 
@@ -209,28 +218,19 @@
             this.ucBDA5.Size = new System.Drawing.Size(100, 80);
             this.ucBDA5.TabIndex = 36;
             // 
-            // ucBDA6
-            // 
-            this.ucBDA6.BDA_Number = 5;
-            this.ucBDA6.Location = new System.Drawing.Point(1450, 32);
-            this.ucBDA6.MuID = 'D';
-            this.ucBDA6.Name = "ucBDA6";
-            this.ucBDA6.Size = new System.Drawing.Size(100, 80);
-            this.ucBDA6.TabIndex = 35;
-            // 
             // ucBDA4
             // 
-            this.ucBDA4.BDA_Number = 2;
-            this.ucBDA4.Location = new System.Drawing.Point(1016, 32);
-            this.ucBDA4.MuID = 'C';
+            this.ucBDA4.BDA_Number = 5;
+            this.ucBDA4.Location = new System.Drawing.Point(1450, 32);
+            this.ucBDA4.MuID = 'D';
             this.ucBDA4.Name = "ucBDA4";
             this.ucBDA4.Size = new System.Drawing.Size(100, 80);
-            this.ucBDA4.TabIndex = 32;
+            this.ucBDA4.TabIndex = 35;
             // 
             // ucBDA3
             // 
-            this.ucBDA3.BDA_Number = 4;
-            this.ucBDA3.Location = new System.Drawing.Point(823, 32);
+            this.ucBDA3.BDA_Number = 6;
+            this.ucBDA3.Location = new System.Drawing.Point(924, 32);
             this.ucBDA3.MuID = 'C';
             this.ucBDA3.Name = "ucBDA3";
             this.ucBDA3.Size = new System.Drawing.Size(100, 80);
@@ -239,7 +239,7 @@
             // ucBDA2
             // 
             this.ucBDA2.BDA_Number = 6;
-            this.ucBDA2.Location = new System.Drawing.Point(553, 151);
+            this.ucBDA2.Location = new System.Drawing.Point(554, 131);
             this.ucBDA2.MuID = 'B';
             this.ucBDA2.Name = "ucBDA2";
             this.ucBDA2.Size = new System.Drawing.Size(100, 80);
@@ -248,7 +248,7 @@
             // ucBDA1
             // 
             this.ucBDA1.BDA_Number = 6;
-            this.ucBDA1.Location = new System.Drawing.Point(235, 155);
+            this.ucBDA1.Location = new System.Drawing.Point(235, 131);
             this.ucBDA1.MuID = 'A';
             this.ucBDA1.Name = "ucBDA1";
             this.ucBDA1.Size = new System.Drawing.Size(100, 80);
@@ -360,7 +360,7 @@
             // 
             this.ucRu3_2.BackColor = System.Drawing.Color.Black;
             this.ucRu3_2.ButtonName = "경안T\r\n광 중계장치";
-            this.ucRu3_2.Location = new System.Drawing.Point(1004, 141);
+            this.ucRu3_2.Location = new System.Drawing.Point(1005, 131);
             this.ucRu3_2.Name = "ucRu3_2";
             this.ucRu3_2.Size = new System.Drawing.Size(120, 90);
             this.ucRu3_2.TabIndex = 4;
@@ -369,7 +369,7 @@
             // 
             this.ucRu3_1.BackColor = System.Drawing.Color.Black;
             this.ucRu3_1.ButtonName = "상동T\r\n광 중계장치";
-            this.ucRu3_1.Location = new System.Drawing.Point(814, 141);
+            this.ucRu3_1.Location = new System.Drawing.Point(813, 131);
             this.ucRu3_1.Name = "ucRu3_1";
             this.ucRu3_1.Size = new System.Drawing.Size(120, 90);
             this.ucRu3_1.TabIndex = 3;
@@ -411,9 +411,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.ucBDA7);
-            this.Controls.Add(this.ucBDA5);
             this.Controls.Add(this.ucBDA6);
+            this.Controls.Add(this.ucBDA5);
             this.Controls.Add(this.ucBDA4);
             this.Controls.Add(this.ucBDA3);
             this.Controls.Add(this.ucBDA2);
@@ -448,6 +447,7 @@
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label15);
+            this.Controls.Add(this.label16);
             this.Name = "ucSYMainScreen";
             this.Size = new System.Drawing.Size(1840, 780);
             this.ResumeLayout(false);
@@ -487,12 +487,12 @@
         private ucBDA ucBDA1;
         private ucBDA ucBDA2;
         private ucBDA ucBDA3;
-        private ucBDA ucBDA4;
         internal System.Windows.Forms.Label label14;
         internal System.Windows.Forms.Label label15;
-        private ucBDA ucBDA6;
+        private ucBDA ucBDA4;
         private ucBDA ucBDA5;
-        private ucBDA ucBDA7;
+        private ucBDA ucBDA6;
+        internal System.Windows.Forms.Label label16;
 
 
 

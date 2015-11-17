@@ -71,6 +71,12 @@
     <Compile Include="ucBDA.Designer.cs">
       <DependentUpon>ucBDA.cs</DependentUpon>
     </Compile>
+    <Compile Include="ucBDAItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucBDAItem.Designer.cs">
+      <DependentUpon>ucBDAItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="ucBDAStatus.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -141,6 +147,9 @@
     <EmbeddedResource Include="ucBDA.resx">
       <DependentUpon>ucBDA.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ucBDAItem.resx">
+      <DependentUpon>ucBDAItem.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ucBDAStatus.resx">
       <DependentUpon>ucBDAStatus.cs</DependentUpon>
     </EmbeddedResource>
@@ -186,6 +195,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\Debug\Image\st_OFF.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Image\st_ON.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

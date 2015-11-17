@@ -127,4 +127,7 @@
   <data name="st_OFF" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\Debug\Image\st_OFF.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="st_ON" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\Image\st_ON.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

@@ -32,7 +32,7 @@ namespace NMS
         public ucBDA[] GetBDAs()
         {
             ucBDA[] bdas ={
-                              ucBDA1,  ucBDA2,ucBDA3,ucBDA4,ucBDA5,ucBDA6,ucBDA7
+                              ucBDA1,  ucBDA2,ucBDA3,ucBDA4,ucBDA5,ucBDA6
                           };
             return bdas;
 

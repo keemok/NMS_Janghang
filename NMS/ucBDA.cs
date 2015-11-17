@@ -50,7 +50,7 @@ namespace NMS
 
             get
             {
-                return (char)MuIDData;
+                return (char)(MuIDData + 'A');
             }
         }
 
@@ -58,6 +58,7 @@ namespace NMS
 
 
         int BDA_Count = 1;
+        private List<Button> mButtons;
 
 
 
@@ -68,12 +69,17 @@ namespace NMS
             SetBDANumber();
         }
 
-
+        /// <summary>
+        /// BDA의 갯수를 설정한다
+        /// </summary>
         private void SetBDANumber()
         {
             if (BDA_Count > 7)
                 return;
 
+            tlpContent.Controls.Clear();
+
+            mButtons = new List<Button>();
 
             if (BDA_Count == 1)
             {
@@ -81,6 +87,8 @@ namespace NMS
                 bt.Text = "1";
                 bt.Dock = DockStyle.Fill;
                 bt.Click += Click;
+
+                mButtons.Add(bt);
 
                 tlpContent.ColumnCount = 1;
                 tlpContent.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -109,6 +117,7 @@ namespace NMS
                     bt.Dock = DockStyle.Fill;
                     bt.Click += Click;
                     tlpContent.Controls.Add(bt, i, 0);
+                    mButtons.Add(bt);
                 }
 
 
@@ -132,6 +141,7 @@ namespace NMS
                     bt.Dock = DockStyle.Fill;
                     bt.Click += Click;
                     tlpContent.Controls.Add(bt, i, 0);
+                    mButtons.Add(bt);
                 }
             }
 
@@ -158,6 +168,7 @@ namespace NMS
                         bt.Click += Click;
                         tlpContent.Controls.Add(bt,j,i);
                         count++;
+                        mButtons.Add(bt);
                     }
                 }
             }
@@ -190,6 +201,8 @@ namespace NMS
                         bt.Dock = DockStyle.Fill;
                         tlpContent.Controls.Add(bt, j, i);
                         count++;
+
+                        mButtons.Add(bt);
                     }
                 }
             }
@@ -218,6 +231,8 @@ namespace NMS
                         bt.Dock = DockStyle.Fill;
                         tlpContent.Controls.Add(bt, j, i);
                         count++;
+
+                        mButtons.Add(bt);
                     }
                 }
             }
@@ -228,6 +243,20 @@ namespace NMS
             ClickBDA(MuIDData, BDA_Count);
         }
 
-        
+        internal void SetEnable(byte bdaID)
+        {
+            mButtons[bdaID].BackColor = Color.LimeGreen;
+
+        }
+
+
+        internal void SetEnable(int id, bool p)
+        {
+            if (p)
+                mButtons[id].BackColor = Color.LimeGreen;
+            else
+                mButtons[id].BackColor = Control.DefaultBackColor;
+            
+        }
     }
 }
