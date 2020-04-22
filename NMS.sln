@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NMS", "NMS\NMS.csproj", "{67DC5CFC-E180-471E-9D51-13B56FC642DD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NMS_UnitTest", "NMS_UnitTest\NMS_UnitTest.csproj", "{EFB5192C-857B-40A9-A9C3-B5779CC1ADDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "..\..\5. 성남여주선\999. 공통\Common\Ver 1.01\Common\Common.csproj", "{5F0FD856-5200-4D88-9167-88948CA40A72}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "..\..\Backup\E\work\project\c_sharp\4. 열차 무선 NMS\10. 동해남부선\Common\Ver 1.01\Common\Common.csproj", "{5F0FD856-5200-4D88-9167-88948CA40A72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jksSock", "..\..\..\91. 통신 모듈\jksSock (정교석과장 TCP 통신모듈)\jksSock\jksSock.csproj", "{2EC9C0A0-6DA2-4469-B3E4-68C1E39BA294}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jksSock", "..\..\Backup\E\work\project\c_sharp\91. 통신 모듈\jksSock (정교석과장 TCP 통신모듈)\jksSock\jksSock.csproj", "{2EC9C0A0-6DA2-4469-B3E4-68C1E39BA294}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,5 +68,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {633DE4CD-EB62-4A17-A02B-7B03535BE944}
 	EndGlobalSection
 EndGlobal

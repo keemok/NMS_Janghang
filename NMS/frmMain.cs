@@ -50,6 +50,8 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
+
+
 namespace NMS
 {
 
@@ -3437,7 +3439,7 @@ namespace NMS
             //bypass
             tmpBDASt.UHF_BypassMode = buffer[j++];
             //ac
-            tmpBDASt.UHF_AC_Alarm = buffer[j++];
+            //tmpBDASt.UHF_AC_Alarm = buffer[j++];
             //dc
             j++;
             //tmpBDASt.UHF_DC_Alarm = buffer[j++];

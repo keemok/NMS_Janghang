@@ -37,27 +37,27 @@
             this.label28 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
-            this.ucMU1 = new NMS.ucMU();
-            this.ucRu1_1 = new NMS.ucRu();
-            this.ucRu1_2 = new NMS.ucRu();
-            this.ucRu1_3 = new NMS.ucRu();
-            this.ucMU2 = new NMS.ucMU();
-            this.ucMU3 = new NMS.ucMU();
-            this.ucMU4 = new NMS.ucMU();
-            this.ucRu2_1 = new NMS.ucRu();
-            this.ucRu2_2 = new NMS.ucRu();
-            this.ucRu2_3 = new NMS.ucRu();
-            this.ucRu2_4 = new NMS.ucRu();
-            this.ucRu3_1 = new NMS.ucRu();
-            this.ucRu3_2 = new NMS.ucRu();
-            this.ucRu3_3 = new NMS.ucRu();
-            this.ucRu4_1 = new NMS.ucRu();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.ucRu4_1 = new NMS.ucRu();
+            this.ucRu3_3 = new NMS.ucRu();
+            this.ucRu3_2 = new NMS.ucRu();
+            this.ucRu3_1 = new NMS.ucRu();
+            this.ucRu2_4 = new NMS.ucRu();
+            this.ucRu2_3 = new NMS.ucRu();
+            this.ucRu2_2 = new NMS.ucRu();
+            this.ucRu2_1 = new NMS.ucRu();
+            this.ucMU4 = new NMS.ucMU();
+            this.ucMU3 = new NMS.ucMU();
+            this.ucMU2 = new NMS.ucMU();
+            this.ucRu1_3 = new NMS.ucRu();
+            this.ucRu1_2 = new NMS.ucRu();
+            this.ucRu1_1 = new NMS.ucRu();
+            this.ucMU1 = new NMS.ucMU();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -196,149 +196,6 @@
             this.label30.TabIndex = 0;
             this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // ucMU1
-            // 
-            this.ucMU1.BackColor = System.Drawing.Color.Black;
-            this.ucMU1.HasRuA = false;
-            this.ucMU1.Location = new System.Drawing.Point(86, 139);
-            this.ucMU1.MaximumSize = new System.Drawing.Size(230, 140);
-            this.ucMU1.Name = "ucMU1";
-            this.ucMU1.Size = new System.Drawing.Size(200, 140);
-            this.ucMU1.TabIndex = 88;
-            this.ucMU1.Title = "기지국명";
-            // 
-            // ucRu1_1
-            // 
-            this.ucRu1_1.BackColor = System.Drawing.Color.Black;
-            this.ucRu1_1.ButtonName = "광 중계장치";
-            this.ucRu1_1.Location = new System.Drawing.Point(348, 139);
-            this.ucRu1_1.Name = "ucRu1_1";
-            this.ucRu1_1.Size = new System.Drawing.Size(140, 140);
-            this.ucRu1_1.TabIndex = 89;
-            // 
-            // ucRu1_2
-            // 
-            this.ucRu1_2.BackColor = System.Drawing.Color.Black;
-            this.ucRu1_2.ButtonName = "광 중계장치";
-            this.ucRu1_2.Location = new System.Drawing.Point(546, 139);
-            this.ucRu1_2.Name = "ucRu1_2";
-            this.ucRu1_2.Size = new System.Drawing.Size(140, 140);
-            this.ucRu1_2.TabIndex = 90;
-            // 
-            // ucRu1_3
-            // 
-            this.ucRu1_3.BackColor = System.Drawing.Color.Black;
-            this.ucRu1_3.ButtonName = "광 중계장치";
-            this.ucRu1_3.Location = new System.Drawing.Point(746, 139);
-            this.ucRu1_3.Name = "ucRu1_3";
-            this.ucRu1_3.Size = new System.Drawing.Size(140, 140);
-            this.ucRu1_3.TabIndex = 91;
-            // 
-            // ucMU2
-            // 
-            this.ucMU2.BackColor = System.Drawing.Color.Black;
-            this.ucMU2.HasRuA = false;
-            this.ucMU2.Location = new System.Drawing.Point(960, 139);
-            this.ucMU2.MaximumSize = new System.Drawing.Size(230, 140);
-            this.ucMU2.Name = "ucMU2";
-            this.ucMU2.Size = new System.Drawing.Size(200, 140);
-            this.ucMU2.TabIndex = 92;
-            this.ucMU2.Title = "기지국명";
-            // 
-            // ucMU3
-            // 
-            this.ucMU3.BackColor = System.Drawing.Color.Black;
-            this.ucMU3.HasRuA = false;
-            this.ucMU3.Location = new System.Drawing.Point(1297, 397);
-            this.ucMU3.MaximumSize = new System.Drawing.Size(230, 140);
-            this.ucMU3.Name = "ucMU3";
-            this.ucMU3.Size = new System.Drawing.Size(200, 140);
-            this.ucMU3.TabIndex = 93;
-            this.ucMU3.Title = "기지국명";
-            // 
-            // ucMU4
-            // 
-            this.ucMU4.BackColor = System.Drawing.Color.Black;
-            this.ucMU4.HasRuA = false;
-            this.ucMU4.Location = new System.Drawing.Point(351, 397);
-            this.ucMU4.MaximumSize = new System.Drawing.Size(230, 140);
-            this.ucMU4.Name = "ucMU4";
-            this.ucMU4.Size = new System.Drawing.Size(200, 140);
-            this.ucMU4.TabIndex = 94;
-            this.ucMU4.Title = "기지국명";
-            // 
-            // ucRu2_1
-            // 
-            this.ucRu2_1.BackColor = System.Drawing.Color.Black;
-            this.ucRu2_1.ButtonName = "광 중계장치";
-            this.ucRu2_1.Location = new System.Drawing.Point(1205, 139);
-            this.ucRu2_1.Name = "ucRu2_1";
-            this.ucRu2_1.Size = new System.Drawing.Size(140, 140);
-            this.ucRu2_1.TabIndex = 95;
-            // 
-            // ucRu2_2
-            // 
-            this.ucRu2_2.BackColor = System.Drawing.Color.Black;
-            this.ucRu2_2.ButtonName = "광 중계장치";
-            this.ucRu2_2.Location = new System.Drawing.Point(1395, 139);
-            this.ucRu2_2.Name = "ucRu2_2";
-            this.ucRu2_2.Size = new System.Drawing.Size(140, 140);
-            this.ucRu2_2.TabIndex = 96;
-            // 
-            // ucRu2_3
-            // 
-            this.ucRu2_3.BackColor = System.Drawing.Color.Black;
-            this.ucRu2_3.ButtonName = "광 중계장치";
-            this.ucRu2_3.Location = new System.Drawing.Point(1574, 139);
-            this.ucRu2_3.Name = "ucRu2_3";
-            this.ucRu2_3.Size = new System.Drawing.Size(147, 140);
-            this.ucRu2_3.TabIndex = 97;
-            // 
-            // ucRu2_4
-            // 
-            this.ucRu2_4.BackColor = System.Drawing.Color.Black;
-            this.ucRu2_4.ButtonName = "광 중계장치";
-            this.ucRu2_4.Location = new System.Drawing.Point(1574, 397);
-            this.ucRu2_4.Name = "ucRu2_4";
-            this.ucRu2_4.Size = new System.Drawing.Size(140, 140);
-            this.ucRu2_4.TabIndex = 98;
-            // 
-            // ucRu3_1
-            // 
-            this.ucRu3_1.BackColor = System.Drawing.Color.Black;
-            this.ucRu3_1.ButtonName = "광 중계장치";
-            this.ucRu3_1.Location = new System.Drawing.Point(1077, 397);
-            this.ucRu3_1.Name = "ucRu3_1";
-            this.ucRu3_1.Size = new System.Drawing.Size(140, 140);
-            this.ucRu3_1.TabIndex = 99;
-            // 
-            // ucRu3_2
-            // 
-            this.ucRu3_2.BackColor = System.Drawing.Color.Black;
-            this.ucRu3_2.ButtonName = "광 중계장치";
-            this.ucRu3_2.Location = new System.Drawing.Point(854, 397);
-            this.ucRu3_2.Name = "ucRu3_2";
-            this.ucRu3_2.Size = new System.Drawing.Size(140, 140);
-            this.ucRu3_2.TabIndex = 100;
-            // 
-            // ucRu3_3
-            // 
-            this.ucRu3_3.BackColor = System.Drawing.Color.Black;
-            this.ucRu3_3.ButtonName = "광 중계장치";
-            this.ucRu3_3.Location = new System.Drawing.Point(641, 397);
-            this.ucRu3_3.Name = "ucRu3_3";
-            this.ucRu3_3.Size = new System.Drawing.Size(140, 140);
-            this.ucRu3_3.TabIndex = 101;
-            // 
-            // ucRu4_1
-            // 
-            this.ucRu4_1.BackColor = System.Drawing.Color.Black;
-            this.ucRu4_1.ButtonName = "광 중계장치";
-            this.ucRu4_1.Location = new System.Drawing.Point(147, 397);
-            this.ucRu4_1.Name = "ucRu4_1";
-            this.ucRu4_1.Size = new System.Drawing.Size(140, 140);
-            this.ucRu4_1.TabIndex = 102;
-            // 
             // label1
             // 
             this.label1.BackColor = System.Drawing.Color.Black;
@@ -392,6 +249,149 @@
             this.label6.Size = new System.Drawing.Size(10, 207);
             this.label6.TabIndex = 108;
             this.label6.Text = "label6";
+            // 
+            // ucRu4_1
+            // 
+            this.ucRu4_1.BackColor = System.Drawing.Color.Black;
+            this.ucRu4_1.ButtonName = "광 중계장치";
+            this.ucRu4_1.Location = new System.Drawing.Point(147, 397);
+            this.ucRu4_1.Name = "ucRu4_1";
+            this.ucRu4_1.Size = new System.Drawing.Size(140, 140);
+            this.ucRu4_1.TabIndex = 102;
+            // 
+            // ucRu3_3
+            // 
+            this.ucRu3_3.BackColor = System.Drawing.Color.Black;
+            this.ucRu3_3.ButtonName = "광 중계장치";
+            this.ucRu3_3.Location = new System.Drawing.Point(641, 397);
+            this.ucRu3_3.Name = "ucRu3_3";
+            this.ucRu3_3.Size = new System.Drawing.Size(140, 140);
+            this.ucRu3_3.TabIndex = 101;
+            // 
+            // ucRu3_2
+            // 
+            this.ucRu3_2.BackColor = System.Drawing.Color.Black;
+            this.ucRu3_2.ButtonName = "광 중계장치";
+            this.ucRu3_2.Location = new System.Drawing.Point(854, 397);
+            this.ucRu3_2.Name = "ucRu3_2";
+            this.ucRu3_2.Size = new System.Drawing.Size(140, 140);
+            this.ucRu3_2.TabIndex = 100;
+            // 
+            // ucRu3_1
+            // 
+            this.ucRu3_1.BackColor = System.Drawing.Color.Black;
+            this.ucRu3_1.ButtonName = "광 중계장치";
+            this.ucRu3_1.Location = new System.Drawing.Point(1077, 397);
+            this.ucRu3_1.Name = "ucRu3_1";
+            this.ucRu3_1.Size = new System.Drawing.Size(140, 140);
+            this.ucRu3_1.TabIndex = 99;
+            // 
+            // ucRu2_4
+            // 
+            this.ucRu2_4.BackColor = System.Drawing.Color.Black;
+            this.ucRu2_4.ButtonName = "광 중계장치";
+            this.ucRu2_4.Location = new System.Drawing.Point(1574, 397);
+            this.ucRu2_4.Name = "ucRu2_4";
+            this.ucRu2_4.Size = new System.Drawing.Size(140, 140);
+            this.ucRu2_4.TabIndex = 98;
+            // 
+            // ucRu2_3
+            // 
+            this.ucRu2_3.BackColor = System.Drawing.Color.Black;
+            this.ucRu2_3.ButtonName = "광 중계장치";
+            this.ucRu2_3.Location = new System.Drawing.Point(1574, 139);
+            this.ucRu2_3.Name = "ucRu2_3";
+            this.ucRu2_3.Size = new System.Drawing.Size(147, 140);
+            this.ucRu2_3.TabIndex = 97;
+            // 
+            // ucRu2_2
+            // 
+            this.ucRu2_2.BackColor = System.Drawing.Color.Black;
+            this.ucRu2_2.ButtonName = "광 중계장치";
+            this.ucRu2_2.Location = new System.Drawing.Point(1395, 139);
+            this.ucRu2_2.Name = "ucRu2_2";
+            this.ucRu2_2.Size = new System.Drawing.Size(140, 140);
+            this.ucRu2_2.TabIndex = 96;
+            // 
+            // ucRu2_1
+            // 
+            this.ucRu2_1.BackColor = System.Drawing.Color.Black;
+            this.ucRu2_1.ButtonName = "광 중계장치";
+            this.ucRu2_1.Location = new System.Drawing.Point(1205, 139);
+            this.ucRu2_1.Name = "ucRu2_1";
+            this.ucRu2_1.Size = new System.Drawing.Size(140, 140);
+            this.ucRu2_1.TabIndex = 95;
+            // 
+            // ucMU4
+            // 
+            this.ucMU4.BackColor = System.Drawing.Color.Black;
+            this.ucMU4.HasRuA = false;
+            this.ucMU4.Location = new System.Drawing.Point(351, 397);
+            this.ucMU4.MaximumSize = new System.Drawing.Size(230, 140);
+            this.ucMU4.Name = "ucMU4";
+            this.ucMU4.Size = new System.Drawing.Size(200, 140);
+            this.ucMU4.TabIndex = 94;
+            this.ucMU4.Title = "기지국명";
+            // 
+            // ucMU3
+            // 
+            this.ucMU3.BackColor = System.Drawing.Color.Black;
+            this.ucMU3.HasRuA = false;
+            this.ucMU3.Location = new System.Drawing.Point(1297, 397);
+            this.ucMU3.MaximumSize = new System.Drawing.Size(230, 140);
+            this.ucMU3.Name = "ucMU3";
+            this.ucMU3.Size = new System.Drawing.Size(200, 140);
+            this.ucMU3.TabIndex = 93;
+            this.ucMU3.Title = "기지국명";
+            // 
+            // ucMU2
+            // 
+            this.ucMU2.BackColor = System.Drawing.Color.Black;
+            this.ucMU2.HasRuA = false;
+            this.ucMU2.Location = new System.Drawing.Point(960, 139);
+            this.ucMU2.MaximumSize = new System.Drawing.Size(230, 140);
+            this.ucMU2.Name = "ucMU2";
+            this.ucMU2.Size = new System.Drawing.Size(200, 140);
+            this.ucMU2.TabIndex = 92;
+            this.ucMU2.Title = "기지국명";
+            // 
+            // ucRu1_3
+            // 
+            this.ucRu1_3.BackColor = System.Drawing.Color.Black;
+            this.ucRu1_3.ButtonName = "광 중계장치";
+            this.ucRu1_3.Location = new System.Drawing.Point(746, 139);
+            this.ucRu1_3.Name = "ucRu1_3";
+            this.ucRu1_3.Size = new System.Drawing.Size(140, 140);
+            this.ucRu1_3.TabIndex = 91;
+            // 
+            // ucRu1_2
+            // 
+            this.ucRu1_2.BackColor = System.Drawing.Color.Black;
+            this.ucRu1_2.ButtonName = "광 중계장치";
+            this.ucRu1_2.Location = new System.Drawing.Point(546, 139);
+            this.ucRu1_2.Name = "ucRu1_2";
+            this.ucRu1_2.Size = new System.Drawing.Size(140, 140);
+            this.ucRu1_2.TabIndex = 90;
+            // 
+            // ucRu1_1
+            // 
+            this.ucRu1_1.BackColor = System.Drawing.Color.Black;
+            this.ucRu1_1.ButtonName = "광 중계장치";
+            this.ucRu1_1.Location = new System.Drawing.Point(348, 139);
+            this.ucRu1_1.Name = "ucRu1_1";
+            this.ucRu1_1.Size = new System.Drawing.Size(140, 140);
+            this.ucRu1_1.TabIndex = 89;
+            // 
+            // ucMU1
+            // 
+            this.ucMU1.BackColor = System.Drawing.Color.Black;
+            this.ucMU1.HasRuA = false;
+            this.ucMU1.Location = new System.Drawing.Point(86, 139);
+            this.ucMU1.MaximumSize = new System.Drawing.Size(230, 140);
+            this.ucMU1.Name = "ucMU1";
+            this.ucMU1.Size = new System.Drawing.Size(200, 140);
+            this.ucMU1.TabIndex = 88;
+            this.ucMU1.Title = "기지국명";
             // 
             // ucSYMainScreen
             // 

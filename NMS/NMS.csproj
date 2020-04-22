@@ -206,13 +206,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\91. 통신 모듈\jksSock %28정교석과장 TCP 통신모듈%29\jksSock\jksSock.csproj">
-      <Project>{2ec9c0a0-6da2-4469-b3e4-68c1e39ba294}</Project>
-      <Name>jksSock</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\5. 성남여주선\999. 공통\Common\Ver 1.01\Common\Common.csproj">
+    <ProjectReference Include="..\..\..\Backup\E\work\project\c_sharp\4. 열차 무선 NMS\10. 동해남부선\Common\Ver 1.01\Common\Common.csproj">
       <Project>{5f0fd856-5200-4d88-9167-88948ca40a72}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Backup\E\work\project\c_sharp\91. 통신 모듈\jksSock %28정교석과장 TCP 통신모듈%29\jksSock\jksSock.csproj">
+      <Project>{2ec9c0a0-6da2-4469-b3e4-68c1e39ba294}</Project>
+      <Name>jksSock</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

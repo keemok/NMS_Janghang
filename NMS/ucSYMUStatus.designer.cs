@@ -203,7 +203,6 @@
             this.lblMainVer = new System.Windows.Forms.Label();
             this.lblMUVerTitle = new System.Windows.Forms.Label();
             this.panelMu유무선부감시장치 = new System.Windows.Forms.Panel();
-            this.ucLif1 = new NMS.ucLif();
             this.panelMuFM = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.gbBettery = new System.Windows.Forms.GroupBox();
@@ -243,6 +242,7 @@
             this.lblTssiRev = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.lblTssiFwd = new System.Windows.Forms.Label();
+            this.ucLif1 = new NMS.ucLif();
             this.panelMu광전송부감시상태.SuspendLayout();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbMUOptAlarm8)).BeginInit();
@@ -2268,13 +2268,6 @@
             this.panelMu유무선부감시장치.Size = new System.Drawing.Size(494, 346);
             this.panelMu유무선부감시장치.TabIndex = 232;
             // 
-            // ucLif1
-            // 
-            this.ucLif1.Location = new System.Drawing.Point(2, 2);
-            this.ucLif1.Name = "ucLif1";
-            this.ucLif1.Size = new System.Drawing.Size(489, 341);
-            this.ucLif1.TabIndex = 0;
-            // 
             // panelMuFM
             // 
             this.panelMuFM.BackColor = System.Drawing.Color.Black;
@@ -2708,6 +2701,13 @@
             this.lblTssiFwd.TabIndex = 245;
             this.lblTssiFwd.Text = "0";
             this.lblTssiFwd.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // ucLif1
+            // 
+            this.ucLif1.Location = new System.Drawing.Point(2, 2);
+            this.ucLif1.Name = "ucLif1";
+            this.ucLif1.Size = new System.Drawing.Size(489, 341);
+            this.ucLif1.TabIndex = 0;
             // 
             // ucSYMUStatus
             // 

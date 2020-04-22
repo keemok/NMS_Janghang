@@ -130,7 +130,7 @@ namespace NMS
             //UHF 
 
             //AC
-            SetErrorIcon(data.UHF_AC_Alarm, pbUHF_AC);
+            //SetErrorIcon(data.UHF_AC_Alarm, pbUHF_AC);
 
             //DC
             SetErrorIcon(data.UHF_DC_Alarm, pbUHF_DC);
