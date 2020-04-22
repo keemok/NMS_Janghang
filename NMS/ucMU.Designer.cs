@@ -77,7 +77,9 @@
             // 
             // btMu
             // 
+            this.btMu.BackColor = System.Drawing.Color.White;
             this.btMu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btMu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btMu.Font = new System.Drawing.Font("굴림", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btMu.Location = new System.Drawing.Point(3, 40);
             this.btMu.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
@@ -85,7 +87,7 @@
             this.btMu.Size = new System.Drawing.Size(224, 97);
             this.btMu.TabIndex = 6;
             this.btMu.Text = "기지국 장치";
-            this.btMu.UseVisualStyleBackColor = true;
+            this.btMu.UseVisualStyleBackColor = false;
             // 
             // ucMU
             // 

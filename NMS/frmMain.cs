@@ -21,31 +21,53 @@
 //                    일산선은 DB Table부터 DB 저장/검색등의 기능들을 새로 만들어야함.
 //
 //
+//ver 1.08 2016-08-22
+//  1.  성남여주선  추가
+//     - BDA 부분 추가
 //
-//
-//
+// ver 1.09 2016-08-23
+//  1. 성남 여주 
+//     - 이매, 삼동 BDA 부분을 나눠서 표시 
+//     - BDA 이름 추가
+//     - 광 부분,  기지국 상세 화면을 보고 있을 때, OPT 관련 정보가 다른 기지국의 데이터가 수신 되어었을 때  덮어 씌워지는 현상이 있었음. 
+//     - 광 부분 이력 조회 했을 때 표시되도록 수정
+//     
 
+using Commmon;
 using Common;
+using Microsoft.Win32;
+using NMS.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace NMS
 {
+
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class frmMain : Form
     {
         private Common.frmDataView frmDV = null;
 
         private Common.frmPassword frmPW = null;
+
         private int pwApplyIndex = 0;
 
-        private Common.clsNMSSendDataMake nmsSendDataMake = new Common.clsNMSSendDataMake();
+        private Common.clsNMSSendDataMake nmsSendDataMake = new clsNMSSendDataMake();
 
-        public const string 성남여주선 = "성남여주선";
+        public const string 동해남부선 = "동해남부선";
+        //public const string 동해남부선 = "동해남부선";
 
         #region 컨트롤 배열
 
@@ -102,9 +124,6 @@ namespace NMS
 
         #endregion 컨트롤 배열
 
-
-        
-
         private string nowStation = string.Empty;
 
         private Color colorSelect = new Color();    //선택 색
@@ -118,32 +137,44 @@ namespace NMS
 
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-
         #region 성남여주용 BDA 정보
 
+        /// <summary>
+        /// BDA 정보
+        /// </summary>
         public class BDAData
         {
+            /// <summary>
+            /// 기지국 ID
+            /// </summary>
             public byte muID;
+
+            /// <summary>
+            /// Ru ID
+            /// </summary>
+            public byte ruID;
+
             /// <summary>
             /// BDA에 대한 정보를 저장할 배열
             /// </summary>
-            public Common.BDA_St[] bdaData;
-            
-            
+            public clsBDATableInfo[] bdaData;
+
+
             public BDAData()
             {
-                bdaData = new BDA_St[20];
+                bdaData = new clsBDATableInfo[20];
             }
-            
         }
 
-        BDAData[] BDA_Data = new BDAData[20];
+        /// <summary>
+        /// BDA 정보 [Mu ID][Ru ID]
+        /// </summary>
+        private BDAData[,] BDA_Data = new BDAData[20,10];
+
+        #endregion 성남여주용 BDA 정보
 
 
-        #endregion
-
-
-        #endregion MU/RU 상태 저장 변수
+        #endregion MU/RU/BDA 상태 저장 변수
 
         private Common.CommErrCheck[] commErrCheck = null; //주/예비/감청 통신 Error를 Check하기 위한 변수
 
@@ -163,6 +194,7 @@ namespace NMS
         private Queue dbRuAQueue = new Queue();
         private Queue dbRuBQueue = new Queue();
         private Queue dbRuFmQueue = new Queue();
+        private Queue dbBDAQueue = new Queue();
 
         private Common.clsStatusListDBMS fbDBMS_StatusListInfo = new Common.clsStatusListDBMS();  //현재 상황 저장
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -177,6 +209,58 @@ namespace NMS
 
         private Common.frmErrorMessage frmErrMsg = new Common.frmErrorMessage();
 
+    
+        #region 절전모드 관련 기능 
+
+        [DllImport("kernel32.dll", EntryPoint = "SetThreadExecutionState", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern EXECUTION_STATE SetThreadExecutionState(EXECUTION_STATE flags);
+
+        public enum EXECUTION_STATE : uint
+        {
+            ES_SYSTEM_REQUIRED = 0x00000001,
+            ES_DISPLAY_REQUIRED = 0x00000002,
+            ES_USER_PRESENT = 0x00000004,
+            ES_CONTINUOUS = 0x80000000
+        }
+
+        /// <summary>
+        /// 절전/대기 모드 진입 금지
+        /// </summary>
+        private void PreventMonitorPowerdown()
+        {
+            SetThreadExecutionState(EXECUTION_STATE.ES_DISPLAY_REQUIRED | EXECUTION_STATE.ES_CONTINUOUS | EXECUTION_STATE.ES_SYSTEM_REQUIRED);
+        }
+
+
+        #region 절전 모드 관련 상수 
+
+        private const int WM_POWER_BROADCAST = 0x218;
+        private const int PBT_APMRESUME_SUSPEND = 0x7;
+
+        #endregion
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="m"></param>
+        protected override void WndProc(ref Message m)
+        {
+            //switch(m.Msg)
+            //{
+            //        ///절전 모드 복귀 시
+            //    case PBT_APMRESUME_SUSPEND:
+            //        SetApply();
+            //        break;
+            //}
+
+
+            base.WndProc(ref m);
+        }
+
+        #endregion
+
+
         public frmMain()
         {
             StreamReader fr = null;
@@ -190,7 +274,7 @@ namespace NMS
 
                 Common.clsCommon.thisVer = fr.ReadLine();      //Version Read
 
-                int tmpVer = Common.clsCommon.VerCheck_NMS(Common.clsCommon.thisVer);
+                int tmpVer = 0;
 
                 switch (tmpVer)
                 {
@@ -219,11 +303,16 @@ namespace NMS
                         break;
                 }
             }
-            catch
+            catch(Exception e)
             {
+                Debug.PrintError(e);
             }
-
-            fr.Close();
+            finally
+            {
+                if(fr != null)
+                    fr.Close();
+                
+            }
             //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
             #endregion 파일로 부터 설정 정보 읽어오기
@@ -233,30 +322,11 @@ namespace NMS
             //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
             switch (Common.clsNMS.nmsGUIUser)
             {
-                case "과천선":
-                    try
-                    {
-                        string fileName = @"\\" + Common.clsNMS.nmsServerIP[0] + @"\NMS Server\과천선_Server.txt";
-                        fr = AddStationListFromFile(fr, fileName);
-                    }
-                    catch
-                    {
-                        try
-                        {
-                            string fileName = @"\\" + Common.clsNMS.nmsServerIP[1] + @"\NMS Server\과천선_Server.txt";
-                            fr = AddStationListFromFile(fr, fileName);
-                        }
-                        catch
-                        {
-                            string fileName = "과천선.txt";
-                            fr = AddStationListFromFile(fr, fileName);
-                        }
-                    }
-                    break;
-
+               
                 case "분당선":
                 case "경의일산선":
-                case 성남여주선:
+                case 동해남부선:
+                
                     try
                     {
                         fr = File.OpenText(Common.clsCommon.DefaultPath + Common.clsNMS.nmsGUIUser + ".txt");
@@ -275,7 +345,8 @@ namespace NMS
                     break;
             }
 
-            fr.Close();
+            if (fr != null)
+                fr.Close();
             //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
             #endregion 파일로 부터 역 List 정보 읽어오기
@@ -284,40 +355,31 @@ namespace NMS
             {
                 case "과천선":
                 case "분당선":
-                case 성남여주선:
+                case 동해남부선:
+                
                     InitializeComponent();
                     break;
 
-                case "경의일산선":
-                    InitializeComponent_1280_1024();
-                    break;
+                //case "경의일산선":
+                //    InitializeComponent_1280_1024();
+                //    break;
 
                 default:
                     InitializeComponent();
                     break;
             }
+
+            PreventMonitorPowerdown();
+
+            mPrevTime = DateTime.Now;
         }
+
 
         /// <summary>
-        /// 파일로부터 역 정보를 읽어 온다.
+        /// 
         /// </summary>
-        /// <param name="fr"></param>
-        /// <param name="fileName"></param>
-        /// <returns></returns>
-        private static StreamReader AddStationListFromFile(StreamReader fr, string fileName)
-        {
-            fr = File.OpenText(fileName);
-
-            string tmpStation = fr.ReadLine();
-
-            while (tmpStation != null)
-            {
-                Common.clsNMS.stationList.Add(tmpStation);
-                tmpStation = fr.ReadLine();
-            }
-            return fr;
-        }
-
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void frmMain_Load(object sender, EventArgs e)
         {
             #region 컨트롤 배열 초기화
@@ -333,121 +395,21 @@ namespace NMS
             //private List<Panel> panelMainBase = new List<Panel>();
             panelMainBase.Add(panelMainBase1); panelMainBase.Add(panelMainBase2);
 
-            //전체 감시화면 관련
+            //전체 감시화면 관련-
             switch (Common.clsNMS.nmsGUIUser)
             {
-                case "과천선":
-                case "과천선 Server":
-                    SetVisible(panel과천선, true);
-                    SetVisible(panel분당선, false);
-                    SetVisible(panel경의일산선, false);
-                    SetVisible(panel성남여주, false);
 
-                    //private List<Button> btMu = new List<Button>();
-                    btMu.Add(btGC_MU1); btMu.Add(btGC_MU2); btMu.Add(btGC_MU3);
-                    //private List<Button> btRuA = new List<Button>();
-                    btRuA.Add(btGC_RU1); btRuA.Add(btGC_RU2); btRuA.Add(btGC_RU3);
-                    //private Button[,] btRuB = new Button[4, 4];
-                    btRuB[0, 0] = btGC_RU1_1; btRuB[0, 1] = btGC_RU1_2;
-                    btRuB[1, 0] = btGC_RU2_1;
-                    btRuB[2, 0] = btGC_RU3_1; btRuB[2, 1] = btGC_RU3_2;
-
-                    //private List<Button> btMuFm = new List<Button>();
-                    btMuFm.Add(btMUFM1); btMuFm.Add(btMUFM2); btMuFm.Add(btMUFM3);
-                    //private List<Button> btRuAFm = new List<Button>();
-                    btRuAFm.Add(btGC_RUFM1); btRuAFm.Add(btGC_RUFM2); btRuAFm.Add(btGC_RUFM3);
-                    //private Button[,] btRuBFm = new Button[4, 4];
-                    btRuBFm[0, 0] = btGC_RUFM1_1; btRuBFm[0, 1] = btGC_RUFM1_2;
-                    btRuBFm[1, 0] = btGC_RUFM2_1;
-                    btRuBFm[2, 0] = btGC_RUFM3_1; btRuBFm[2, 1] = btGC_RUFM3_2;
-
-                    //private List<Button> btConnectServer = new List<Button>();
-                    btConnectServer.Add(btConnectServer1); btConnectServer.Add(btConnectServer2);
-                    //private List<Label> lblConnectServer = new List<Label>();
-                    lblConnectServer.Add(lblConnectServer1); lblConnectServer.Add(lblConnectServer2);
-                    //private List<Label> lblRxServer = new List<Label>();
-                    lblRxServer.Add(lblRxServer1); lblRxServer.Add(lblRxServer2);
-                    //private List<Label> lblTxServer = new List<Label>();
-                    lblTxServer.Add(lblTxServer1); lblTxServer.Add(lblTxServer2);
-                    break;
-
-                case "분당선":
-                    SetVisible(panel과천선, false);
-                    SetVisible(panel분당선, true);
-                    SetVisible(panel경의일산선, false);
-                    SetVisible(panel성남여주, false);
-
-                    //private List<Button> btMu = new List<Button>();
-                    btMu.Add(btMU1); btMu.Add(btMU2); btMu.Add(btMU3); btMu.Add(btMU4); btMu.Add(btMU5);
-                    btMu.Add(btMU6); btMu.Add(btMU7); btMu.Add(btMU8); btMu.Add(btMU9); btMu.Add(btMU10);
-                    btMu.Add(btMU11); btMu.Add(btMU12); btMu.Add(btMU13);
-                    //private List<Button> btRuA = new List<Button>();
-                    btRuA.Add(btRU1); btRuA.Add(btRU2); btRuA.Add(btRU3); btRuA.Add(btRU4); btRuA.Add(btRU5);
-                    btRuA.Add(btRU6); btRuA.Add(btRU7); btRuA.Add(btRU8); btRuA.Add(btRU9); btRuA.Add(btRU10);
-                    btRuA.Add(btRU11); btRuA.Add(btRU12); btRuA.Add(btRU13);
-                    //private Button[,] btRuB = new Button[4, 4];
-                    btRuB[0, 0] = btRU1_1;
-                    btRuB[1, 0] = btRU2_1; btRuB[1, 1] = btRU2_2;
-                    btRuB[3, 0] = btRU4_1; btRuB[3, 1] = btRU4_2;
-                    btRuB[5, 0] = btRU6_1; btRuB[5, 1] = btRU6_2; btRuB[5, 2] = btRU6_3;
-                    btRuB[6, 0] = btRU7_1; btRuB[6, 1] = btRU7_2;
-                    btRuB[7, 0] = btRU8_1;
-                    btRuB[8, 0] = btRU9_1;
-                    btRuB[9, 0] = btRU10_1;
-                    btRuB[10, 0] = btRU11_1;
-                    btRuB[11, 0] = btRU12_1; btRuB[11, 1] = btRU12_2;
-
-                    //private List<Button> btRuAFm = new List<Button>();
-                    btRuAFm.Add(btRUFM1); btRuAFm.Add(btRUFM2); btRuAFm.Add(btRUFM3); btRuAFm.Add(btRUFM4); btRuAFm.Add(btRUFM5);
-                    btRuAFm.Add(btRUFM6); btRuAFm.Add(btRUFM7); btRuAFm.Add(btRUFM8); btRuAFm.Add(btRUFM9); btRuAFm.Add(btRUFM10);
-                    btRuAFm.Add(btRUFM11); btRuAFm.Add(btRUFM12); btRuAFm.Add(btRUFM13);
-                    //private Button[,] btRuBFm = new Button[4, 4];
-                    btRuBFm[0, 0] = btRUFM1_1;
-                    btRuBFm[1, 0] = btRUFM2_1; btRuBFm[1, 1] = btRUFM2_2;
-                    btRuBFm[3, 0] = btRUFM4_1; btRuBFm[3, 1] = btRUFM4_2;
-                    btRuBFm[5, 0] = btRUFM6_1; btRuBFm[5, 1] = btRUFM6_2; btRuBFm[5, 2] = btRUFM6_3;
-                    btRuBFm[6, 0] = btRUFM7_1; btRuBFm[6, 1] = btRUFM7_2;
-                    btRuBFm[7, 0] = btRUFM8_1;
-                    btRuBFm[8, 0] = btRUFM9_1;
-                    btRuBFm[9, 0] = btRUFM10_1;
-                    btRuBFm[10, 0] = btRUFM11_1;
-                    btRuBFm[11, 0] = btRUFM12_1; btRuBFm[11, 1] = btRUFM12_2;
-                    break;
-
-                case 성남여주선:
+                case 동해남부선:
                     Init성남여주선();
                     break;
 
-                case "경의일산선":
-                    SetVisible(panel과천선, false);
-                    SetVisible(panel분당선, false);
-                    SetVisible(panel경의일산선, true);
-                    SetVisible(panel성남여주, false);
 
-                    //전체 감시화면 관련
-                    //private List<Button> btMu = new List<Button>();
-                    btMu.Add(btKUMU1); btMu.Add(btKUMU2); btMu.Add(btISMU1); btMu.Add(btISMU2); btMu.Add(btISMU3); btMu.Add(btISMU4);
-                    //private List<Button> btMu = new List<Button>();
-                    btMuFm.Add(btKUFM1); btMuFm.Add(btKUFM2); btMuFm.Add(btISFM1); btMuFm.Add(btISFM2); btMuFm.Add(btISFM3); btMuFm.Add(btISFM4);
-
-                    //private List<Button> btRuA = new List<Button>();
-                    btRuA.Add(btKURU1); btRuA.Add(btKURU2);
-                    //private List<Button> btRuAFm = new List<Button>();
-                    btRuAFm.Add(btKUFM1); btRuAFm.Add(btKUFM2);
-                    //private Button[,] btRuB = new Button[4, 4];
-                    btRuB[0, 0] = btKURU1_1;
-                    btRuB[1, 0] = btKURU2_1; btRuB[1, 1] = btKURU2_2; btRuB[1, 2] = btKURU2_3;
-                    //private Button[,] btRuBFm = new Button[4, 4];
-                    btRuBFm[0, 0] = btKUFM1_1;
-                    btRuBFm[1, 0] = btKUFM2_1; btRuBFm[1, 1] = btKUFM2_2; btRuBFm[1, 2] = btKUFM2_3;
-                    break;
             }
 
             //설정화면
             //private List<TextBox> tbRuName = new List<TextBox>();
             tbRuName.Add(tbRuName1); tbRuName.Add(tbRuName2); tbRuName.Add(tbRuName3); tbRuName.Add(tbRuName4);
 
-            //private List<CheckBox> chkLif = new List<CheckBox>();
             chkLif.Add(chkLif1); chkLif.Add(chkLif2); chkLif.Add(chkLif3); chkLif.Add(chkLif4); chkLif.Add(chkLif5); chkLif.Add(chkLif6);
 
             //AF Gain 관련
@@ -486,26 +448,15 @@ namespace NMS
 
             int i = 0;
 
-            Common.clsCommon.thisVer = "Ver 1.05";
+            Common.clsCommon.thisVer = "Ver 1.00";
 
             this.Text = Common.clsNMS.nmsGUIUser + " 열차무선 NMS - " + Common.clsCommon.thisVer;
             switch (Common.clsNMS.nmsGUIUser)
             {
-                case "과천선":
-                case "과천선 Server":
-                    SetText(lblTitle, "과 천 선   열 차 무 선   N M S");
-                    break;
 
-                case "분당선":
-                    SetText(lblTitle, "분 당 선   열 차 무 선   N M S");
-                    break;
+                case 동해남부선:
 
-                case "경의일산선":
-                    SetText(lblTitle, "경 의 선 / 일 산 선   열 차 무 선   N M S");
-                    break;
-
-                case 성남여주선:
-                    SetText(lblTitle, "성 남 / 여 주 선   열 차 무 선   N M S");
+                    SetText(lblTitle, "동 해 남 부 선   열 차 무 선   N M S");
                     break;
             }
 
@@ -518,7 +469,7 @@ namespace NMS
 
             colorSelect = Color.Lime;
             colorError = Color.Red;
-            colorBase = Color.Transparent;
+            colorBase = Color.White;
 
             #region 임계값 읽어오기
 
@@ -544,7 +495,7 @@ namespace NMS
             {
                 case "분당선":
                 case "경의일산선":
-                case 성남여주선:
+                case 동해남부선:
                     NMSDB_Connect();
                     break;
             }
@@ -574,21 +525,24 @@ namespace NMS
             {
                 case "분당선":
                 case "경의일산선":
-                case 성남여주선:
+                case 동해남부선:
+
                     SetVisible(lblConnectNMS, true);
                     SetVisible(lblRxNMS, true);
                     SetVisible(lblTxNMS, true);
                     break;
             }
 
-            switch (Common.clsNMS.nmsGUIUser)
-            {
-                case "경의일산선":
-                    for (i = 0; i < 3; i++)
-                        panelGround[i].BackgroundImage = new Bitmap(Common.clsCommon.ImagePath + "Ground_1252_870_1.png");
-                    panelMessageView.BackgroundImage = new Bitmap(Common.clsCommon.ImagePath + "Ground_840_100_0.png");
-                    break;
-            }
+
+            #region Ru 이름 설정
+
+            SetRuName();
+
+
+
+            #endregion
+
+
 
             SetInput();
 
@@ -600,7 +554,38 @@ namespace NMS
 
             frmErrMsg.Show();
             SetVisible(frmErrMsg, false);
+
+            SystemEvents.PowerModeChanged += SystemEvents_PowerModeChanged;
+
         }
+
+        private void SetRuName()
+        {
+            string name = "\n광 중계 장치";
+            var list = SYMain.GetRus();
+            for (int i = 0; i < list.Length; i++)
+            {
+                list[i].Text = mRuNames[i] + name; 
+         
+            }
+        }
+
+
+        /// <summary>
+        /// 시스템이 슬립모드나 최대절전모드로 돌아갔을 경우, 네트위크 소켓을 다시 시작한다.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void SystemEvents_PowerModeChanged(object sender, PowerModeChangedEventArgs e)
+        {
+            
+            if( e.Mode == PowerModes.Resume)
+            {
+                SetApply();
+            }
+
+        }
+
 
         /// <summary>
         /// 성남여주선 초기화
@@ -612,6 +597,18 @@ namespace NMS
             SetVisible(panel경의일산선, false);
             SetVisible(panel성남여주, true);
 
+            #region Mu 이름 설정
+
+            var muList = SYMain.GetMuList();
+            for ( int i =0; i<muList.Count;  i++)
+            {
+                var item = muList[i];
+                item.Title = clsNMS.stationList[i];
+            }
+
+            #endregion
+
+
             ucMUSt.muControlClick += MUSt_muControlClick;
             ucRUSt.ruControlClick += RuSt_ruControlClick;
 
@@ -619,8 +616,8 @@ namespace NMS
 
             //MU 설정
             btMu.Add(SYMain.ucMU1.Button); btMu.Add(SYMain.ucMU2.Button); btMu.Add(SYMain.ucMU3.Button); btMu.Add(SYMain.ucMU4.Button);
-            btMu.Add(SYMain.ucMU5.Button); btMu.Add(SYMain.ucMU6.Button); btMu.Add(SYMain.ucMU7.Button); btMu.Add(SYMain.ucMU8.Button);
-            btMu.Add(SYMain.ucMU9.Button);
+            //btMu.Add(SYMain.ucMU5.Button); btMu.Add(SYMain.ucMU6.Button); btMu.Add(SYMain.ucMU7.Button); btMu.Add(SYMain.ucMU8.Button);
+            //btMu.Add(SYMain.ucMU9.Button);
 
             //-------------------ru 설정-----------------------------
 
@@ -631,15 +628,19 @@ namespace NMS
             //btRuA.Add(SYMain.ucRu5_1.RuButton);
             //btRuA.Add(SYMain.ucRu8_1.RuButton);
 
-            //광주
-            btRuB[2, 0] = SYMain.ucRu3_1.RuButton; btRuB[2, 1] = SYMain.ucRu3_2.RuButton;
-            //곤지암
-            btRuB[3, 0] = SYMain.ucRu4_1.RuButton; btRuB[3, 1] = SYMain.ucRu4_2.RuButton;
-            //신둔
-            btRuB[4, 0] = SYMain.ucRu5_1.RuButton;
+            btRuB[0, 0] = SYMain.ucRu1_1.RuButton;
+            btRuB[0, 1] = SYMain.ucRu1_2.RuButton;
+            btRuB[0, 2] = SYMain.ucRu1_3.RuButton;
+            btRuB[1, 0] = SYMain.ucRu2_1.RuButton;
+            btRuB[1, 1] = SYMain.ucRu2_2.RuButton;
+            btRuB[1, 2] = SYMain.ucRu2_3.RuButton;
+            btRuB[1, 3] = SYMain.ucRu2_4.RuButton;
+            btRuB[2, 0] = SYMain.ucRu3_1.RuButton;
+            btRuB[2, 1] = SYMain.ucRu3_2.RuButton;
+            btRuB[2, 2] = SYMain.ucRu3_3.RuButton;
+            btRuB[3, 0] = SYMain.ucRu4_1.RuButton;
 
-            //여주
-            btRuB[7, 0] = SYMain.ucRu8_1.RuButton;
+
 
             //---------------------------------------------------------
 
@@ -656,41 +657,36 @@ namespace NMS
                 btn.Click += btMU_Click;
             }
 
-            //MU
-            //SYMain.ucMU1.Button.Click += btMU_Click;
-            //SYMain.ucMU2.Button.Click += btMU_Click;
-            //SYMain.ucMU3.Button.Click += btMU_Click;
-            //SYMain.ucMU4.Button.Click += btMU_Click;
-            //SYMain.ucMU5.Button.Click += btMU_Click;
-            //SYMain.ucMU6.Button.Click += btMU_Click;
-            //SYMain.ucMU7.Button.Click += btMU_Click;
-            //SYMain.ucMU8.Button.Click += btMU_Click;
 
-            //RU
-            SYMain.ucRu3_1.RuButton.Click += btRuB_Click;
-            SYMain.ucRu3_2.RuButton.Click += btRuB_Click;
-            SYMain.ucRu4_1.RuButton.Click += btRuB_Click;
-            SYMain.ucRu4_2.RuButton.Click += btRuB_Click;
-            SYMain.ucRu5_1.RuButton.Click += btRuB_Click;
-            SYMain.ucRu8_1.RuButton.Click += btRuB_Click;
+            ////RU
+            Button[] rus = SYMain.GetRus();
 
-            //FM
-            //SYMain.ucRu3_1.FMButton.Click += btRuB_Click;
-            //SYMain.ucRu3_2.FMButton.Click += btRuB_Click;
-            //SYMain.ucRu4_1.FMButton.Click += btRuB_Click;
-            //SYMain.ucRu4_2.FMButton.Click += btRuB_Click;
-            //SYMain.ucRu5_1.FMButton.Click += btRuB_Click;
-            foreach(var bda in  SYMain.GetBDAs())
+            foreach (var Ru in rus)
             {
-                bda.ClickBDA += bda_ClickBDA;
+                Ru.Click += btRuB_Click;
             }
 
+          
+
+            #region 첫번째 두번째용 분리된 UI 이벤트
+
+            //var item = SYMain.GetBDAsForSplit();
+
+            //var data = SYMain.GetBDAs();
+
+
+            //item[0, 0].SetEvent(data[0]);
+            //item[0, 1].SetEvent(data[0]);
+
+            //item[1, 0].SetEvent(data[1]);
+            //item[1, 1].SetEvent(data[1]);
+
+            #endregion
 
 
             #endregion 버튼 이벤트 연결
         }
 
-        
 
         #region 컨트롤 제어(문자출력, 활성화 변경, 색변경)
 
@@ -888,6 +884,7 @@ namespace NMS
 
         #endregion 컨트롤 제어(문자출력, 활성화 변경, 색변경)
 
+
         #region AddStatus( 현재상태 DataBase에 저장 )
 
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -918,14 +915,16 @@ namespace NMS
                 ListViewItem tmpLV = new ListViewItem(tmpData);
                 SetListViewItemInster(lvUseMsg, 0, tmpLV);
             }
-            catch
+            catch(Exception e)
             {
+                Debug.PrintError(e);
             }
         }
 
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
         #endregion AddStatus( 현재상태 DataBase에 저장 )
+
 
         private void frmMain_MouseDown(object sender, MouseEventArgs e)
         {
@@ -941,6 +940,7 @@ namespace NMS
                         case "분당선":
                         case "경의일산선":
                         case "성남여주선":
+                        case 동해남부선:
                             frmDV.SetTitle(0, "  NMS 주장치  ");
                             break;
 
@@ -959,6 +959,7 @@ namespace NMS
             }
         }
 
+
         private void frmDV_FormClosing(object sender, FormClosingEventArgs e)
         {
             for (int i = 0; i < 2; i++)
@@ -966,7 +967,11 @@ namespace NMS
 
             frmDV = null;
         }
+        
 
+        /// <summary>
+        /// NMS 초기화
+        /// </summary>
         private void NMS_Init()
         {
             int i = 0, j = 0;
@@ -1000,82 +1005,8 @@ namespace NMS
                 }
             }
 
-            switch (Common.clsNMS.nmsGUIUser)
-            {
-                case "과천선":
-                case "분당선":
-                case "성남여주선":
-                    break;
+            Debug.StartThread();
 
-                case "경의일산선":
-                    Common.clsNMS.muRfValueTable[0] = 0x61;
-                    Common.clsNMS.muRfValueTable[1] = 0x66;
-                    Common.clsNMS.muRfValueTable[2] = 0x6A;
-                    Common.clsNMS.muRfValueTable[3] = 0x6E;
-                    Common.clsNMS.muRfValueTable[4] = 0x72;
-                    Common.clsNMS.muRfValueTable[5] = 0x76;
-                    Common.clsNMS.muRfValueTable[6] = 0x79;
-                    Common.clsNMS.muRfValueTable[7] = 0x7D;
-                    Common.clsNMS.muRfValueTable[8] = 0x81;
-                    Common.clsNMS.muRfValueTable[9] = 0x84;
-                    Common.clsNMS.muRfValueTable[10] = 0x88;
-                    Common.clsNMS.muRfValueTable[11] = 0x8A;
-                    Common.clsNMS.muRfValueTable[12] = 0x8D;
-                    Common.clsNMS.muRfValueTable[13] = 0x8D;
-                    Common.clsNMS.muRfValueTable[14] = 0x8D;
-                    Common.clsNMS.muRfValueTable[15] = 0x8D;
-
-                    Common.clsNMS.ruRfValueTable[0] = 0x76;
-                    Common.clsNMS.ruRfValueTable[1] = 0x7F;
-                    Common.clsNMS.ruRfValueTable[2] = 0x86;
-                    Common.clsNMS.ruRfValueTable[3] = 0x8C;
-                    Common.clsNMS.ruRfValueTable[4] = 0x93;
-                    Common.clsNMS.ruRfValueTable[5] = 0x99;
-                    Common.clsNMS.ruRfValueTable[6] = 0x9F;
-                    Common.clsNMS.ruRfValueTable[7] = 0xA5;
-                    Common.clsNMS.ruRfValueTable[8] = 0xAA;
-                    Common.clsNMS.ruRfValueTable[9] = 0xAE;
-                    Common.clsNMS.ruRfValueTable[10] = 0xB4;
-                    Common.clsNMS.ruRfValueTable[11] = 0xB9;
-                    Common.clsNMS.ruRfValueTable[12] = 0xBC;
-                    Common.clsNMS.ruRfValueTable[13] = 0xBC;
-                    Common.clsNMS.ruRfValueTable[14] = 0xBC;
-                    Common.clsNMS.ruRfValueTable[15] = 0xBC;
-                    break;
-
-                default:
-                    break;
-            }
-
-            /*
-            Common.clsNMS.muRfValueTable[0] = 0x61;
-            Common.clsNMS.muRfValueTable[1] = 0x66;
-            Common.clsNMS.muRfValueTable[2] = 0x6A;
-            Common.clsNMS.muRfValueTable[3] = 0x6E;
-            Common.clsNMS.muRfValueTable[4] = 0x72;
-            Common.clsNMS.muRfValueTable[5] = 0x76;
-            Common.clsNMS.muRfValueTable[6] = 0x79;
-            Common.clsNMS.muRfValueTable[7] = 0x7D;
-            Common.clsNMS.muRfValueTable[8] = 0x81;
-            Common.clsNMS.muRfValueTable[9] = 0x84;
-            Common.clsNMS.muRfValueTable[10] = 0x88;
-            Common.clsNMS.muRfValueTable[11] = 0x8A;
-            Common.clsNMS.muRfValueTable[12] = 0x8D;
-
-            Common.clsNMS.ruRfValueTable[0] = 0x76;
-            Common.clsNMS.ruRfValueTable[1] = 0x7F;
-            Common.clsNMS.ruRfValueTable[2] = 0x86;
-            Common.clsNMS.ruRfValueTable[3] = 0x8C;
-            Common.clsNMS.ruRfValueTable[4] = 0x93;
-            Common.clsNMS.ruRfValueTable[5] = 0x99;
-            Common.clsNMS.ruRfValueTable[6] = 0x9F;
-            Common.clsNMS.ruRfValueTable[7] = 0xA5;
-            Common.clsNMS.ruRfValueTable[8] = 0xAA;
-            Common.clsNMS.ruRfValueTable[9] = 0xAE;
-            Common.clsNMS.ruRfValueTable[10] = 0xB4;
-            Common.clsNMS.ruRfValueTable[11] = 0xB9;
-            Common.clsNMS.ruRfValueTable[12] = 0xBC;
-            */
 
             #region 역사별 MU/RU 상태 저장 변수 초기화
 
@@ -1129,74 +1060,11 @@ namespace NMS
             //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
             switch (Common.clsNMS.nmsGUIUser)
             {
-                case "과천선":
-                    try
-                    {
-                        string fileName = @"\\" + Common.clsNMS.nmsServerIP[0] + @"\NMS Server\과천선_Server_MuRuName.ini";
-
-                        try
-                        {
-                            fr = File.OpenText(fileName);
-                        }
-                        catch
-                        {
-                            fileName = @"\\" + Common.clsNMS.nmsServerIP[1] + @"\NMS Server\과천선_Server_MuRuName.ini";
-
-                            try
-                            {
-                                fr = File.OpenText(fileName);
-                            }
-                            catch
-                            {
-                                fr = File.OpenText("과천선_MuRuName.ini");
-                            }
-                        }
-
-                        //fr = File.OpenText(Common.clsCommon.DefaultPath + Common.clsNMS.nmsGUIUser + "_MuRuName.ini");
-
-                        int tmpVer = Common.clsCommon.VerCheck_NMSServer(fr.ReadLine());  //Version Read
-
-                        switch (tmpVer)
-                        {
-                            case 0:     //Ver 1.00 ~
-                                for (i = 0; i < muruNowData.Length; i++)
-                                {
-                                    Common.clsNMS.muruName[i].muName = fr.ReadLine();
-
-                                    for (j = 0; j < 4; j++)
-                                    {
-                                        string name = fr.ReadLine();
-                                        Common.clsNMS.muruName[i].ruName[j].ruName = name;
-                                    }
-                                }
-
-                                //Lif사용 유무
-                                for (i = 0; i < muruNowData.Length - 1; i++)
-                                {
-                                    for (j = 0; j < 6; j++)
-                                    {
-                                        if (fr.ReadLine() == "True")
-                                            Common.clsNMS.muLifExist[i].flagLif[j] = true;
-                                    }
-                                }
-                                break;
-
-                            default:
-                                //if (clsCommon.flagLanguage) MessageBox.Show("프로그램 버젼이 맞지 않습니다. 확인후 다시 시도하시기 바랍니다.");
-                                //else MessageBox.Show("Program version does not match. Try again after verification.");
-
-                                this.Close();
-                                break;
-                        }
-                    }
-                    catch
-                    {
-                    }
-                    break;
 
                 case "분당선":
                 case "경의일산선":
-                case 성남여주선:
+                case 동해남부선:
+                
                     try
                     {
                         mRuNames = new List<string>();
@@ -1245,11 +1113,13 @@ namespace NMS
                     break;
             }
 
-            fr.Close();
+            if(fr  != null)
+                fr.Close();
             //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
             #endregion 파일로 부터 MU/RU 이름 정보 읽어오기
         }
+
 
         #region 공통 메뉴 관련
 
@@ -1342,15 +1212,16 @@ namespace NMS
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
         #endregion 공통 메뉴 관련
+        
 
+        #region MU/MuFm/Ru/RuFm 초기화
         /// <summary>
         /// Mu 상태 화면 초기화
         /// </summary>
         /// <param name="flagAction"></param>
         private void MuStInit(bool flagAction)
         {
-            if (flagILSAN) ucMUSt_ILSAN.MuStInit(flagAction);
-            else ucMUSt.MuStInit(flagAction);      //MU 화면 초기화
+            ucMUSt.MuStInit(flagAction);      //MU 화면 초기화
 
             ucMUSt.SetMainScreen(SYMain);
         }
@@ -1370,6 +1241,8 @@ namespace NMS
         {
             ucRUSt.FmStInit(flagAction);      //RU의 FM 화면 초기화
         }
+        #endregion
+
 
         #region DB 관련 갱신 기능
 
@@ -1397,11 +1270,12 @@ namespace NMS
 
         #endregion DB 관련 갱신 기능
 
+
         #region 주 화면
 
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-        #region MU/RuA/RuB Click 이벤트
+        #region MU/RuA/RuB/BDA Click 이벤트
 
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         private void btMU_Click(object sender, EventArgs e)
@@ -1418,14 +1292,17 @@ namespace NMS
         {
             btRuB_Click(Convert.ToInt32(((Button)sender).Tag));
         }
-        
+
         /// <summary>
-        ///  BDA 
+        ///  BDA  클릭했을 때 처리
         /// </summary>
-        /// <param name="muID"></param>
-        /// <param name="BDA_Count"></param>
-        private void bda_ClickBDA(byte muID, int BDA_Count)
+        /// <param name="muID">Mu 정보</param>
+        /// <param name="ruID">ru 정보</param>
+        /// <param name="count"></param>
+        private void bda_ClickBDA(byte muID, byte ruID, int BDA_Count)
         {
+            mBDA_Mu = muID;
+            mBDA_Ru = ruID;
 
             SetVisible(panelMainBase[0], false);
             SetVisible(panelMainBase[1], true);
@@ -1433,16 +1310,38 @@ namespace NMS
             SetVisible(ucMUSt_ILSAN, false);
             SetVisible(ucRUSt, false);   //RU 상세화면
             SetVisible(ucBDASt, true);
-            
-            string name = Common.clsNMS.stationList[muID];
-                        
-            ucBDASt.SetTitle(name);
+
+                       
+
+            ucBDASt.SetDefaultImage();
+
+            string name = Common.clsNMS.stationList[muID] + " 기지국";
+
+            try
+            {
+                
+                
+                if(ruID >= 1){
+
+                    name = string.Format("{0} - {1}", name, Common.clsNMS.muruName[muID].ruName[ruID-1].ruName);
+                     
+                }
+
+                ucBDASt.SetTitle(name);
+            }
+            catch
+            {
+                ucBDASt.SetTitle(name);
+            }
+
+
             ucBDASt.SetBDACount(BDA_Count);
-            
+
+
+
+            ucBDASt.SetData( BDA_Data,this);
+            ucBDASt.ShowData(muID, ruID);
         }
-
-        
-
 
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
@@ -1451,6 +1350,11 @@ namespace NMS
         #region MU/RuA/RuB 전체 감시 화면 관련
 
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+        /// <summary>
+        /// MU를 클릭했을 때 처리
+        /// </summary>
+        /// <param name="index"></param>
         private void btMU_Click(int index)
         {
             flagILSAN = false;
@@ -1459,6 +1363,9 @@ namespace NMS
 
             Common.clsNMS.presentMUID = (byte)(index + 1);
             Common.clsNMS.presentRUID = 0;
+
+            mCurrent_Mu = (byte)(index + 1);
+            mCurrent_Ru = 0;
 
             SetVisible(panelMainBase[0], false);
             SetVisible(panelMainBase[1], true);
@@ -1478,11 +1385,12 @@ namespace NMS
                     else ucMUSt.SetMode(3);
                     break;
 
-                case 성남여주선:
+                case 동해남부선:
 
                     ucMUSt.SetMode(4);
 
                     int count = 0;
+
                     foreach (var i in clsNMS.muruName[index].ruName)
                     {
                         if (i.ruName.Length > 0)
@@ -1527,6 +1435,10 @@ namespace NMS
             }
         }
 
+        /// <summary>
+        /// Ru A 클릭했을 때 처리
+        /// </summary>
+        /// <param name="index"></param>
         private void btRuA_Click(int index)
         {
             nowStation = Common.clsNMS.stationList[index];
@@ -1548,11 +1460,10 @@ namespace NMS
             SetVisible(ucMUSt, false);  //MU 상세화면
             SetVisible(ucMUSt_ILSAN, false);
             SetVisible(ucRUSt, true);   //RU 상세화면
-            
 
             ucRUSt.SetMode(0);
 
-            if (clsNMS.nmsGUIUser == 성남여주선)
+            if (clsNMS.nmsGUIUser == 동해남부선)
             {
                 nowStation = mRuNames[index];
 
@@ -1563,9 +1474,13 @@ namespace NMS
                 ucRUSt.SetTitle(nowStation + " 광중계장치 ( A 형 )");
         }
 
+        /// <summary>
+        /// RU B 클릭 시 처리
+        /// </summary>
+        /// <param name="index"></param>
         private void btRuB_Click(int index)
         {
-            nowStation = Common.clsNMS.muruName[index / 10].ruName[(index % 10) ].ruName;
+            nowStation = Common.clsNMS.muruName[index / 10].ruName[(index % 10)].ruName;
 
             Common.clsNMS.presentMUID = (byte)(index / 10 + 1);
             Common.clsNMS.presentRUID = (byte)(index % 10 + 1);
@@ -1586,12 +1501,11 @@ namespace NMS
             SetVisible(ucMUSt_ILSAN, false);
             SetVisible(ucBDASt, false); //bda
             SetVisible(ucRUSt, true);   //RU 상세화면
-            
+
             ucRUSt.SetMode(1);
 
-            if (clsNMS.nmsGUIUser == 성남여주선)
+            if (clsNMS.nmsGUIUser == 동해남부선)
             {
-                
                 ucRUSt.SetEnableFMStatus(false);
             }
 
@@ -1626,7 +1540,7 @@ namespace NMS
 
                     sendBuf = nmsSendDataMake.EditData_CTL_MainStbyChange(Common.clsNMS.presentMUID, Common.clsNMS.presentRUID, Common.clsCommon.HexaConvert(index));
                     JksSockMain.ClientSendData(sendBuf, (byte)sendBuf.Length);
-                    JksSockStby.ClientSendData(sendBuf, (byte)sendBuf.Length);
+                    //JksSockStby.ClientSendData(sendBuf, (byte)sendBuf.Length);
 
                     tmpStr = nowStation + " 기지국";
 
@@ -1642,7 +1556,7 @@ namespace NMS
 
                     sendBuf = nmsSendDataMake.EditData_CTL_AutoManualChange(Common.clsNMS.presentMUID, Common.clsNMS.presentRUID, Common.clsCommon.HexaConvert(index));
                     JksSockMain.ClientSendData(sendBuf, (byte)sendBuf.Length);
-                    JksSockStby.ClientSendData(sendBuf, (byte)sendBuf.Length);
+                    //JksSockStby.ClientSendData(sendBuf, (byte)sendBuf.Length);
 
                     tmpStr = nowStation + " 기지국 : 절체방법을 ";
 
@@ -1675,7 +1589,7 @@ namespace NMS
 
                     sendBuf = nmsSendDataMake.EditData_CTL_RFValueSet(Common.clsNMS.presentMUID, Common.clsNMS.presentRUID, Common.clsCommon.HexaConvert(index), rfValue);
                     JksSockMain.ClientSendData(sendBuf, (byte)sendBuf.Length);
-                    JksSockStby.ClientSendData(sendBuf, (byte)sendBuf.Length);
+                    //JksSockStby.ClientSendData(sendBuf, (byte)sendBuf.Length);
 
                     tmpStr = nowStation + " 기지국";
 
@@ -1696,7 +1610,7 @@ namespace NMS
 
                     sendBuf = nmsSendDataMake.EditData_CTL_WideNarrowChange(Common.clsNMS.presentMUID, Common.clsNMS.presentRUID, Common.clsCommon.HexaConvert(wideNarrow));
                     JksSockMain.ClientSendData(sendBuf, (byte)sendBuf.Length);
-                    JksSockStby.ClientSendData(sendBuf, (byte)sendBuf.Length);
+                    //JksSockStby.ClientSendData(sendBuf, (byte)sendBuf.Length);
 
                     tmpStr = nowStation + " 기지국 : 무전기 형식을";
 
@@ -1712,7 +1626,7 @@ namespace NMS
 
                     sendBuf = nmsSendDataMake.EditData_CTL_ChReturnTimeSet(Common.clsNMS.presentMUID, Common.clsNMS.presentRUID, value);
                     JksSockMain.ClientSendData(sendBuf, (byte)sendBuf.Length);
-                    JksSockStby.ClientSendData(sendBuf, (byte)sendBuf.Length);
+                    //JksSockStby.ClientSendData(sendBuf, (byte)sendBuf.Length);
 
                     tmpStr = nowStation + " 기지국 :";
 
@@ -1737,7 +1651,7 @@ namespace NMS
 
                     sendBuf = nmsSendDataMake.EditData_CTL_SendOutTest(Common.clsNMS.presentMUID, Common.clsNMS.presentRUID, ucMUSt.flagSendOutTest);
                     JksSockMain.ClientSendData(sendBuf, (byte)sendBuf.Length);
-                    JksSockStby.ClientSendData(sendBuf, (byte)sendBuf.Length);
+                    //JksSockStby.ClientSendData(sendBuf, (byte)sendBuf.Length);
 
                     ucMUSt.btMuSendOutTest_ColorSet();    //송신출력시험 버튼 색 변경
 
@@ -1760,7 +1674,7 @@ namespace NMS
 
                     sendBuf = nmsSendDataMake.EditData_ILSAN_CTL_CPUChange(Common.clsNMS.presentMUID, Common.clsNMS.presentRUID, Common.clsCommon.HexaConvert(index));
                     JksSockMain.ClientSendData(sendBuf, (byte)sendBuf.Length);
-                    JksSockStby.ClientSendData(sendBuf, (byte)sendBuf.Length);
+                    //JksSockStby.ClientSendData(sendBuf, (byte)sendBuf.Length);
 
                     tmpStr = nowStation + " 기지국";
 
@@ -1835,7 +1749,7 @@ namespace NMS
             {
                 case "분당선":
                 case "경의일산선":
-                case 성남여주선:
+                case 동해남부선:
                     nmsMUSt_DBSave(muID);   //DB에 저장
                     break;
             }
@@ -1846,36 +1760,6 @@ namespace NMS
             nmsMUError_Display(muID);   //전체화면의 stationSt 컨트롤에 주예비 상태 및 장애 표시
         }
 
-        private void ILSAN_MuStatusReport(int myID, byte muID, Common.ILSAN_MUData muData)
-        {
-            if (!Common.clsNMS.muruComSt[muID - 1].flagMuFirst)
-                Common.clsNMS.muruComSt[muID - 1].flagMuFirst = true;
-
-            Common.clsNMS.muruComSt[muID - 1].cntMu = 0;
-            if (!Common.clsNMS.muruComSt[muID - 1].flagMu)
-            {
-                AddStatus(Common.clsNMS.stationList[muID - 1] + "(MU) 통신이상 복구");
-
-                Common.clsNMS.muruComSt[muID - 1].flagMu = true;
-
-                //현재 MU화면을 보고 있으면 활성화 시킴.(통신 불량에서 정상으로 돌아온경우..)
-                if (muID == Common.clsNMS.presentMUID) MuStInit(true);
-
-                SetColor(btMu[muID - 1], colorSelect);
-                SetForeColor(btMu[muID - 1], Color.Black);
-            }
-
-            muruNowData[muID].muData_ILSAN = muData.Clone();
-
-            nmsMUSt_ILSAN_DBSave(muID);   //DB에 저장
-
-            //현재 보고있는 MU화면의 정보를 화면에 표시한다.
-            if (muID == Common.clsNMS.presentMUID) nmsMUSt_Display(muID);     //MU 상태 적용
-
-            ucGainSet_ILSAN.AfGainReport(0, muID, muruNowData[muID].muData_ILSAN.muGain);   //게인값 표시
-
-            nmsMUError_ILSAN_Display(muID);     //전체화면의 stationSt 컨트롤에 주예비 상태 및 장애 표시
-        }
 
         private void MuFmStReport(int myID, byte muID, byte ruID, Common.FM_Info tmpFmInfo)
         {
@@ -1901,7 +1785,7 @@ namespace NMS
             {
                 case "분당선":
                 case "경의일산선":
-                case 성남여주선:
+                case 동해남부선:
                     nmsMuFmSt_DBSave(muID);   //DB에 저장
                     break;
             }
@@ -1941,7 +1825,7 @@ namespace NMS
 
                     sendBuf = nmsSendDataMake.EditData_CTL_MainStbyChange(Common.clsNMS.presentMUID, Common.clsNMS.presentRUID, Common.clsCommon.HexaConvert(index));
                     JksSockMain.ClientSendData(sendBuf, (byte)sendBuf.Length);
-                    JksSockStby.ClientSendData(sendBuf, (byte)sendBuf.Length);
+                    //JksSockStby.ClientSendData(sendBuf, (byte)sendBuf.Length);
 
                     tmpStr = nowStation + " 광중계장치";
 
@@ -1962,7 +1846,7 @@ namespace NMS
 
                     sendBuf = nmsSendDataMake.EditData_CTL_AutoManualChange(Common.clsNMS.presentMUID, Common.clsNMS.presentRUID, Common.clsCommon.HexaConvert(autoManual));
                     JksSockMain.ClientSendData(sendBuf, (byte)sendBuf.Length);
-                    JksSockStby.ClientSendData(sendBuf, (byte)sendBuf.Length);
+                    //JksSockStby.ClientSendData(sendBuf, (byte)sendBuf.Length);
 
                     tmpStr = nowStation + " 광중계장치 : 절체방법을";
 
@@ -1998,7 +1882,7 @@ namespace NMS
 
                     sendBuf = nmsSendDataMake.EditData_CTL_RFValueSet(Common.clsNMS.presentMUID, Common.clsNMS.presentRUID, Common.clsCommon.HexaConvert(mainSpare), rfValue);
                     JksSockMain.ClientSendData(sendBuf, (byte)sendBuf.Length);
-                    JksSockStby.ClientSendData(sendBuf, (byte)sendBuf.Length);
+                    //JksSockStby.ClientSendData(sendBuf, (byte)sendBuf.Length);
 
                     tmpStr = nowStation + " 광중계장치 : ";
 
@@ -2016,7 +1900,7 @@ namespace NMS
 
                     sendBuf = nmsSendDataMake.EditData_CTL_WideNarrowChange(Common.clsNMS.presentMUID, Common.clsNMS.presentRUID, Common.clsCommon.HexaConvert(wideNarrow));
                     JksSockMain.ClientSendData(sendBuf, (byte)sendBuf.Length);
-                    JksSockStby.ClientSendData(sendBuf, (byte)sendBuf.Length);
+                    //JksSockStby.ClientSendData(sendBuf, (byte)sendBuf.Length);
 
                     tmpStr = nowStation + " 광중계장치 : 무전기형식을";
 
@@ -2042,7 +1926,7 @@ namespace NMS
 
                     sendBuf = nmsSendDataMake.EditData_CTL_SendOutTest(Common.clsNMS.presentMUID, Common.clsNMS.presentRUID, ucRUSt.flagSendOutTest);
                     JksSockMain.ClientSendData(sendBuf, (byte)sendBuf.Length);
-                    JksSockStby.ClientSendData(sendBuf, (byte)sendBuf.Length);
+                    //JksSockStby.ClientSendData(sendBuf, (byte)sendBuf.Length);
 
                     ucRUSt.btRuSendOutTest_ColorSet();    //송신출력시험 버튼 색 변경
 
@@ -2051,18 +1935,29 @@ namespace NMS
             }
         }
 
+
+        /// <summary>
+        /// RU 상태 표시
+        /// </summary>
+        /// <param name="myID"></param>
+        /// <param name="muID"></param>
+        /// <param name="ruID"></param>
+        /// <param name="ruData"></param>
         private void RuStatusReport(int myID, byte muID, byte ruID, Common.RUDetailData ruData)
         {
             Common.clsNMS.muruComSt[muID - 1].ruBdaCommSt[ruID].flagRuFirst = true;
-
             Common.clsNMS.muruComSt[muID - 1].ruBdaCommSt[ruID].cntRu = 0;
+
+
             if (!Common.clsNMS.muruComSt[muID - 1].ruBdaCommSt[ruID].flagRu)
             {
+
                 if (ruID == 0) AddStatus(Common.clsNMS.muruName[muID - 1].muName + "(RU_A) 통신이상 복구");
+              
                 else
                 {
                     if (Common.clsNMS.muruName[muID - 1].ruName[ruID - 1].ruName != "")
-                        AddStatus(Common.clsNMS.muruName[muID - 1].ruName[ruID - 1].ruName + "(RU_B) 통신이상 복구");
+                        AddStatus(Common.clsNMS.muruName[muID - 1].ruName[ruID - 1].ruName + "(RU) 통신이상 복구");
                 }
 
                 Common.clsNMS.muruComSt[muID - 1].ruBdaCommSt[ruID].flagRu = true;
@@ -2079,9 +1974,10 @@ namespace NMS
                 case "경의일산선":
                     nmsRUSt_DBSave(muID, ruID);     //DB에 저장
                     break;
-                case 성남여주선:
+
+                case 동해남부선:
                     nmsRUSt_DBSave(muID, ruID);     //DB에 저장
-                    
+
                     break;
             }
 
@@ -2137,7 +2033,7 @@ namespace NMS
             {
                 case "분당선":
                 case "경의일산선":
-                case 성남여주선:
+                case 동해남부선:
                     nmsRuFmSt_DBSave(muID, ruID);     //DB에 저장
                     break;
             }
@@ -2156,6 +2052,7 @@ namespace NMS
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
         #endregion 주 화면
+
 
         #region 설정 화면
 
@@ -2431,10 +2328,13 @@ namespace NMS
             SetApply();
         }
 
+        /// <summary>
+        /// 설정 저장
+        /// </summary>
         private void SetApply()
         {
             JksSockMain.ClientInit(Common.clsNMS.nmsServerIP[0], Common.clsNMS.nmsPort);
-            JksSockStby.ClientInit(Common.clsNMS.nmsServerIP[1], Common.clsNMS.nmsPort);
+            //JksSockStby.ClientInit(Common.clsNMS.nmsServerIP[1], Common.clsNMS.nmsPort);
 
             tmrBell.Stop();
             tmrBell.Interval = Common.clsNMS.bellPlayCycle;
@@ -2452,33 +2352,7 @@ namespace NMS
         #region A/S용 설정 관련
 
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        private void cbSetupMU_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            switch (Common.clsNMS.nmsGUIUser)
-            {
-                case "경의일산선":
-                    ucGainSet_ILSAN.afGainSelectedIndex = cbSetupMU.SelectedIndex;
-
-                    if (cbSetupMU.SelectedIndex == 0) return;
-
-                    if (cbSetupMU.SelectedIndex > 2)
-                    {
-                        SetVisible(gbMuAFGain, false);
-                        SetVisible(gbILSAN_MuAFGain, true);
-
-                        ucGainSet_ILSAN.AfGainReport(0, (byte)(cbSetupMU.SelectedIndex - 1), muruNowData[cbSetupMU.SelectedIndex - 1].muData_ILSAN.muGain);
-                    }
-                    else
-                    {
-                        SetVisible(gbMuAFGain, true);
-                        SetVisible(gbILSAN_MuAFGain, false);
-                    }
-
-                    ucGainSet_ILSAN.cbSetupILSANMU.Text = cbSetupMU.Text;
-                    break;
-            }
-        }
-
+     
         private void btAfGainInquiry_Click(object sender, EventArgs e)
         {
             if (btAfGainInquiry.BackColor != colorBase)
@@ -2501,7 +2375,7 @@ namespace NMS
 
             byte[] tmpBuffer = nmsSendDataMake.EditData_AfGainInquiry(tmpMuID);
             JksSockMain.ClientSendData(tmpBuffer, (byte)tmpBuffer.Length);
-            JksSockStby.ClientSendData(tmpBuffer, (byte)tmpBuffer.Length);
+            //JksSockStby.ClientSendData(tmpBuffer, (byte)tmpBuffer.Length);
 
             string tmpStr = Common.clsNMS.stationList[tmpMuID - 1] + "의 MU";
 
@@ -2552,7 +2426,7 @@ namespace NMS
                 }
                 catch
                 {
-                    //afGainValue[i] = 0;
+                    //afGainValue[mu] = 0;
                     MessageBox.Show("설정값의 범위를 벗어났습니다. 설정값의 범위는 -10 ~ 10 입니다.");
                     return;
                 }
@@ -2560,7 +2434,7 @@ namespace NMS
 
             byte[] tmpBuffer = nmsSendDataMake.EditData_CTL_AFValueSet(muIndex, 0, (byte)index, afGainValue);
             JksSockMain.ClientSendData(tmpBuffer, (byte)tmpBuffer.Length);
-            JksSockStby.ClientSendData(tmpBuffer, (byte)tmpBuffer.Length);
+            //JksSockStby.ClientSendData(tmpBuffer, (byte)tmpBuffer.Length);
 
             string tmpStr = Common.clsNMS.stationList[muIndex - 1] + "의 MU";
 
@@ -2619,7 +2493,7 @@ namespace NMS
 
             byte[] tmpBuffer = nmsSendDataMake.EditData_CTL_AFValueSetRepeat(muIndex, 0, afGainValue);
             JksSockMain.ClientSendData(tmpBuffer, (byte)tmpBuffer.Length);
-            JksSockStby.ClientSendData(tmpBuffer, (byte)tmpBuffer.Length);
+            //JksSockStby.ClientSendData(tmpBuffer, (byte)tmpBuffer.Length);
 
             string tmpStr = Common.clsNMS.stationList[muIndex - 1] + "의 MU REPEAT의 Gain 값을 (" + afGainValue.ToString();
             AddStatus(tmpStr + " ) 설정하였습니다.");
@@ -2705,7 +2579,7 @@ namespace NMS
                 case 1:     //btECHGainSet_Click
                     tmpBuffer = nmsSendDataMake.EditData_ILSAN_CTL_ECHGainValueSet((byte)ucGainSet_ILSAN.afGainSelectedIndex, 0, (byte)index, value);
                     JksSockMain.ClientSendData(tmpBuffer, (byte)tmpBuffer.Length);
-                    JksSockStby.ClientSendData(tmpBuffer, (byte)tmpBuffer.Length);
+                    //JksSockStby.ClientSendData(tmpBuffer, (byte)tmpBuffer.Length);
 
                     tmpStr = Common.clsNMS.stationList[ucGainSet_ILSAN.afGainSelectedIndex - 1] + "의 MU";
 
@@ -2725,7 +2599,7 @@ namespace NMS
                 case 2:     //btCCHGainSet_Click
                     tmpBuffer = nmsSendDataMake.EditData_ILSAN_CTL_CCHGainValueSet((byte)ucGainSet_ILSAN.afGainSelectedIndex, 0, (byte)index, value);
                     JksSockMain.ClientSendData(tmpBuffer, (byte)tmpBuffer.Length);
-                    JksSockStby.ClientSendData(tmpBuffer, (byte)tmpBuffer.Length);
+                    //JksSockStby.ClientSendData(tmpBuffer, (byte)tmpBuffer.Length);
 
                     tmpStr = Common.clsNMS.stationList[ucGainSet_ILSAN.afGainSelectedIndex - 1] + "의 MU";
 
@@ -2752,6 +2626,7 @@ namespace NMS
 
         #endregion 설정 화면
 
+
         #region 경보음 재생 관련
 
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -2763,7 +2638,7 @@ namespace NMS
                 System.Media.SoundPlayer sndPlay = new System.Media.SoundPlayer(soundFileName);
                 sndPlay.Play();
             }
-            catch { }
+            catch (Exception e){ Debug.PrintError(e); }
         }
 
         private void tmrBell_Tick(object sender, EventArgs e)
@@ -2802,6 +2677,7 @@ namespace NMS
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
         #endregion 경보음 재생 관련
+        
 
         #region NMS Server 또는 NMS 주장치와의 통신 관련
 
@@ -2812,7 +2688,9 @@ namespace NMS
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         private void JksSockMain_connectEvent(Socket sock, int myID)
         {
+            
             JksSockServer_connectEvent(0);
+            
         }
 
         private void JksSockMain_dataSendReceive(int ID, bool flagSend)
@@ -2830,9 +2708,9 @@ namespace NMS
             JksSockServer_receivedEvent(0, buffer, lng);
         }
 
-        private void JksSockMain_closeEvent(int ID)
+        private void JksSockMain_closeEvent(int ID, jksSock.clsCommon.SocketCloseCode code)
         {
-            JksSockServer_closeEvent(0);
+            JksSockServer_closeEvent(0, code);
         }
 
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -2862,11 +2740,7 @@ namespace NMS
             JksSockServer_receivedEvent(1, buffer, lng);
         }
 
-        private void JksSockStby_closeEvent(int ID)
-        {
-            JksSockServer_closeEvent(1);
-        }
-
+       
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
         #endregion NMS Server Stby
@@ -2874,13 +2748,21 @@ namespace NMS
         #region NMS Server 통신 관련
 
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+        #region 수신 시 기타 이벤트
+
         private void JksSockServer_connectEvent(int mainStbyID)
         {
             switch (Common.clsNMS.nmsGUIUser)
             {
                 case "분당선":
-                case 성남여주선:
-                    AddStatus("NMS 주장치에 접속하였습니다.");
+                case 동해남부선:
+
+                    if (!AutoCancel1)
+                        AddStatus("NMS 주장치에 접속하였습니다.");
+                    else
+                        AutoCancel1 = false;
+
                     break;
 
                 case "과천선":
@@ -2889,34 +2771,81 @@ namespace NMS
                     break;
             }
 
-            SetColor(lblConnectNMS, Color.Lime);
-            SetColor(lblConnectServer[mainStbyID], Color.Lime);
+            try
+            {
+
+                SetColor(lblConnectNMS, Color.Lime);
+                if(lblConnectServer.Count > mainStbyID)
+                    SetColor(lblConnectServer[mainStbyID], Color.Lime);
+            }
+            catch(Exception e)
+            {
+                Debug.PrintError(e);
+            }
+        }
+
+        /// <summary>
+        /// 소켓이 닫혔을 경우 처리
+        /// </summary>
+        /// <param name="mainStbyID"></param>
+        /// <param name="code"></param>
+        private void JksSockServer_closeEvent(int mainStbyID, jksSock.clsCommon.SocketCloseCode code)
+        {
+            switch (Common.clsNMS.nmsGUIUser)
+            {
+                case "분당선":
+                case "경의일산선":
+                case 동해남부선:
+
+                    //읽기 오류 일 경우 재접속..
+                    if(code == jksSock.clsCommon.SocketCloseCode.ReadError)
+                    {
+                        SetColor(lblConnectNMS, Color.Silver);
+
+                        SetApply();
+                        return;
+                    }
+
+                    if (!AutoCancel2)
+                    {
+                        AddStatus("NMS 주장치와의 접속이 끊겼습니다.");
+                        SetColor(lblConnectNMS, Color.Silver);
+                        SetColor(lblConnectServer[mainStbyID], Color.Silver);
+                    }
+                    else
+                        AutoCancel2 = false;
+
+                    break;
+
+                case "과천선":
+                    if (mainStbyID == 0) AddStatus("NMS Server Main과의 접속이 끊겼습니다.");
+                    else AddStatus("NMS Server Stby와의 접속이 끊겼습니다.");
+                    break;
+            }
+
+            try
+            {
+                //if (!AutoCancel2)
+                //{
+                //    SetColor(lblConnectNMS, Color.Silver);
+                //    SetColor(lblConnectServer[mainStbyID], Color.Silver);
+                //}
+            }
+            catch
+            {
+            }
+
         }
 
         private void JksSockServer_dataSendReceive(int mainStbyID, bool flagSend)
         {
             switch (Common.clsNMS.nmsGUIUser)
             {
-                case "과천선":
-                    if (flagSend)
-                    {
-                        Common.clsCommon.flagTx[mainStbyID] = !Common.clsCommon.flagTx[mainStbyID];
-
-                        if (Common.clsCommon.flagTx[mainStbyID]) SetColor(lblTxServer[mainStbyID], Color.Lime);
-                        else SetColor(lblTxServer[mainStbyID], Color.Silver);
-                    }
-                    else
-                    {
-                        Common.clsCommon.flagRx[mainStbyID] = !Common.clsCommon.flagRx[mainStbyID];
-
-                        if (Common.clsCommon.flagRx[mainStbyID]) SetColor(lblRxServer[mainStbyID], Color.Lime);
-                        else SetColor(lblRxServer[mainStbyID], Color.Silver);
-                    }
-                    break;
+                
 
                 case "분당선":
                 case "경의일산선":
-                case 성남여주선:
+                case 동해남부선:
                     if (flagSend)
                     {
                         Common.clsCommon.flagTx[mainStbyID] = !Common.clsCommon.flagTx[mainStbyID];
@@ -2940,6 +2869,9 @@ namespace NMS
             DataView(mainStbyID, flagSend, strData);
         }
 
+        #endregion
+
+
         /// <summary>
         /// 수신된 데이터 처리
         /// </summary>
@@ -2948,583 +2880,806 @@ namespace NMS
         /// <param name="lng"></param>
         private void JksSockServer_receivedEvent(int mainStbyID, byte[] buffer, int lng)
         {
-            int i = 0, j = 0;
+            
+            Debug.WriteRxLog(buffer,lng);
 
-            cntServerPolling[mainStbyID] = 0;
+            //Thread dataReceiveThread = new Thread(new ThreadStart(() =>
+            //{
+            
+                int i = 0, j = 0;
 
-            if (!flagServerPolling[mainStbyID])
-            {   //NMS Server Stby과의 통신복구
-                flagServerPolling[mainStbyID] = true;
-                SetColor(btConnectServer[mainStbyID], Color.YellowGreen);
+                cntServerPolling[mainStbyID] = 0;
 
-                switch (Common.clsNMS.nmsGUIUser)
+                try
                 {
-                    case "분당선":
-                    case "경의일산선":
-                    case 성남여주선:
-                        AddStatus("NMS 주장치 통신이상 복구");
-                        break;
+                    if (!flagServerPolling[mainStbyID])
+                    {   //NMS Server Stby과의 통신복구
+                        flagServerPolling[mainStbyID] = true;
 
-                    case "과천선":
-                        if (mainStbyID == 0) AddStatus("NMS Server Main 통신이상 복구");
-                        else AddStatus("NMS Server Stby 통신이상 복구");
-                        break;
+                        if (btConnectServer.Count > mainStbyID)
+                            SetColor(btConnectServer[mainStbyID], Color.YellowGreen);
+
+                        switch (Common.clsNMS.nmsGUIUser)
+                        {
+                            case "분당선":
+                            case "경의일산선":
+                            case 동해남부선:
+                                AddStatus("NMS 주장치 통신이상 복구");
+                                break;
+
+                            case "과천선":
+                                if (mainStbyID == 0) AddStatus("NMS Server Main 통신이상 복구");
+                                else AddStatus("NMS Server Stby 통신이상 복구");
+                                break;
+                        }
+                    }
+
                 }
-            }
+                catch(Exception e) {
+                    Debug.PrintError(e);
+                }
 
-            #region 수신된 Data CRC 기본처리
 
-            //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-            int chkSum = 0;
-            byte bL = 0x00, bH = 0x00;
+                #region 수신된 Data CRC 기본처리
 
-            //CRC 검사
-            //chkSum = Common.clsCommon.MakeCRC(buffer, lng - 2);
-            //bH = (byte)((chkSum & 0xFF00) >> 8);
-            //bL = (byte)(chkSum & 0x00FF);
+                //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                int chkSum = 0;
+                byte bL = 0x00, bH = 0x00;
 
-            //CheckSum 검사
-            chkSum = Common.clsCommon.MakeCheckSum(buffer, lng - 2);
-            bH = Common.clsCommon.HexaConvert(chkSum >> 4);
-            bL = Common.clsCommon.HexaConvert(chkSum & 0x0F);
+                //CRC 검사
+                //chkSum = Common.clsCommon.MakeCRC(buffer, lng - 2);
+                //bH = (byte)((chkSum & 0xFF00) >> 8);
+                //bL = (byte)(chkSum & 0x00FF);
 
-            if ((bH != buffer[lng - 2]) || (bL != buffer[lng - 1]))
-            {
-                //AddStatus("CRC 오류!!");
-                return;
-            }
-            //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                //CheckSum 검사
+                chkSum = Common.clsCommon.MakeCheckSum(buffer, lng - 2);
+                bH = Common.clsCommon.HexaConvert(chkSum >> 4);
+                bL = Common.clsCommon.HexaConvert(chkSum & 0x0F);
 
-            #endregion 수신된 Data CRC 기본처리
+                if ((bH != buffer[lng - 2]) || (bL != buffer[lng - 1]))
+                {
+                    //AddStatus("CRC 오류!!");
+                    return;
+                }
+                //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-            j = 2;
-            byte tmpMUId = buffer[j++];     //MU ID
-            byte tmpRUId = buffer[j++];     //RU ID
-            byte tmpCMD = buffer[j++];      //CMD
-            byte tmpLng = buffer[j++];      //Data 길이
+                #endregion 수신된 Data CRC 기본처리
 
-            tmpMUId = (byte)(tmpMUId - 0x40);
-            tmpRUId = (byte)(tmpRUId - 0x30);
 
-            byte kind = 99;
+                try
+                {
 
-            switch (tmpCMD)
-            {
-                case 0xF0:
+                    j = 2;
+                    byte tmpMUId = buffer[j++];     //MU ID
+                    byte tmpRUId = buffer[j++];     //RU ID
+                    byte tmpCMD = buffer[j++];      //CMD
+                    byte tmpLng = buffer[j++];      //Data 길이
 
-                    #region 주/예비 절체 명령
+                    tmpMUId = (byte)(tmpMUId - 0x40);
+                    tmpRUId = (byte)(tmpRUId - 0x30);
 
-                    //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-                    byte tmpServerSt = 0;
-
-                    /*
-                    switch (mainStbyID)
-                    {
-                        case 0: //NMS Server Main에서 수신
-                            break;
-
-                        case 1: //NMS Server Stby에서 수신
-                            break;
-                    }
-                    */
-
-                    switch (buffer[6])
-                    {
-                        case 0x50:  //NMS Server Main에서 수신
-                            switch (buffer[7])
-                            {
-                                case 0x50:  //NMS Sever Main이 주로 사용
-                                    tmpServerSt = 1;
-                                    break;
-
-                                case 0x51:  //NMS Sever Main이 예비로 사용
-                                    tmpServerSt = 2;
-                                    break;
-                            }
-                            break;
-
-                        case 0x51:  //NMS Server Stby에서 수신
-                            switch (buffer[7])
-                            {
-                                case 0x50:  //NMS Sever Stby가 주로 사용
-                                    tmpServerSt = 2;
-                                    break;
-
-                                case 0x51:  //NMS Sever Stby가 예비로 사용
-                                    tmpServerSt = 1;
-                                    break;
-                            }
-                            break;
-                    }
-
-                    if (serverSt != tmpServerSt)
-                    {
-                        serverSt = tmpServerSt;
-
-                        switch (serverSt)
-                        {
-                            case 1:
-                                SetColor(btServerMain, Color.YellowGreen);
-                                SetColor(btServerStby, colorBase);
-                                break;
-
-                            case 2:
-                                SetColor(btServerMain, colorBase);
-                                SetColor(btServerStby, Color.YellowGreen);
-                                break;
-                        }
-                    }
-                    //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-                    #endregion 주/예비 절체 명령
-
-                    break;
-
-                case Common.clsNMSSendDataMake.CMD_TW_REPORT:   //V : 열차무선 감시 Data 보고
-
-                    #region 열차무선 감시 Data 처리
-
-                    //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-                    bool flagILSAN_Process = false;
-                    switch (Common.clsNMS.nmsGUIUser)
-                    {
-                        case "경의일산선":
-                            if (tmpMUId > 2) flagILSAN_Process = true;
-                            break;
-                    }
-
-                    if (flagILSAN_Process)
-                    {
-                        #region 일산선 MU Data 처리
-
-                        //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-                        Common.ILSAN_MUData tmpMuData = new Common.ILSAN_MUData();
-
-                        j += 3;
-
-                        //동작상태 및 고장상태
-                        for (i = 0; i < 8; i++)
-                        {
-                            //0x43 0x31 => C 1 => 0xC1 => 1100 0001
-                            byte tmpValue1 = (byte)(Common.clsCommon.AHD(buffer[j++]) << 4);    //0x43 0x31 => 0xC1
-                            byte tmpValue2 = Common.clsCommon.AHD(buffer[j++]);
-                            byte[] tmpBitInfoByte = Common.clsCommon.BitInfoToByte((byte)(tmpValue1 + tmpValue2)); //0xC1 => 1100 0001
-
-                            for (int k = 0; k < 8; k++)
-                                tmpMuData.muSt[i, k] = tmpBitInfoByte[k];
-                        }
-
-                        //Gain 값
-                        for (i = 0; i < 8; i++)
-                        {
-                            //0x33 0x31 = > 0x31 => 49
-                            byte tmpValue1 = (byte)(Common.clsCommon.AHD(buffer[j++]) << 4);
-                            byte tmpValue2 = Common.clsCommon.AHD(buffer[j++]);
-                            tmpMuData.muGain[i] = (byte)(tmpValue1 + tmpValue2);
-                        }
-
-                        j += 8;
-
-                        tmpMuData.rfValue = Common.clsCommon.AHD(buffer[j++]) * 100 + Common.clsCommon.AHD(buffer[j++]) * 10 + Common.clsCommon.AHD(buffer[j++]);
-                        tmpMuData.cchRssi = Common.clsCommon.AHD(buffer[j++]) * 100 + Common.clsCommon.AHD(buffer[j++]) * 10 + Common.clsCommon.AHD(buffer[j++]);
-                        tmpMuData.echRssi = Common.clsCommon.AHD(buffer[j++]) * 100 + Common.clsCommon.AHD(buffer[j++]) * 10 + Common.clsCommon.AHD(buffer[j++]);
-
-                        ILSAN_MuStatusReport(0, tmpMUId, tmpMuData);
-                        //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-                        #endregion 일산선 MU Data 처리
-                    }
-                    else
-                    {
-                        #region MU Data 처리
-
-                        //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-                        if (tmpRUId == 0)
-                        {   //MU Data
-                            kind = buffer[j++]; //MU인지 RuA인지 구분..
-
-                            if (kind == 0x4D)
-                            {   //M : MU
-                                Common.MUData tmpMuData = new Common.MUData();
-
-                                tmpMuData.otherSt1 = Common.clsCommon.BitInfoToByte(buffer[j++]);    //기타상태1
-                                tmpMuData.otherSt2 = Common.clsCommon.BitInfoToByte(buffer[j++]);    //기타상태2
-
-                                tmpMuData.dcValue = buffer[j++];    //DC전원값
-
-                                tmpMuData.rfValue[0] = buffer[j++];         //주 RF 출력값
-                                tmpMuData.rxRssiValue[0] = buffer[j++];     //주 RX RSSI값
-
-                                tmpMuData.rfValue[1] = buffer[j++];         //예비 RF 출력값
-                                tmpMuData.rxRssiValue[1] = buffer[j++];     //예비 RX RSSI값
-
-                                tmpMuData.rxRssiValue[2] = buffer[j++];     //감청용 RX RSSI값
-
-                                tmpMuData.rfValueInquiry[0] = Common.clsNMS.muRfValueCalculation(buffer[j++]);  //주 RF 출력조회값
-                                tmpMuData.rfValueInquiry[1] = Common.clsNMS.muRfValueCalculation(buffer[j++]);  //예비 RF 출력조회값
-
-                                tmpMuData.chInfo[0] = buffer[j++];  //주 채널정보
-                                tmpMuData.chInfo[1] = buffer[j++];  //예비 채널정보
-                                tmpMuData.chInfo[2] = buffer[j++];  //감청 채널정보
-
-                                tmpMuData.optMonSt = Common.clsCommon.BitInfoToByte(buffer[j++]);    //통신 감시 상태
-
-                                tmpMuData.chReturn = buffer[j++];   //채널 복귀 상태
-
-                                tmpMuData.pllLockErrorSt = Common.clsCommon.BitInfoToByte(buffer[j++]);  //PLL Lock 장애 상태
-
-                                j++;    //Testmode
-
-                                tmpMuData.revelValue = buffer[j++]; //level 측정값
-
-                                tmpMuData.pttSt = Common.clsCommon.BitInfoToByte(buffer[j++]);    //PTT 상태
-
-                                tmpMuData.lifSt = Common.clsCommon.BitInfoToByte(buffer[j++]);    //LIF 상태
-
-                                tmpMuData.powerSt = Common.clsCommon.BitInfoToByte(buffer[j++]);        //전원 상태
-
-                                switch (Common.clsNMS.nmsGUIUser)
-                                {
-                                    case "분당선":
-                                        if (Common.clsNMS.presentMUID > 5)
-                                        {   //기존 분당선에 적용하면 안됨.
-                                            tmpMuData.mainVer = buffer[j++];    //역용 주 버젼정보
-                                            tmpMuData.stbyVer = buffer[j++];    //역용 예비 버젼정보
-                                            tmpMuData.acuVer = buffer[j++];     //ACU 버젼정보
-                                            tmpMuData.wnSt = Common.clsCommon.BitInfoToByte(buffer[j++]);   //무전기별 상태(Wide/Narrow)
-                                            tmpMuData.monVer = buffer[j++];     //감청용 버젼정보
-                                            tmpMuData.optDcValue = buffer[j++]; //DC 전원값
-
-                                            DC_RangeOver(0, tmpMUId, tmpRUId, tmpMuData.optDcValue);    //DC 전압 임계치 비고
-                                        }
-                                        break;
-
-                                    case 성남여주선:
-                                        tmpMuData.mainVer = buffer[j++];    //역용 주 버젼정보
-                                        tmpMuData.stbyVer = buffer[j++];    //역용 예비 버젼정보
-                                        tmpMuData.acuVer = buffer[j++];     //ACU 버젼정보
-                                        tmpMuData.wnSt = Common.clsCommon.BitInfoToByte(buffer[j++]);   //무전기별 상태(Wide/Narrow)
-                                        tmpMuData.monVer = buffer[j++];     //감청용 버젼정보
-                                        tmpMuData.optDcValue = buffer[j++]; //DC 전원값
-
-                                        DC_RangeOver(0, tmpMUId, tmpRUId, tmpMuData.optDcValue);    //DC 전압 임계치 비고
-                                        break;
-
-                                    case "과천선":
-                                        tmpMuData.mainVer = buffer[j++];    //역용 주 버젼정보
-                                        tmpMuData.stbyVer = buffer[j++];    //역용 예비 버젼정보
-                                        tmpMuData.acuVer = buffer[j++];     //ACU 버젼정보
-                                        tmpMuData.wnSt = Common.clsCommon.BitInfoToByte(buffer[j++]);   //무전기별 상태(Wide/Narrow)
-                                        tmpMuData.monVer = buffer[j++];     //감청용 버젼정보
-                                        tmpMuData.optDcValue = buffer[j++]; //DC 전원값
-
-                                        DC_RangeOver(0, tmpMUId, tmpRUId, tmpMuData.optDcValue);    //DC 전압 임계치 비고
-                                        break;
-                                }
-
-                                RF_RangeOver(tmpMUId, tmpMuData);   //송신출력 임계치 비교
-
-                                MuStatusReport(0, tmpMUId, tmpMuData);
-                            }
-                            else if (kind == 0x41)
-                            {   //A : RU A형
-                                Common.RUDetailData tmpRuAData = new Common.RUDetailData();
-
-                                switch (Common.clsNMS.nmsGUIUser)
-                                {
-                                    case 성남여주선:
-                                        j++; j++; j++; 
-                                        byte opt = buffer[16];
-
-                                        muruNowData[tmpMUId].muData.optData = Common.clsCommon.BitInfoToByte(opt);
-
-                                        //MuStatusReport(0, tmpMUId, muruNowData[tmpMUId].muData);
-
-                                        var data = Common.clsCommon.BitInfoToByte(opt);
-                                        var item =  SYMain.GetMuList()[tmpMUId];
-                                        item.SetOptData(data);
-
-                                        ucMUSt.SetOptValue(tmpMUId, data);
-                                        break;
-
-                                    default:
-                                        tmpRuAData.otherSt1 = Common.clsCommon.BitInfoToByte(buffer[j++]);   //기타상태1
-                                        tmpRuAData.otherSt2 = Common.clsCommon.BitInfoToByte(buffer[j++]);   //기타상태2
-
-                                        tmpRuAData.dcValue = buffer[j++];    //DC전원값
-
-                                        tmpRuAData.rfValue = buffer[j++]; //주 RF 출력값
-                                        tmpRuAData.rfValueInquiry = Common.clsNMS.ruRfValueCalculation(buffer[j++]); //주 RF 출력조회값
-
-                                        tmpRuAData.rxRssiValue = buffer[j++];    //예비 RX RSSI 감도
-                                        tmpRuAData.repeatPtt = buffer[j++];     //REPEAT PTT
-
-                                        tmpRuAData.optOtherSt = Common.clsCommon.BitInfoToByte(buffer[j++]);   //OPT 기타상태
-                                        tmpRuAData.optDcValue = buffer[j++];   //OPT DC값
-                                        tmpRuAData.optAlarmSt = Common.clsCommon.BitInfoToByte(buffer[j++]);   //OPT 알람상태
-
-                                        DC_RangeOver(1, tmpMUId, tmpRUId, tmpRuAData.dcValue);
-
-                                        RF_RangeOver(tmpMUId, tmpRUId, tmpRuAData);   //송신출력 임계치 비교
-
-                                        RuStatusReport(0, tmpMUId, tmpRUId, tmpRuAData);
-                                        break;
-                                }
-                            }
-                        }
-                        else
-                        {   //RU Data
-                            Common.RUDetailData tmpRuBData = new Common.RUDetailData();
-
-                            tmpRuBData.otherSt1 = Common.clsCommon.BitInfoToByte(buffer[j++]);   //기타상태1
-                            tmpRuBData.otherSt2 = Common.clsCommon.BitInfoToByte(buffer[j++]);   //기타상태2
-
-                            tmpRuBData.dcValue = buffer[j++];    //DC전원값
-
-                            tmpRuBData.rfValue = buffer[j++]; //주 RF 출력값
-                            tmpRuBData.rfValueInquiry = Common.clsNMS.ruRfValueCalculation(buffer[j++]); //주 RF 출력조회값
-
-                            tmpRuBData.rxRssiValue = buffer[j++];    //예비 RX RSSI 감도
-
-                            DC_RangeOver(2, tmpMUId, tmpRUId, tmpRuBData.dcValue);
-
-                            RF_RangeOver(tmpMUId, tmpRUId, tmpRuBData);   //송신출력 임계치 비교
-
-                            RuStatusReport(0, tmpMUId, tmpRUId, tmpRuBData);
-                        }
-                        //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-                        #endregion MU Data 처리
-                    }
-                    //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-                    #endregion 열차무선 감시 Data 처리
-
-                    break;
-
-                case Common.clsNMSSendDataMake.CMD_BaseIF_REPORT:   //I : Base I/F 감시 Data 보고
-                    j += 13;
-
-                    muruNowData[tmpMUId].baseIFData_ILSAN.dcValue = buffer[j++];
-                    j++;
-                    muruNowData[tmpMUId].baseIFData_ILSAN.fmSt = buffer[j++];
-
-                    DC_RangeOver(0, tmpMUId, tmpRUId, muruNowData[tmpMUId].baseIFData_ILSAN.dcValue);    //DC 전압 임계치 비고
-                    break;
-
-                case Common.clsNMSSendDataMake.CMD_FM_REPORT:   //F :FM 감시 Data 보고
-
-                    #region FM 감시 Data 처리
-
-                    //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-                    switch (Common.clsNMS.nmsGUIUser)
-                    {
-                        case "경의일산선":
-                            if (tmpMUId <= 2)
-                                if (tmpRUId == 0)
-                                    kind = buffer[j++];   //MU인지 RuA인지 구분..
-                            break;
-
-                        case 성남여주선:
-                            if (tmpRUId != 0)
-                            {
-                                kind = 2;
-                            }
-
-                            break;
-
-                        default:
-                            if (tmpRUId == 0)
-                                kind = buffer[j++];   //MU인지 RuA인지 구분..
-                            break;
-                    }
-
-                    Common.FM_Info tmpFmInfo = new Common.FM_Info();
-
-                    //소스텔의 FM 단독형 장치
-                    tmpFmInfo.acVoltage = buffer[j++];
-                    tmpFmInfo.acCurrent = buffer[j++];
-                    j += 6;
-                    tmpFmInfo.betteryVoltage = buffer[j++];
-                    tmpFmInfo.betteryChangeCurrent = buffer[j++];
-                    tmpFmInfo.acInputFail = buffer[j++];
-                    tmpFmInfo.dcOutputFail = buffer[j++];
-                    j++;
-                    tmpFmInfo.ldAlarm = buffer[j++];
-                    tmpFmInfo.ldPower = (sbyte)buffer[j++];
-                    tmpFmInfo.pdAlarm = buffer[j++];
-                    tmpFmInfo.pdPower = (sbyte)buffer[j++];
-                    tmpFmInfo.rssi = (sbyte)buffer[j++];
-                    tmpFmInfo.temperature = (sbyte)buffer[j++];
-                    tmpFmInfo.tssiFwd = (sbyte)buffer[j++];
-                    tmpFmInfo.tssiRev = (sbyte)buffer[j++];
-
-                    if (kind == 99) MuFmStReport(0, tmpMUId, tmpRUId, tmpFmInfo);
-                    else if (kind == 0x4D) MuFmStReport(0, tmpMUId, tmpRUId, tmpFmInfo);
-                    else RuFmStReport(0, tmpMUId, tmpRUId, tmpFmInfo);
-                    //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-                    #endregion FM 감시 Data 처리
-
-                    break;
-
-                case Common.clsNMSSendDataMake.CMD_AFGain:    //Q : CCE, RC1, RC2, RC3, CCE2, RC4, Repeat의 TX/RX/MON AF Gain값 요청에 대한 응답
-
-                    #region CCE, RC1, RC2, RC3, CCE2, RC4, Repeat의 TX/RX/MON AF Gain값 요청에 대한 응답 처리
-
-                    //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-                    j++;    //예비
-
-                    Common.AFGain[] tmpAfGain = new Common.AFGain[7];
-
-                    for (i = 0; i < 6; i++)
-                    {
-                        tmpAfGain[i] = new Common.AFGain();
-
-                        tmpAfGain[i].gainTx = buffer[j++];
-                        tmpAfGain[i].gainRx = buffer[j++];
-                        tmpAfGain[i].gainMon = buffer[j++];
-                    }
-
-                    //Repeat 값
-                    tmpAfGain[6] = new Common.AFGain();
-                    tmpAfGain[6].gainTx = buffer[j++];
-
-                    AfGainReport(0, tmpMUId, tmpAfGain);
-                    //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-                    #endregion CCE, RC1, RC2, RC3, CCE2, RC4, Repeat의 TX/RX/MON AF Gain값 요청에 대한 응답 처리
-
-                    break;
-
-                case Common.clsNMSSendDataMake.CMD_BDA_Status: //s : BDA 정보
-
-
-                    #region BDA 정보 처리
-
-                    int index = tmpMUId - 1;
-
-                    BDA_St tmpBDASt = new BDA_St();
-
-                    byte tmpBdaID = buffer[j++];   //BDA ID
                 
-                    int tmpPttValue = 0;
 
-                    //온도
-                    tmpBDASt.fmTemperature = (sbyte)buffer[j++];
-                    
-                    //fm dbm
-                    tmpBDASt.fmTssi = (sbyte)buffer[j++];
+                    byte kind = 99;
 
-                    //알람
-                    tmpBDASt.fmAlarm = buffer[j++];
+                    switch (tmpCMD)
+                    {
+                        case 0xF0:
+                            #region 주/예비 절체 명령
 
-                    //current mode
-                    j++;
+                            //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                            byte tmpServerSt = 0;
 
-                    //bypass mode
-                    tmpBDASt.vhfBypass = buffer[j++];
+                            /*
+                            switch (mainStbyID)
+                            {
+                                case 0: //NMS Server Main에서 수신
+                                    break;
 
-                    //ac
-                    tmpBDASt.vhfAcAlarm = buffer[j++];
-                    //dc
-                    tmpBDASt.vhfDcAlarm = buffer[j++];
-                    //battery
-                    tmpBDASt.vhfBatteryAlarm = buffer[j++];
+                                case 1: //NMS Server Stby에서 수신
+                                    break;
+                            }
+                            */
 
-                    j++;j++; //sense1
-                    j++;j++; //sense2
+                            switch (buffer[6])
+                            {
+                                case 0x50:  //NMS Server Main에서 수신
+                                    switch (buffer[7])
+                                    {
+                                        case 0x50:  //NMS Sever Main이 주로 사용
+                                            tmpServerSt = 1;
+                                            break;
 
+                                        case 0x51:  //NMS Sever Main이 예비로 사용
+                                            tmpServerSt = 2;
+                                            break;
+                                    }
+                                    break;
 
-                    //tmpPttValue = buffer[j++] + (buffer[j++] * 0x100);
+                                case 0x51:  //NMS Server Stby에서 수신
+                                    switch (buffer[7])
+                                    {
+                                        case 0x50:  //NMS Sever Stby가 주로 사용
+                                            tmpServerSt = 2;
+                                            break;
 
+                                        case 0x51:  //NMS Sever Stby가 예비로 사용
+                                            tmpServerSt = 1;
+                                            break;
+                                    }
+                                    break;
+                            }
 
-                    //if (tmpPttValue > 300) 
-                    //    tmpBDASt.vhfPtt1 = 1;
+                            if (serverSt != tmpServerSt)
+                            {
+                                serverSt = tmpServerSt;
 
-                    //else 
-                    //    tmpBDASt.vhfPtt1 = 0;
+                                switch (serverSt)
+                                {
+                                    case 1:
+                                        SetColor(btServerMain, Color.YellowGreen);
+                                        SetColor(btServerStby, colorBase);
+                                        break;
 
-                    //tmpPttValue = buffer[j++] + (buffer[j++] * 0x100);
+                                    case 2:
+                                        SetColor(btServerMain, colorBase);
+                                        SetColor(btServerStby, Color.YellowGreen);
+                                        break;
+                                }
+                            }
+                            //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
+                            #endregion 주/예비 절체 명령
 
-                    //if (tmpPttValue > 300) 
-                    //    tmpBDASt.vhfPtt2 = 1;
-                    //else 
-                    //    tmpBDASt.vhfPtt2 = 0;
-                    
-                    tmpBDASt.bdaAMPSt[0] = buffer[j++];
-                    tmpBDASt.bdaAMPSt[1] = buffer[j++];
-                    //switch state
-                    j++;
-                    
-                    //UHF
+                            break;
 
-                    //current mode
-                    j++;
-                    
-                    //bypass
-                    tmpBDASt.uhfBypass = buffer[j++];
-                    //ac
-                    tmpBDASt.uhfAcAlarm = buffer[j++];
-                    //dc
-                    tmpBDASt.uhfDcAlarm = buffer[j++];
-                    //battery
-                    tmpBDASt.uhfBatteryAlarm = buffer[j++];
+                        case Common.clsNMSSendDataMake.CMD_TW_REPORT:   //V : 열차무선 감시 Data 보고
 
-                    j++; j++;
-                    j++; j++;
+                            #region 열차무선 감시 Data 처리
+                            기기상태_정보_수신처리(buffer, j, tmpMUId, tmpRUId, ref kind);
+                            //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
+                            #endregion 열차무선 감시 Data 처리
 
+                            break;
 
-                    //tmpPttValue = buffer[j++] + (buffer[j++] * 0x100);
-                    //if (tmpPttValue > 300) tmpBDASt.uhfPtt1 = 1;
-                    //else tmpBDASt.uhfPtt1 = 0;
-                    //tmpPttValue = buffer[j++] + (buffer[j++] * 0x100);
-                    //if (tmpPttValue > 300) tmpBDASt.uhfPtt2 = 1;
-                    //else tmpBDASt.uhfPtt2 = 0;
+                        case Common.clsNMSSendDataMake.CMD_BaseIF_REPORT:   //I : Base I/F 감시 Data 보고
+                            j += 13;
 
-                    var tmpData = new BDAData();
-                    tmpData.bdaData[tmpBdaID] = tmpBDASt;
+                            muruNowData[tmpMUId].baseIFData_ILSAN.dcValue = buffer[j++];
+                            j++;
+                            muruNowData[tmpMUId].baseIFData_ILSAN.fmSt = buffer[j++];
 
-                    BDA_Data[index] = tmpData;
-                    
-                    nmsBDA_Status_Display((byte)index, tmpBdaID);
+                            DC_RangeOver(0, tmpMUId, tmpRUId, muruNowData[tmpMUId].baseIFData_ILSAN.dcValue);    //DC 전압 임계치 비고
+                            break;
 
-                    #endregion
+                        case Common.clsNMSSendDataMake.CMD_FM_REPORT:   //F :FM 감시 Data 보고
 
-                    break;
-            }
+                            #region FM 감시 Data 처리
+
+                            //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                            switch (Common.clsNMS.nmsGUIUser)
+                            {
+                                case "경의일산선":
+                                    if (tmpMUId <= 2)
+                                        if (tmpRUId == 0)
+                                            kind = buffer[j++];   //MU인지 RuA인지 구분..
+                                    break;
+
+                                case 동해남부선:
+                                    if (tmpRUId != 0)
+                                    {
+                                        kind = 2;
+                                    }
+
+                                    break;
+
+                                default:
+                                    if (tmpRUId == 0)
+                                        kind = buffer[j++];   //MU인지 RuA인지 구분..
+                                    break;
+                            }
+
+                            Common.FM_Info tmpFmInfo = new Common.FM_Info();
+
+                            //소스텔의 FM 단독형 장치
+                            tmpFmInfo.acVoltage = buffer[j++];
+                            tmpFmInfo.acCurrent = buffer[j++];
+                            j += 6;
+                            tmpFmInfo.betteryVoltage = buffer[j++];
+                            tmpFmInfo.betteryChangeCurrent = buffer[j++];
+                            tmpFmInfo.acInputFail = buffer[j++];
+                            tmpFmInfo.dcOutputFail = buffer[j++];
+                            j++;
+                            tmpFmInfo.ldAlarm = buffer[j++];
+                            tmpFmInfo.ldPower = (sbyte)buffer[j++];
+                            tmpFmInfo.pdAlarm = buffer[j++];
+                            tmpFmInfo.pdPower = (sbyte)buffer[j++];
+                            tmpFmInfo.rssi = (sbyte)buffer[j++];
+                            tmpFmInfo.temperature = (sbyte)buffer[j++];
+                            tmpFmInfo.tssiFwd = (sbyte)buffer[j++];
+                            tmpFmInfo.tssiRev = (sbyte)buffer[j++];
+
+                            if (kind == 99) MuFmStReport(0, tmpMUId, tmpRUId, tmpFmInfo);
+                            else if (kind == 0x4D) MuFmStReport(0, tmpMUId, tmpRUId, tmpFmInfo);
+                            else RuFmStReport(0, tmpMUId, tmpRUId, tmpFmInfo);
+                            //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                            #endregion FM 감시 Data 처리
+
+                            break;
+
+                        case Common.clsNMSSendDataMake.CMD_AFGain:    //Q : CCE, RC1, RC2, RC3, CCE2, RC4, Repeat의 TX/RX/MON AF Gain값 요청에 대한 응답
+
+                            #region CCE, RC1, RC2, RC3, CCE2, RC4, Repeat의 TX/RX/MON AF Gain값 요청에 대한 응답 처리
+
+                            //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                            j++;    //예비
+
+                            Common.AFGain[] tmpAfGain = new Common.AFGain[7];
+
+                            for (i = 0; i < 6; i++)
+                            {
+                                tmpAfGain[i] = new Common.AFGain();
+
+                                tmpAfGain[i].gainTx = buffer[j++];
+                                tmpAfGain[i].gainRx = buffer[j++];
+                                tmpAfGain[i].gainMon = buffer[j++];
+                            }
+
+                            //Repeat 값
+                            tmpAfGain[6] = new Common.AFGain();
+                            tmpAfGain[6].gainTx = buffer[j++];
+
+                            AfGainReport(0, tmpMUId, tmpAfGain);
+                            //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                            #endregion CCE, RC1, RC2, RC3, CCE2, RC4, Repeat의 TX/RX/MON AF Gain값 요청에 대한 응답 처리
+
+                            break;
+
+                        case Common.clsNMSSendDataMake.CMD_BDA_Status: //s : BDA 정보
+
+                            #region BDA 정보 처리
+
+                            ProcessBDAStatus(buffer, j, tmpMUId, tmpRUId);
+
+                            #endregion BDA 정보 처리
+
+                            break;
+                    }
+                }
+                catch (Exception e )
+                {
+                    Debug.PrintError(e);
+                }
+
+            //}));
+
+            //dataReceiveThread.Start(); 
         }
 
-     
-
-        private void JksSockServer_closeEvent(int mainStbyID)
+        /// <summary>
+        /// 'V' 를 수신 하였을 경우에 처리하는 메소드
+        /// </summary>
+        /// <param name="buffer">데이터</param>
+        /// <param name="j">데이터 인덱스</param>
+        /// <param name="tmpMUId">mu ID</param>
+        /// <param name="tmpRUId">RU Id</param>
+        /// <param name="kind"></param>
+        private void 기기상태_정보_수신처리(byte[] buffer, int j, byte tmpMUId, byte tmpRUId, ref byte kind)
         {
+
+            //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            bool flagILSAN_Process = false;
+
             switch (Common.clsNMS.nmsGUIUser)
             {
-                case "분당선":
                 case "경의일산선":
-                case 성남여주선:
-                    AddStatus("NMS 주장치와의 접속이 끊겼습니다.");
-                    break;
-
-                case "과천선":
-                    if (mainStbyID == 0) AddStatus("NMS Server Main과의 접속이 끊겼습니다.");
-                    else AddStatus("NMS Server Stby와의 접속이 끊겼습니다.");
+                    if (tmpMUId > 2) flagILSAN_Process = true;
                     break;
             }
+            
+            {
+                #region MU Data 처리
+
+                //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                if (tmpRUId == 0)
+                {   
+                    //MU Data
+                    kind = buffer[j++]; //MU인지 RuA인지 구분..
+
+                    //MU 정보일 경우
+                    #region MU 정보
+                    if (kind == 0x4D)
+                    {   //M : MU
+                        Common.MUData tmpMuData = new Common.MUData();
+
+                        tmpMuData.otherSt1 = Common.clsCommon.BitInfoToByte(buffer[j++]);    //기타상태1
+                        tmpMuData.otherSt2 = Common.clsCommon.BitInfoToByte(buffer[j++]);    //기타상태2
+
+                        tmpMuData.dcValue = buffer[j++];    //DC전원값
+
+                        tmpMuData.rfValue[0] = buffer[j++];         //주 RF 출력값
+                        tmpMuData.rxRssiValue[0] = buffer[j++];     //주 RX RSSI값
+
+                        tmpMuData.rfValue[1] = buffer[j++];         //예비 RF 출력값
+                        tmpMuData.rxRssiValue[1] = buffer[j++];     //예비 RX RSSI값
+
+                        tmpMuData.rxRssiValue[2] = buffer[j++];     //감청용 RX RSSI값
+
+                        tmpMuData.rfValueInquiry[0] = Common.clsNMS.muRfValueCalculation(buffer[j++]);  //주 RF 출력조회값
+                        tmpMuData.rfValueInquiry[1] = Common.clsNMS.muRfValueCalculation(buffer[j++]);  //예비 RF 출력조회값
+
+                        tmpMuData.chInfo[0] = buffer[j++];  //주 채널정보
+                        tmpMuData.chInfo[1] = buffer[j++];  //예비 채널정보
+                        tmpMuData.chInfo[2] = buffer[j++];  //감청 채널정보
+
+                        tmpMuData.optMonSt = Common.clsCommon.BitInfoToByte(buffer[j++]);    //통신 감시 상태
+
+                        tmpMuData.chReturn = buffer[j++];   //채널 복귀 상태
+
+                        tmpMuData.pllLockErrorSt = Common.clsCommon.BitInfoToByte(buffer[j++]);  //PLL Lock 장애 상태
+
+                        j++;    //Testmode
+
+                        tmpMuData.revelValue = buffer[j++]; //level 측정값
+
+                        tmpMuData.pttSt = Common.clsCommon.BitInfoToByte(buffer[j++]);    //PTT 상태
+
+                        tmpMuData.lifSt = Common.clsCommon.BitInfoToByte(buffer[j++]);    //LIF 상태
+
+                        tmpMuData.powerSt = Common.clsCommon.BitInfoToByte(buffer[j++]);        //전원 상태
+
+                        tmpMuData.ReceiveTime = DateTime.Now;
+
+                        tmpMuData.optData = muruNowData[tmpMUId].muData.optData;
+
+                        switch (Common.clsNMS.nmsGUIUser)
+                        {
+
+                            case 동해남부선:
+                                tmpMuData.mainVer = buffer[j++];    //역용 주 버젼정보
+                                tmpMuData.stbyVer = buffer[j++];    //역용 예비 버젼정보
+                                tmpMuData.acuVer = buffer[j++];     //ACU 버젼정보
+                                tmpMuData.wnSt = Common.clsCommon.BitInfoToByte(buffer[j++]);   //무전기별 상태(Wide/Narrow)
+                                tmpMuData.monVer = buffer[j++];     //감청용 버젼정보
+                                tmpMuData.optDcValue = buffer[j++]; //DC 전원값
+
+                                DC_RangeOver(0, tmpMUId, tmpRUId, tmpMuData.optDcValue);    //DC 전압 임계치 비고
+
+                               
+                                break;
+
+
+                        }
+
+                        //RF_RangeOver(tmpMUId, tmpMuData);   //송신출력 임계치 비교
+
+                        try
+                        {
+                            MuStatusReport(0, tmpMUId, tmpMuData);
+                        }
+                        catch(Exception e)
+                        {
+                            Debug.PrintError(e);
+                        }
+                    }
+                    #endregion
+
+                    #region RU A 일 경우
+                    else if (kind == 0x41)
+                    {   //A : RU A형
+                        Common.RUDetailData tmpRuAData = new Common.RUDetailData();
+
+                        switch (Common.clsNMS.nmsGUIUser)
+                        {
+
+                                //성남 여주일 경우에는 화면에  OPT 표시하는 기능..
+                            case 동해남부선:
+                                j++; j++; j++;
+
+                                byte opt = buffer[16];
+
+                                //OPT LD PD 저장
+                                muruNowData[tmpMUId].muData.optData = Common.clsCommon.BitInfoToByte(opt);
+
+                                //MuStatusReport(0, tmpMUId, muruNowData[tmpMUId].muData);
+
+                                var data = Common.clsCommon.BitInfoToByte(opt);
+                                var item = SYMain.GetMuList()[tmpMUId -1 ];
+                                item.SetOptData(data);
+
+                                //현재 보고 있는 화면이 동일 화면 일 경우에 만 화면에 표시한다.
+                                if(mCurrent_Mu == tmpMUId && mCurrent_Ru == tmpRUId)
+
+                                    ucMUSt.SetOptValue(tmpMUId, data);
+
+
+                                nmsMUError_Display((byte)(tmpMUId));
+
+                                nmsMUSt_DBSave((byte)(tmpMUId));
+
+                                break;
+
+                     
+                        }
+                    }
+                    #endregion
+                }
+                else
+                {  
+                    
+                    Common.RUDetailData tmpRuBData = new Common.RUDetailData();
+
+                    tmpRuBData.otherSt1 = Common.clsCommon.BitInfoToByte(buffer[j++]);   //기타상태1
+                    tmpRuBData.otherSt2 = Common.clsCommon.BitInfoToByte(buffer[j++]);   //기타상태2
+
+                    tmpRuBData.dcValue = buffer[j++];    //DC전원값
+
+                    tmpRuBData.rfValue = buffer[j++]; //주 RF 출력값
+                    tmpRuBData.rfValueInquiry = Common.clsNMS.ruRfValueCalculation(buffer[j++]); //주 RF 출력조회값
+
+                    tmpRuBData.rxRssiValue = buffer[j++];    //예비 RX RSSI 감도
+
+                    DC_RangeOver(2, tmpMUId, tmpRUId, tmpRuBData.dcValue);
+
+                    //RF_RangeOver(tmpMUId, tmpRUId, tmpRuBData);   //송신출력 임계치 비교
+
+                    RuStatusReport(0, tmpMUId, tmpRUId, tmpRuBData);
+                }
+                //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                #endregion MU Data 처리
+            }
+        }
+      
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        #region BDA 관련 메소드들
+
+        /// <summary>
+        /// BDA 상태 정보 처리
+        /// </summary>
+        /// <param name="buffer">버퍼</param>
+        /// <param name="ru"></param>
+        /// <param name="tmpMUId"></param>
+        /// <returns></returns>
+        private int ProcessBDAStatus(byte[] buffer, int j, byte tmpMUId, byte tmpRuID)
+        {
+            int index = tmpMUId -1;
+
+            clsBDATableInfo tmpBDASt = new clsBDATableInfo();
+
+            byte tmpBdaID = buffer[j++];   //BDA ID
+
+            //int tmpPttValue = 0;
+            tmpBdaID--;
+
+
+            ///bda 번호
+            tmpBDASt.BDA_ID = tmpBdaID;
+            //MU 번호
+            tmpBDASt.Mu_Id = index;
+            //RU 번호
+            tmpBDASt.Ru_Id = tmpRuID;
+
+            //-----------FM------------------
+            //온도
+            //tmpBDASt.Temperature = (sbyte)buffer[ru++];
+            tmpBDASt.Temperature = 1;
+            var tmp = (sbyte)buffer[j++];
+            //fm dbm
+            //tmpBDASt.Output = buffer[ru++];
+            tmpBDASt.Output = 1;
+            tmp = (sbyte)buffer[j++];
+
+            //알람
+            //tmpBDASt.FM_Alarm = buffer[ru++];
+            tmpBDASt.FM_Alarm = 1;
+            tmp = (sbyte)buffer[j++];
+
+            //--------------------------------------------------
+
+
+            //-------------------VHF--------------------------
+
+            //current mode
+            j++;
+
+            //bypass mode
+            tmpBDASt.VHF_BypassMode = buffer[j++];
+
+            //ac
+            tmpBDASt.VHF_AC_Alarm = buffer[j++];
+            j++;
+            //dc
+            //tmpBDASt.VHF_DC_Alarm = buffer[j++];
+            //battery
+            tmpBDASt.VHF_Battery_Alarm = buffer[j++];
+
+            j++; j++; //sense1
+            j++; j++; //sense2
+
+            //tmpPttValue = buffer[ru++] + (buffer[ru++] * 0x100);
+
+            //if (tmpPttValue > 300)
+            //    tmpBDASt.vhfPtt1 = 1;
+
+            //else
+            //    tmpBDASt.vhfPtt1 = 0;
+
+            //tmpPttValue = buffer[ru++] + (buffer[ru++] * 0x100);
+
+            //if (tmpPttValue > 300)
+            //    tmpBDASt.vhfPtt2 = 1;
+            //else
+            //    tmpBDASt.vhfPtt2 = 0;
+
+            //amp
+            j++;
+            j++;
+
+            //tmpBDASt.bdaAMPSt[0] = buffer[ru++];
+            //tmpBDASt.bdaAMPSt[1] = buffer[ru++];
+            ////switch state
+            j++;
+
+            //--------------------------------------------------
+
+            //UHF
+
+            //current mode
+            j++;
+
+            //bypass
+            tmpBDASt.UHF_BypassMode = buffer[j++];
+            //ac
+            tmpBDASt.UHF_AC_Alarm = buffer[j++];
+            //dc
+            j++;
+            //tmpBDASt.UHF_DC_Alarm = buffer[j++];
+            //battery
+            tmpBDASt.UHF_Battery_Alarm = buffer[j++];
+
+            j++; j++;
+            j++; j++;
+
+            j++; j++;
+
+            j++;
+            //-------------------------------------------
+
+            //tmpPttValue = buffer[ru++] + (buffer[ru++] * 0x100);
+            //if (tmpPttValue > 300) tmpBDASt.uhfPtt1 = 1;
+            //else tmpBDASt.uhfPtt1 = 0;
+            //tmpPttValue = buffer[ru++] + (buffer[ru++] * 0x100);
+            //if (tmpPttValue > 300) tmpBDASt.uhfPtt2 = 1;
+            //else tmpBDASt.uhfPtt2 = 0;
+
+            int muID = index;
+
+         
+
+
+            ucBDA uiBDAs = GetBDA(muID, tmpRuID);
+
+            if (uiBDAs == null)
+                return j;
+
+            if (BDA_Data[muID, tmpRuID] != null)
+                //해당 BDA에 정보가 없을 경우
+                if (BDA_Data[muID, tmpRuID].bdaData[tmpBdaID] == null)
+                {
+                    Add_BDA_Data_Received(muID, tmpRuID, tmpBdaID);
+
+                }
+
+            if (tmpBdaID <= uiBDAs.DataNotReceiveFlag.Length-1  )
+                uiBDAs.DataNotReceiveFlag[tmpBdaID] = false;
+
+            var data = BDA_Data[muID,tmpRuID];
+
+            if (data == null)
+            {
+                data = new BDAData();
+            }
+
+            //수신 시간 설정
+            tmpBDASt.DataReceiveTime = 0;
+
+
+
+            //bda 데이터 설정
+            data.bdaData[tmpBdaID] = tmpBDASt;
+
+            //Debug.WriteLine(string.Format(" mu : {0} ru : {1}", muID, tmpRuID));
+
+            ///mBDA_1_2 설정
+            BDA_Data[muID, tmpRuID] = data;
+            
+            //데이터 베이스에 저장
+            nmsBDA_SaveDB(tmpBDASt.Clone());
+            
+
+            //화면에 표시
+            nmsBDA_Status_Display((byte)index, tmpRuID, tmpBdaID, false);
+          
+
+            return j;
+        }
+
+        /// <summary>
+        /// BDA를 가져온다.
+        /// </summary>
+        /// <param name="muID"></param>
+        /// <param name="tmpRuID"></param>
+        /// <returns></returns>
+        private ucBDA GetBDA(int muID, int tmpRuID)
+        {
 
             try
             {
-                SetColor(lblConnectNMS, Color.Silver);
-                SetColor(lblConnectServer[mainStbyID], Color.Silver);
+                var data = SYMain.GetBDAs();
+
+                foreach (var i in data)
+                {
+                    if (i == null)
+                        continue;
+
+                    var mu = (char)(muID + 'A') + "";
+                    if (i.MuID == mu)
+                        if (i.Ru == tmpRuID)
+                            return i;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 데이터 베이스에 저장
+        /// </summary>
+        /// <param name="tmpData"></param>
+        private void nmsBDA_SaveDB(clsBDATableInfo tmpData)
+        {
+            dbBDAQueue.Enqueue(tmpData);
+        }
+
+
+        /// <summary>
+        /// BDA 상태 정보를 표시함
+        /// </summary>
+        /// <param name="muID">mu ID</param>
+        /// <param name="bdaID">bda 정보</param>
+        private void nmsBDA_Status_Display(byte muID, byte ruID, byte bdaID, bool noData)
+        {
+            try
+            {
+             
+                ucBDA sel = GetBDA(muID, ruID); ;
+
+                //해당 화면일 경우에 화면에 표시함
+                if (mBDA_Mu == muID && mBDA_Ru == ruID)
+                {
+                    //데이터 표시
+                    ucBDASt.DisplayData(muID, ruID, bdaID);
+                }
+                
+                ///고장이 발생한 경우에
+                if (ucBDASt.HasError(muID, ruID, bdaID))
+                {
+                    SetSplitBDAData(muID, bdaID, true);
+
+                    //고장 설정
+                    sel.SetError(bdaID, true);
+
+                    Invoke(new MethodInvoker(delegate()
+                    {
+                        string dialog = "\n\nBDA 상세정보 화면를 확인해 주시기 바랍니다.";
+
+                        string mes = string.Format("{0} 기지국 {1}번 BDA에 고장이 발생하였습니다.", clsNMS.stationList[muID], bdaID + 1);
+                        frmErrMsg.SetText(mes + dialog);
+                        frmErrMsg.Show();
+
+                        AddStatus(mes);
+
+                    }));
+                }
+                else
+                {
+                    SetSplitBDAData(muID, bdaID, false);
+                    sel.SetError(bdaID, false);
+                }
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine(e.StackTrace);
+            }
+        }
+
+        /// <summary>
+        /// BDA 데이터가 없을 경우 수신되었을 때 메시지 표시
+        /// </summary>
+        /// <param name="muID"></param>
+        /// <param name="ruID"></param>
+        /// <param name="bdaID"></param>
+        private void Add_BDA_Data_Received(int muID, byte ruID, byte bdaID)
+        {
+            string name = Get_BDA_Name_With_Mu_Ru_Name(muID, ruID, bdaID);
+
+            string mes = name + "통신 복구";
+
+            AddStatus(mes);
+
+
+        }
+
+        /// <summary>
+        /// 1번째와 두번째 기지국은 두개로 나눠나서 변경 처리..
+        /// </summary>
+        /// <param name="muID"></param>
+        /// <param name="bdaID"></param>
+        /// <param name="error"></param>
+        private void SetSplitBDAData(byte muID, int bdaID, bool error)
+        {
+            try
+            {
+
+                if (muID == 0)
+                {
+                    ucBDA item = null;
+
+                    //2개 짜리...
+                    if (bdaID < 2)
+                    {
+                        item = SYMain.GetBDA(muID, 0);
+
+
+                    }
+                    else
+                    {
+                        item = SYMain.GetBDA(muID, 1);
+                        bdaID = bdaID - 2;
+                    }
+
+                    item.SetError(bdaID, error);
+                }
+
+
+
+                if (muID == 1)
+                {
+                    ucBDA item = null;
+
+                    //2개 짜리...
+                    if (bdaID < 3)
+                    {
+                        item = SYMain.GetBDA(muID, 0);
+
+                    }
+                    else
+                    {
+                        bdaID = bdaID - 3;
+                        item = SYMain.GetBDA(muID, 1);
+                    }
+
+                    item.SetError(bdaID, error);
+                }
             }
             catch
             {
 
             }
         }
+
+        #endregion BDA 관련 메소드들
 
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
@@ -3573,7 +3728,9 @@ namespace NMS
                 {
                     case 0: //MU
                         if (!Common.clsNMS.flagMuError[muID - 1])
-                        {   //정상에서 Error가 발생한 상태이므로 메세지창을 띄운다.
+                        {   
+                            
+                            //정상에서 Error가 발생한 상태이므로 메세지창을 띄운다.
                             frmErrMsg.SetText(Common.clsNMS.stationList[muID - 1] + " 기지국(MU)의 DC 전압(" + tmpValue.ToString() + ")이 범위를 벗어났습니다.");
                             AddStatus(Common.clsNMS.stationList[muID - 1] + " 기지국(MU)의 DC 전압(" + tmpValue.ToString() + ")이 범위를 벗어났습니다.");
 
@@ -3584,19 +3741,19 @@ namespace NMS
                     case 1: //RU_A
                         if (!Common.clsNMS.flagRuBdaError[muID - 1, ruID, 0])
                         {
-                            if (clsNMS.nmsGUIUser == 성남여주선)
+                            if (clsNMS.nmsGUIUser == 동해남부선)
                             {
-                                string mes = mRuNames[muID - 1] + " 광중계장치의 DC 전압(" + tmpValue.ToString() + ")이 범위를 벗어났습니다.";
+                                //string mes = mRuNames[muID - 1] + " 광중계장치의 DC 전압(" + tmpValue.ToString() + ")이 범위를 벗어났습니다.";
 
-                                frmErrMsg.SetText(mes);
-                                AddStatus(mes);
+                                //frmErrMsg.SetText(mes);
+                                //AddStatus(mes);
 
                                 Common.clsNMS.flagRuBdaError[muID - 1, ruID, 0] = true;
                             }
                             else
                             {
-                                frmErrMsg.SetText(Common.clsNMS.stationList[muID - 1] + " 광중계장치(RU_A)의 DC 전압(" + tmpValue.ToString() + ")이 범위를 벗어났습니다.");
-                                AddStatus(Common.clsNMS.stationList[muID - 1] + " 광중계장치(RU_A)의 DC 전압(" + tmpValue.ToString() + ")이 범위를 벗어났습니다.");
+                                //frmErrMsg.SetText(Common.clsNMS.stationList[muID - 1] + " 광중계장치(RU_A)의 DC 전압(" + tmpValue.ToString() + ")이 범위를 벗어났습니다.");
+                                //AddStatus(Common.clsNMS.stationList[muID - 1] + " 광중계장치(RU_A)의 DC 전압(" + tmpValue.ToString() + ")이 범위를 벗어났습니다.");
 
                                 Common.clsNMS.flagRuBdaError[muID - 1, ruID, 0] = true;
                             }
@@ -3606,8 +3763,11 @@ namespace NMS
                     case 2: //RU_B
                         if (!Common.clsNMS.flagRuBdaError[muID - 1, ruID, 0])
                         {
-                            frmErrMsg.SetText(Common.clsNMS.muruName[muID - 1].ruName[ruID - 1].ruName + " 광중계장치(RU_B)의 DC 전압(" + tmpValue.ToString() + ")이 범위를 벗어났습니다.");
-                            AddStatus(Common.clsNMS.muruName[muID - 1].ruName[ruID - 1].ruName + " 광중계장치(RU_B)의 DC 전압(" + tmpValue.ToString() + ")이 범위를 벗어났습니다.");
+                            if (Common.clsNMS.muruName[muID - 1].ruName[ruID - 1].ruName != "")
+                            {
+                                frmErrMsg.SetText(Common.clsNMS.muruName[muID - 1].ruName[ruID - 1].ruName + " 광중계장치(RU_B)의 DC 전압(" + tmpValue.ToString() + ")이 범위를 벗어났습니다.");
+                                AddStatus(Common.clsNMS.muruName[muID - 1].ruName[ruID - 1].ruName + " 광중계장치(RU_B)의 DC 전압(" + tmpValue.ToString() + ")이 범위를 벗어났습니다.");
+                            }
 
                             Common.clsNMS.flagRuBdaError[muID - 1, ruID, 0] = true;
                         }
@@ -3618,45 +3778,83 @@ namespace NMS
             return 0;
         }
 
+        #region RF값 벗어난 경우 
+
+        /// <summary>
+        /// Mu 관련 RF 벗어남 표시
+        /// </summary>
+        /// <param name="muID"></param>
+        /// <param name="tmpMuData"></param>
         private void RF_RangeOver(int muID, Common.MUData tmpMuData)
         {
-            double tmpValue = 0.0;
 
-            //PTT가 OFF될때에 임계치를 비교한다.
-            if (tmpMuData.otherSt2[2] == 0)
-            {   //PTT OFF
-                if (muruNowData[muID].muData.otherSt2[2] != 0)
-                {   //PTT ON. 즉, 이전까지 PTT ON이었다가 OFF가 되는 시점에서 임계치를 비교한다.
-                    //tmpValue = tmpMuData.rfValue[0] / 10.0;
-                    tmpValue = muruNowData[muID].muData.rfValue[0] / 10.0;  //이전의 RF 출력값을 비교한다.
+            try
+            {
+                double tmpValue = 0.0;
 
-                    if ((tmpValue < Common.clsNMS.rangeValue[0]) || (tmpValue > Common.clsNMS.rangeValue[1]))
+
+                //PTT가 OFF될때에 임계치를 비교한다.
+                if (tmpMuData.otherSt2[2] == 0)
+                {
+                   
+                    //PTT OFF
+                    if (muruNowData[muID].muData.otherSt2[2] != 0)
                     {
-                        SetVisible(frmErrMsg, true);
-                        frmErrMsg.SetText(Common.clsNMS.stationList[muID - 1] + " 기지국(MU)의 Main RF 출력값(" + tmpValue.ToString() + ")이 범위를 벗어났습니다.");
-                        AddStatus(Common.clsNMS.stationList[muID - 1] + " 기지국(MU)의 Main RF 출력값(" + tmpValue.ToString() + ")이 범위를 벗어났습니다.");
+                        //Console.WriteLine("tmpMuData  Receive Time :  " + tmpMuData.ReceiveTime.ToString());
+                        
+                        //Console.WriteLine(string.Format("muruNowData mu id : {0}  Receive Time : {1} ",muID, muruNowData[muID].muData.ReceiveTime));
+
+
+                        var time = tmpMuData.ReceiveTime.Subtract(muruNowData[muID].muData.ReceiveTime);
+
+                        //Console.WriteLine("통화 시간 :  " + time.ToString());
+
+
+
+                        //PTT ON. 즉, 이전까지 PTT ON이었다가 OFF가 되는 시점에서 임계치를 비교한다.
+                        //tmpValue = tmpMuData.rfValue[0] / 10.0;
+                        tmpValue = muruNowData[muID].muData.rfValue[0] / 10.0;  //이전의 RF 출력값을 비교한다.
+
+                        if ((tmpValue < Common.clsNMS.rangeValue[0]) || (tmpValue > Common.clsNMS.rangeValue[1]))
+                        {
+                            SetVisible(frmErrMsg, true);
+                            frmErrMsg.SetText(Common.clsNMS.stationList[muID - 1] + " 기지국(MU)의 Main RF 출력값(" + tmpValue.ToString() + ")이 범위를 벗어났습니다.");
+                            AddStatus(Common.clsNMS.stationList[muID - 1] + " 기지국(MU)의 Main RF 출력값(" + tmpValue.ToString() + ")이 범위를 벗어났습니다.");
+                        }
+                    }
+
+                }
+
+                //PTT가 OFF될때에 임계치를 비교한다.
+                if (tmpMuData.otherSt2[4] == 0)
+                {   //PTT OFF
+                    if (muruNowData[muID].muData.otherSt2[4] != 0)
+                    {   //PTT ON. 즉, 이전까지 PTT ON이었다가 OFF가 되는 시점에서 임계치를 비교한다.
+                        //tmpValue = tmpMuData.rfValue[1] / 10.0;
+                        tmpValue = muruNowData[muID].muData.rfValue[1] / 10.0;  //이전의 RF 출력값을 비교한다.
+
+                        if ((tmpValue < Common.clsNMS.rangeValue[0]) || (tmpValue > Common.clsNMS.rangeValue[1]))
+                        {
+                            SetVisible(frmErrMsg, true);
+                            frmErrMsg.SetText(Common.clsNMS.stationList[muID - 1] + " 기지국(MU)의 Stby RF 출력값(" + tmpValue.ToString() + ")이 범위를 벗어났습니다.");
+                            AddStatus(Common.clsNMS.stationList[muID - 1] + " 기지국(MU)의 Stby RF 출력값(" + tmpValue.ToString() + ")이 범위를 벗어났습니다.");
+                        }
                     }
                 }
-            }
+            }catch(Exception e)
+            {
+                Debug.WriteLine(e.Message);
 
-            //PTT가 OFF될때에 임계치를 비교한다.
-            if (tmpMuData.otherSt2[4] == 0)
-            {   //PTT OFF
-                if (muruNowData[muID].muData.otherSt2[4] != 0)
-                {   //PTT ON. 즉, 이전까지 PTT ON이었다가 OFF가 되는 시점에서 임계치를 비교한다.
-                    //tmpValue = tmpMuData.rfValue[1] / 10.0;
-                    tmpValue = muruNowData[muID].muData.rfValue[1] / 10.0;  //이전의 RF 출력값을 비교한다.
-
-                    if ((tmpValue < Common.clsNMS.rangeValue[0]) || (tmpValue > Common.clsNMS.rangeValue[1]))
-                    {
-                        SetVisible(frmErrMsg, true);
-                        frmErrMsg.SetText(Common.clsNMS.stationList[muID - 1] + " 기지국(MU)의 Stby RF 출력값(" + tmpValue.ToString() + ")이 범위를 벗어났습니다.");
-                        AddStatus(Common.clsNMS.stationList[muID - 1] + " 기지국(MU)의 Stby RF 출력값(" + tmpValue.ToString() + ")이 범위를 벗어났습니다.");
-                    }
-                }
             }
         }
+        
 
+        /// <summary>
+        /// RU 관련 RF 벗어난거 표시
+        /// </summary>
+        /// <param name="muID"></param>
+        /// <param name="ruID"></param>
+        /// <param name="tmpRuData"></param>
         private void RF_RangeOver(int muID, int ruID, Common.RUDetailData tmpRuData)
         {
             //PTT가 OFF될때에 임계치를 비교한다.
@@ -3685,9 +3883,12 @@ namespace NMS
             }
         }
 
+        #endregion
+
         //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
         #endregion NMS Server 또는 NMS 주장치와의 통신 관련
+
 
         #region DataBase 저장 관련
 
@@ -3768,6 +3969,19 @@ namespace NMS
             tmpMuInfo.powerStby = (char)Common.clsCommon.HexaConvert(muruNowData[muID].muData.powerSt[1]);
 
             tmpMuInfo.dc = (char)Common.clsCommon.HexaConvert(muruNowData[muID].muData.wnSt[3]);
+
+            //OPT LD
+            tmpMuInfo.opt1Ld = (char)Common.clsCommon.HexaConvert (muruNowData[muID].muData.optData[0]);
+            tmpMuInfo.opt2Ld = (char)Common.clsCommon.HexaConvert(muruNowData[muID].muData.optData[1]);
+            tmpMuInfo.opt3Ld = (char)Common.clsCommon.HexaConvert(muruNowData[muID].muData.optData[2]);
+            tmpMuInfo.opt4Ld = (char)Common.clsCommon.HexaConvert(muruNowData[muID].muData.optData[3]);
+
+            //OPT PD
+            tmpMuInfo.opt1Pd = (char)Common.clsCommon.HexaConvert(muruNowData[muID].muData.optData[4]);
+            tmpMuInfo.opt2Pd = (char)Common.clsCommon.HexaConvert(muruNowData[muID].muData.optData[5]);
+            tmpMuInfo.opt3Pd = (char)Common.clsCommon.HexaConvert(muruNowData[muID].muData.optData[6]);
+            tmpMuInfo.opt4Pd = (char)Common.clsCommon.HexaConvert(muruNowData[muID].muData.optData[7]);
+
 
             dbMuQueue.Enqueue(tmpMuInfo);
             //fbDBMS_NMS.MuInsert(tmpMuInfo); //DB에 저장
@@ -3895,6 +4109,11 @@ namespace NMS
             dbRuFmQueue.Enqueue(muruNowData[muID].ruData[ruID].fmInfo);
         }
 
+        /// <summary>
+        /// 데이터베이스에 저장함
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tmrDBSave_Tick(object sender, EventArgs e)
         {
             tmrDBSave.Stop();
@@ -3914,6 +4133,8 @@ namespace NMS
             if (dbRuBQueue.Count > 0) fbDBMS_NMS.RuInsert((Common.RuInfo)dbRuBQueue.Dequeue());
             if (dbMuFmQueue.Count > 0) fbDBMS_NMS.MuFmInsert((Common.FM_Info)dbMuFmQueue.Dequeue());
             if (dbRuFmQueue.Count > 0) fbDBMS_NMS.RuFmInsert((Common.FM_Info)dbRuFmQueue.Dequeue());
+            if (dbBDAQueue.Count > 0)
+                fbDBMS_NMS.BDA_Insert((clsBDATableInfo)dbBDAQueue.Dequeue());
 
             tmrDBSave.Start();
         }
@@ -3928,27 +4149,7 @@ namespace NMS
         #endregion DataBase 저장 관련
 
 
-        private void nmsBDA_Status_Display(byte muID, byte bdaID)
-        {
-            ucBDA[] list = SYMain.GetBDAs();
-
-            ucBDA sel = null;
-            
-            foreach(var i in list)
-            {
-                if( i.MuID  == (char)(muID+'A'))
-                {
-
-                    sel = i;
-                    break;
-                }
-            }
-
-            sel.SetEnable(bdaID);
-
-            ucBDASt.DisplayData(muID, bdaID);
-        }
-
+        #region 정보 표시
         /// <summary>
         /// MU 상태 표시
         /// </summary>
@@ -3966,6 +4167,7 @@ namespace NMS
                 else ucMUSt.MuStInit(false);
             }
         }
+
 
         /// <summary>
         /// Mu의 FM 상태 표시
@@ -3993,7 +4195,13 @@ namespace NMS
         private void nmsRUSt_Display(byte muID, byte ruID)
         {
             if (Common.clsNMS.muruComSt[muID - 1].ruBdaCommSt[ruID].flagRuFirst)
-                ucRUSt.nmsRUSt_Display(muruNowData[muID].ruData[ruID].ruData, Common.clsNMS.muruName[muID - 1].ruName);
+            {
+                if(ruID > 0)
+                    ucRUSt.nmsRUBSt_Display(muruNowData[muID].ruData[ruID].ruData, Common.clsNMS.muruName[muID - 1].ruName);
+                else 
+                    ucRUSt.nmsRUSt_Display(muruNowData[muID].ruData[ruID].ruData, Common.clsNMS.muruName[muID - 1].ruName);
+
+            }
             else
                 ucRUSt.RuStInit(false);
         }
@@ -4011,6 +4219,10 @@ namespace NMS
                 ucRUSt.FmStInit(false);
         }
 
+        /// <summary>
+        /// MU 고장 메시지 표시
+        /// </summary>
+        /// <param name="muID"></param>
         private void nmsMUError_Display(byte muID)
         {   //전체화면에 주예비 상태 및 장애 표시
             int tmpResult = 0;
@@ -4028,32 +4240,23 @@ namespace NMS
                 muruNowData[muID].muData.optMonSt[1] +		//예비 통신감시(Stby Transceiver)
                 muruNowData[muID].muData.optMonSt[2];       //감청통신감시(Monitor Receiver)
 
-            //muruNowData[muID].muData.optMonSt[3] +      //MU TRX CPU
-            //muruNowData[muID].muData.optMonSt[4] +      //MU OPT CPU
-            //muruNowData[muID].muData.optMonSt[5] +      //MU UPS
-
-            //muruNowData[muID].muData.optOtherSt[0] +    //OPT DC 전원
-            //muruNowData[muID].muData.optOtherSt[1];     //OPT ModOpen
-
-            /*
-            for (i = 0; i < 4; i++)
-            {
-                if (clsCommon.muruName[muID - 1].ruName[i].ruName != "")
-                {
-                    tmpResult += muruNowData[muID].muData.optAlarmSt[i] +       //OPT 1 ~ 4 LD
-                                 muruNowData[muID].muData.optAlarmSt[i + 4];    //OPT 1 ~ 4 PD
-                }
-            }
-            */
 
             tmpResult +=
                 muruNowData[muID].muData.pllLockErrorSt[0] +    //주 PLL LOCK 장애
                 muruNowData[muID].muData.pllLockErrorSt[1] +    //예비 PLL LOCK 장애
                 muruNowData[muID].muData.pllLockErrorSt[2];    //감청 PLL LOCK 장애
 
+            //if (SYMain.GetMuList()[muID - 1].HasRuA)
+            //    tmpResult += muruNowData[muID].muData.pllLockErrorSt[3];     //RUA 상태
 
-            if( SYMain.GetMuList()[muID-1].HasRuA)
-                tmpResult+= muruNowData[muID].muData.pllLockErrorSt[3];     //RUA 상태
+
+            var tmpOPTError = 0;
+
+            //OPT 고장 발생 여부..
+            foreach( var item in muruNowData[muID].muData.optData)
+            {
+                tmpOPTError += item;
+            }
 
             //muruNowData[muID].upsData.otherSt[4] +      //입력전원(UPS Failed)
             //muruNowData[muID].upsData.otherSt[5] +      //Bypass
@@ -4074,8 +4277,11 @@ namespace NMS
             if ((muruNowData[muID].muData.otherSt1[0] == 0) && (muruNowData[muID].muData.otherSt1[1] == 1))
                 tmpResult++;
 
+            //고장 유무
+            bool err = tmpResult == 0 && tmpOPTError == 0;
+
             //전체화면의 MU버튼에 이상여부 표시
-            if (tmpResult == 0)
+            if (err)
             {
                 SetColor(btMu[muID - 1], colorSelect);
                 SetForeColor(btMu[muID - 1], Color.Black);
@@ -4087,7 +4293,8 @@ namespace NMS
             }
 
             //Error 상태 저장
-            if (tmpResult == 0) Common.clsNMS.flagMuError[muID - 1] = false;
+            if (err) 
+                Common.clsNMS.flagMuError[muID - 1] = false;
             else
             {   //Error 발생
                 if (!Common.clsNMS.flagMuError[muID - 1])
@@ -4144,18 +4351,38 @@ namespace NMS
             else
             {   //Error 발생
                 if (!Common.clsNMS.flagMuError[muID - 1])
-                {   //정상에서 Error가 발생한 상태이므로 메세지창을 띄운다.
-                    SetVisible(frmErrMsg, true);
-                    frmErrMsg.SetText(Common.clsNMS.stationList[muID - 1] + " 기지국(MU)에 장애가 발생하였습니다.\r\n\r\n자세한 내용은 "
-                        + Common.clsNMS.stationList[muID - 1] + " 기지국 상세 화면을\r\n확인하시기 바랍니다.");
-
-                    AddStatus(Common.clsNMS.stationList[muID - 1] + " 기지국(MU)에 장애가 발생하였습니다.");
+                {
+                    ShowMuErrorMessagDialog(muID);
                 }
 
                 Common.clsNMS.flagMuError[muID - 1] = true;
             }
         }
 
+        #endregion 
+
+
+        /// <summary>
+        /// 고장 메시지 표시
+        /// </summary>
+        /// <param name="muID"></param>
+        private void ShowMuErrorMessagDialog(byte muID)
+        {
+            //정상에서 Error가 발생한 상태이므로 메세지창을 띄운다.
+            SetVisible(frmErrMsg, true);
+            frmErrMsg.SetText(Common.clsNMS.stationList[muID - 1] + " 기지국(MU)에 장애가 발생하였습니다.\r\n\r\n자세한 내용은 "
+                + Common.clsNMS.stationList[muID - 1] + " 기지국 상세 화면을\r\n확인하시기 바랍니다.");
+
+            AddStatus(Common.clsNMS.stationList[muID - 1] + " 기지국(MU)에 장애가 발생하였습니다.");
+        }
+
+
+        #region Mu Ru Ru Fm 에러 표시
+
+        /// <summary>
+        /// FM 에러 표시
+        /// </summary>
+        /// <param name="muID"></param>
         private void nmsMuFmError_Display(byte muID)
         {   //전체화면에 주예비 상태 및 장애 표시
             /*
@@ -4187,18 +4414,19 @@ namespace NMS
             else
             {   //Error 발생
                 if (!Common.clsNMS.flagMuFmError[muID - 1])
-                {   //정상에서 Error가 발생한 상태이므로 메세지창을 띄운다.
-                    SetVisible(frmErrMsg, true);
-                    frmErrMsg.SetText(Common.clsNMS.stationList[muID - 1] + " 기지국(FM)에 장애가 발생하였습니다.\r\n\r\n자세한 내용은 "
-                        + Common.clsNMS.stationList[muID - 1] + " 기지국 상세 화면을\r\n확인하시기 바랍니다.");
-
-                    AddStatus(Common.clsNMS.stationList[muID - 1] + " 기지국(FM)에 장애가 발생하였습니다.");
+                {
+                    ShowMuErrorMessagDialog(muID);
                 }
 
                 Common.clsNMS.flagMuFmError[muID - 1] = true;     //Error 발생
             }
         }
 
+        /// <summary>
+        /// RU에 고장이 발생하였을 때 고장이 메시지를 띄움
+        /// </summary>
+        /// <param name="muID"></param>
+        /// <param name="ruID"></param>
         private void nmsRUError_Display(byte muID, byte ruID)
         {
             //RU의 장애 표시
@@ -4209,47 +4437,47 @@ namespace NMS
                 muruNowData[muID].ruData[ruID].ruData.otherSt1[5] +       //ModOpen
 
                 muruNowData[muID].ruData[ruID].ruData.otherSt2[0] +       //RU CPU(Control CPU)
-                //muruNowData[muID].ruData[ruID].ruData.otherSt2[1] +       //데이터 광접속
-                //muruNowData[muID].ruData[ruID].ruData.otherSt2[3] +       //OPT LD 알람
+                muruNowData[muID].ruData[ruID].ruData.otherSt2[3] +       //데이터 광접속
+                //muruNowData[muID].ruData[ruID].ruData.otherSt2[4] +       //OPT LD 알람
                 muruNowData[muID].ruData[ruID].ruData.otherSt2[5] +       //XMTR PLL LOCK 장애
                 muruNowData[muID].ruData[ruID].ruData.otherSt2[6] +        //RCVR PLL LOCK 장애
                 muruNowData[muID].ruData[ruID].ruData.otherSt2[7];        //예비전원
 
-            if (ruID == 0)
-            {	//RuA이면 장애추가
-                tmpResult += muruNowData[muID].ruData[ruID].ruData.optOtherSt[0] +	//OPT DC
-                             muruNowData[muID].ruData[ruID].ruData.optOtherSt[1];	//OPT MODOpen
+            //if (ruID == 0)
+            //{	//RuA이면 장애추가
+            //    tmpResult += muruNowData[muID].ruData[ruID].ruData.optOtherSt[0] +	//OPT DC
+            //                 muruNowData[muID].ruData[ruID].ruData.optOtherSt[1];	//OPT MODOpen
 
-                int i = 0;
-                for (i = 0; i < 8; i++)
-                    tmpResult += muruNowData[muID].ruData[ruID].ruData.optAlarmSt[i];
-            }
+            //    int i = 0;
+            //    for (i = 0; i < 8; i++)
+            //        tmpResult += muruNowData[muID].ruData[ruID].ruData.optAlarmSt[i];
+            //}
 
             //Auto인데 Stby이면 장애
             if ((muruNowData[muID].ruData[ruID].ruData.otherSt1[0] == 0) && (muruNowData[muID].ruData[ruID].ruData.otherSt1[1] == 1))
                 tmpResult++;
 
             //전체화면의 RU버튼에 이상여부 표시
-            if (ruID == 0)
-            {	//RuA
-                try
-                {
-                    if (tmpResult == 0)
-                    {
-                        SetColor(btRuA[muID - 1], colorSelect);
-                        SetForeColor(btRuA[muID - 1], Color.Black);
-                    }
-                    else
-                    {
-                        SetColor(btRuA[muID - 1], colorError);
-                        SetForeColor(btRuA[muID - 1], Color.White);
-                    }
-                }
-                catch
-                {
-                }
-            }
-            else
+            //if (ruID == 0)
+            //{	//RuA
+            //    try
+            //    {
+            //        if (tmpResult == 0)
+            //        {
+            //            SetColor(btRuA[muID - 1], colorSelect);
+            //            SetForeColor(btRuA[muID - 1], Color.Black);
+            //        }
+            //        else
+            //        {
+            //            SetColor(btRuA[muID - 1], colorError);
+            //            SetForeColor(btRuA[muID - 1], Color.White);
+            //        }
+            //    }
+            //    catch
+            //    {
+            //    }
+            //}
+            //else
             {	//RuB
                 try
                 {
@@ -4297,28 +4525,12 @@ namespace NMS
             }
         }
 
-
-        internal void DisableBDA(short muID)
-        {
-            ucBDA[] list = SYMain.GetBDAs();
-
-            ucBDA sel = null;
-
-            foreach (var i in list)
-            {
-                if (i.MuID == (char)(muID + 'A'))
-                {
-
-                    sel = i;
-                    break;
-                }
-            }
-
-            for (int i = 0; i < sel.BDA_Number; i++ )
-                sel.SetEnable(i,false);
-        }
-
-
+        
+        /// <summary>
+        /// Ru FM 고장 표시
+        /// </summary>
+        /// <param name="muID"></param>
+        /// <param name="ruID"></param>
         private void nmsRuFmError_Display(byte muID, byte ruID)
         {   //전체화면에 주예비 상태 및 장애 표시
             /*
@@ -4408,109 +4620,141 @@ namespace NMS
             }
         }
 
+        #endregion
+
+
+        private int mConnectionCounter = 0;
+
+        /// <summary>
+        /// 데이터 미수신 
+        /// </summary>
+        private const int DATA_NOT_RECEIVE_TIME = 120;
+
+
+        /// <summary>
+        /// 재접속 시간 3시간
+        /// </summary>
+        private const int RECONNECTION_MAX = 60 * 60 * 3;
+        //private const int RECONNECTION_MAX = 10;
+
+        private byte mBDA_Mu = 99;
+        private byte mBDA_Ru = 99;
+
+        private int mCurrent_Mu;
+        private byte mCurrent_Ru;
+
+        /// <summary>
+        /// 이전 시간
+        /// </summary>
+        private DateTime mPrevTime;
+
+        /// <summary>
+        /// 재접속 시간
+        /// </summary>
+        private int mReconnectionCount;
+
+        /// <summary>
+        /// 접속했습니다 용
+        /// </summary>
+        private bool AutoCancel1 = false;
+
+        /// <summary>
+        /// 끊어졌습니다 용
+        /// </summary>
+        private bool AutoCancel2 = false;   
+
+
+        /// <summary>
+        /// 타이머가 지날 때 마다 불려진다.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tmrMain_Tick(object sender, EventArgs e)
         {
             tmrMain.Stop();
 
-            int i = 0, j = 0;
+            mConnectionCounter++;
 
-            switch (Common.clsNMS.nmsGUIUser)
+            mReconnectionCount++;
+
+            try
             {
-                case "분당선":
-                case "경의일산선":
-                case 성남여주선:
-                    if (day != DateTime.Now.Day)
-                    {   //날자가 변경되면..
-                        day = DateTime.Now.Day;
 
-                        //3. DB파일도 바꿔준다.
-                        NMSDB_Connect();
+                //재접속 시간..
+                if (mReconnectionCount > RECONNECTION_MAX)
+                {
+                    mReconnectionCount = 0;
 
-                        //dTPStart.Value = DateTime.Now;
-                        //dTPStop.Value = DateTime.Now;
-                        //AddStatus("시간을 동기화 합니다.");
-                    }
-                    break;
+                    AutoCancel1 = true;
+                    AutoCancel2 = true;
 
-                case "과천선":
-                    //NMS Server와의 통신상태를 점검하기 위한 작업
-                    for (i = 0; i < 2; i++)
-                    {
-                        if (cntServerPolling[i]++ > 5)
-                        {
-                            cntServerPolling[i] = 6;
+                    //AddStatus("NMS 주장치의 연결을 재접속합니다.");
 
-                            if (flagServerPolling[i])
-                            {   //NMS Server Stby과의 통신 이상 발생
-                                flagServerPolling[i] = false;
-                                SetColor(btConnectServer[i], Color.Red);
+                    JksSockMain.clsClose();
 
-                                if (i == 0)
-                                {
-                                    AddStatus("NMS Server Main 통신이상 발생");
-                                    JksSockMain.clsInit();
-                                }
-                                else
-                                {
-                                    AddStatus("NMS Server Stby 통신이상 발생");
-                                    JksSockStby.clsInit();
-                                }
-                            }
-                        }
-                    }
-                    break;
+                    SetApply();
+                }
+
+                //90초로 나눴을 때 맞아 떨어 질 경우
+                if (mReconnectionCount % 20 == 0)
+                {
+                    //JksSockMain.ClientSendData("0");
+                    PingTest();
+                }
+
+            }
+            catch
+            {
+
             }
 
-            //각 기지국과의 통신상태를 점검하기 위한 작업
-            for (i = 0; i < Common.clsNMS.stationList.Count; i++)
+            #region 통신 이상 처리 쓰레드 
+
+            ///통신 이상 처리용 쓰레드
+            Thread networkErrorThread = new Thread(new ThreadStart(() =>
             {
-                //MU
-                if (Common.clsNMS.muruComSt[i].cntMu++ > 30)
+                int i = 0, j = 0;
+
+                switch (Common.clsNMS.nmsGUIUser)
                 {
-                    Common.clsNMS.muruComSt[i].cntMu = 31;
-
-                    if (Common.clsNMS.muruComSt[i].flagMu)
-                    {
-                        AddStatus(Common.clsNMS.stationList[i] + "(MU) 통신이상 발생");
-
-                        Common.clsNMS.muruComSt[i].flagMu = false;
-
-                        //현재 보고있는 MU화면이 있으면 통신불량 상태로 비활성화 시킨다.
-                        if (i + 1 == Common.clsNMS.presentMUID) MuStInit(false);
+                    case 동해남부선:
 
                         try
                         {
-                            SetColor(btMu[i], colorBase);
-                            SetForeColor(btMu[i], Color.Black);
+                            성남여주_BDA_데이터미수신처리();
                         }
-                        catch
+                        catch (Exception ex)
                         {
+                            Debug.PrintError(ex);
                         }
-                    }
+
+                        break;
                 }
 
-                if (clsNMS.nmsGUIUser != 성남여주선)
+
+                #region 통신이상 처리
+
+                //각 기지국과의 통신상태를 점검하기 위한 작업
+                for (i = 0; i < Common.clsNMS.stationList.Count; i++)
                 {
-                    #region FM 통신이상 관련.
-
-                    //MU_FM
-                    if (Common.clsNMS.muruComSt[i].cntFm++ > 30)
+                    //MU
+                    if (Common.clsNMS.muruComSt[i].cntMu++ > DATA_NOT_RECEIVE_TIME)
                     {
-                        Common.clsNMS.muruComSt[i].cntFm = 31;
+                        Common.clsNMS.muruComSt[i].cntMu = DATA_NOT_RECEIVE_TIME + 1;
 
-                        if (Common.clsNMS.muruComSt[i].flagFm)
+                        if (Common.clsNMS.muruComSt[i].flagMu)
                         {
-                            AddStatus(Common.clsNMS.stationList[i] + "(MU FM) 통신이상 발생");
+                            AddStatus(Common.clsNMS.stationList[i] + "(MU) 통신이상 발생");
 
-                            Common.clsNMS.muruComSt[i].flagFm = false;
+                            Common.clsNMS.muruComSt[i].flagMu = false;
 
                             //현재 보고있는 MU화면이 있으면 통신불량 상태로 비활성화 시킨다.
-                            if (i + 1 == Common.clsNMS.presentMUID) MuFmStInit(false);
+                            if (i + 1 == Common.clsNMS.presentMUID) MuStInit(false);
 
                             try
                             {
-                                SetColor(btMuFm[i], colorBase);
-                                SetForeColor(btMuFm[i], Color.Black);
+                                SetColor(btMu[i], colorBase);
+                                SetForeColor(btMu[i], Color.Black);
                             }
                             catch
                             {
@@ -4518,147 +4762,524 @@ namespace NMS
                         }
                     }
 
-                    //RuA
-                    if (Common.clsNMS.muruComSt[i].ruBdaCommSt[0].cntRu++ > 30)
+                    if (clsNMS.nmsGUIUser != 동해남부선)
                     {
-                        Common.clsNMS.muruComSt[i].ruBdaCommSt[0].cntRu = 31;
+                        #region FM 통신이상 관련.
 
-                        if (Common.clsNMS.muruComSt[i].ruBdaCommSt[0].flagRu)
+                        //MU_FM
+                        if (Common.clsNMS.muruComSt[i].cntFm++ > DATA_NOT_RECEIVE_TIME)
                         {
-                            AddStatus(Common.clsNMS.muruName[i].muName + "(RU_A) 통신이상 발생");
+                            Common.clsNMS.muruComSt[i].cntFm = DATA_NOT_RECEIVE_TIME + 1;
 
-                            Common.clsNMS.muruComSt[i].ruBdaCommSt[0].flagRu = false;
-
-                            //현재 보고있는 MU화면이 있으면 통신불량 상태로 비활성화 시킨다.
-                            if ((i + 1 == Common.clsNMS.presentMUID) && (j + 1 == Common.clsNMS.presentRUID)) RuStInit(false);
-
-                            try
+                            if (Common.clsNMS.muruComSt[i].flagFm)
                             {
-                                SetColor(btRuA[i], colorBase);
-                                SetForeColor(btRuA[i], Color.Black);
-                            }
-                            catch
-                            {
-                            }
-                        }
-                    }
+                                AddStatus(Common.clsNMS.stationList[i] + "(MU FM) 통신이상 발생");
 
-                    //RuA_FM
-                    if (Common.clsNMS.muruComSt[i].ruBdaCommSt[0].cntFm++ > 30)
-                    {
-                        Common.clsNMS.muruComSt[i].ruBdaCommSt[0].cntFm = 31;
+                                Common.clsNMS.muruComSt[i].flagFm = false;
 
-                        if (Common.clsNMS.muruComSt[i].ruBdaCommSt[0].flagFm)
-                        {
-                            AddStatus(Common.clsNMS.muruName[i].muName + "(RU_A FM) 통신이상 발생");
-
-                            Common.clsNMS.muruComSt[i].ruBdaCommSt[0].flagFm = false;
-
-                            //현재 보고있는 MU화면이 있으면 통신불량 상태로 비활성화 시킨다.
-                            if ((i + 1 == Common.clsNMS.presentMUID) && (j + 1 == Common.clsNMS.presentRUID)) RuFmStInit(false);
-
-                            try
-                            {
-                                SetColor(btRuAFm[i], colorBase);
-                                SetForeColor(btRuAFm[i], Color.Black);
-                            }
-                            catch
-                            {
-                            }
-                        }
-                    }
-
-                    #endregion FM 통신이상 관련.
-                }
-
-                //RuB
-                for (j = 0; j < 4; j++)
-                {
-                    //RU
-                    if (Common.clsNMS.muruComSt[i].ruBdaCommSt[j + 1].cntRu++ > 30)
-                    {
-                        Common.clsNMS.muruComSt[i].ruBdaCommSt[j + 1].cntRu = 31;
-
-                        if (Common.clsNMS.muruComSt[i].ruBdaCommSt[j + 1].flagRu)
-                        {
-                            if (Common.clsNMS.muruName[i].ruName[j].ruName != "")
-                                AddStatus(Common.clsNMS.muruName[i].ruName[j].ruName + "(RU_B) 통신이상 발생");
-
-                            Common.clsNMS.muruComSt[i].ruBdaCommSt[j + 1].flagRu = false;
-
-                            //현재 보고 있는 RU화면이 있으면 통신불량 상태로 비활성화 시킨다.
-                            if ((i + 1 == Common.clsNMS.presentMUID) && (j + 1 == Common.clsNMS.presentRUID)) RuStInit(false);
-
-                            try
-                            {
-                                SetColor(btRuB[i, j], colorBase);
-                                SetForeColor(btRuB[i, j], Color.Black);
-                            }
-                            catch
-                            {
-                            }
-                        }
-                    }
-                }
-
-                //성남여주선이 아닐 경우우
-                if (clsNMS.nmsGUIUser != 성남여주선)
-                {
-                    //RuB_FM
-                    for (j = 0; j < 4; j++)
-                    {
-                        //RU
-                        if (Common.clsNMS.muruComSt[i].ruBdaCommSt[j + 1].cntFm++ > 30)
-                        {
-                            Common.clsNMS.muruComSt[i].ruBdaCommSt[j + 1].cntFm = 31;
-
-                            if (Common.clsNMS.muruComSt[i].ruBdaCommSt[j + 1].flagFm)
-                            {
-                                if (Common.clsNMS.muruName[i].ruName[j].ruName != "")
-                                    AddStatus(Common.clsNMS.muruName[i].ruName[j].ruName + "(RU_B FM) 통신이상 발생");
-
-                                Common.clsNMS.muruComSt[i].ruBdaCommSt[j + 1].flagFm = false;
-
-                                //현재 보고 있는 RU화면이 있으면 통신불량 상태로 비활성화 시킨다.
-                                if ((i + 1 == Common.clsNMS.presentMUID) && (j + 1 == Common.clsNMS.presentRUID)) RuFmStInit(false);
+                                //현재 보고있는 MU화면이 있으면 통신불량 상태로 비활성화 시킨다.
+                                if (i + 1 == Common.clsNMS.presentMUID) MuFmStInit(false);
 
                                 try
                                 {
-                                    SetColor(btRuBFm[i, j], colorBase);
-                                    SetForeColor(btRuBFm[i, j], Color.Black);
+                                    SetColor(btMuFm[i], colorBase);
+                                    SetForeColor(btMuFm[i], Color.Black);
                                 }
                                 catch
                                 {
                                 }
                             }
                         }
+
+                        //RuA
+                        //if (Common.clsNMS.muruComSt[i].ruBdaCommSt[0].cntRu++ > DATA_NOT_RECEIVE_TIME)
+                        //{
+                        //    Common.clsNMS.muruComSt[i].ruBdaCommSt[0].cntRu = DATA_NOT_RECEIVE_TIME+1;
+
+                        //    if (Common.clsNMS.muruComSt[i].ruBdaCommSt[0].flagRu)
+                        //    {
+                        //        AddStatus(Common.clsNMS.muruName[i].muName + "(RU) 통신이상 발생");
+
+                        //        Common.clsNMS.muruComSt[i].ruBdaCommSt[0].flagRu = false;
+
+                        //        //현재 보고있는 MU화면이 있으면 통신불량 상태로 비활성화 시킨다.
+                        //        if ((i + 1 == Common.clsNMS.presentMUID) && (j + 1 == Common.clsNMS.presentRUID)) RuStInit(false);
+
+                        //        try
+                        //        {
+                        //            SetColor(btRuA[i], colorBase);
+                        //            SetForeColor(btRuA[i], Color.Black);
+                        //        }
+                        //        catch
+                        //        {
+                        //        }
+                        //    }
+                        //}
+
+                        ////RuA_FM
+                        //if (Common.clsNMS.muruComSt[i].ruBdaCommSt[0].cntFm++ > DATA_NOT_RECEIVE_TIME)
+                        //{
+                        //    Common.clsNMS.muruComSt[i].ruBdaCommSt[0].cntFm = DATA_NOT_RECEIVE_TIME+1;
+
+                        //    if (Common.clsNMS.muruComSt[i].ruBdaCommSt[0].flagFm)
+                        //    {
+                        //        AddStatus(Common.clsNMS.muruName[i].muName + "(RU FM) 통신이상 발생");
+
+                        //        Common.clsNMS.muruComSt[i].ruBdaCommSt[0].flagFm = false;
+
+                        //        //현재 보고있는 MU화면이 있으면 통신불량 상태로 비활성화 시킨다.
+                        //        if ((i + 1 == Common.clsNMS.presentMUID) && (j + 1 == Common.clsNMS.presentRUID)) RuFmStInit(false);
+
+                        //        try
+                        //        {
+                        //            SetColor(btRuAFm[i], colorBase);
+                        //            SetForeColor(btRuAFm[i], Color.Black);
+                        //        }
+                        //        catch
+                        //        {
+                        //        }
+                        //    }
+                        //}
+
+                        #endregion FM 통신이상 관련.
+                    }
+
+                    //RuB
+                    for (j = 0; j < 4; j++)
+                    {
+
+                        if (i == 2 && j == 1)
+                        {
+                            //Debug.WriteLine(string.Format("i : {0}    j : {1}  cnt : {2}", i, j, Common.clsNMS.muruComSt[i].ruBdaCommSt[j + 1].cntRu));
+
+                        }
+
+                        //RU
+                        if (Common.clsNMS.muruComSt[i].ruBdaCommSt[j + 1].cntRu++ > DATA_NOT_RECEIVE_TIME)
+                        {
+                            Common.clsNMS.muruComSt[i].ruBdaCommSt[j + 1].cntRu = DATA_NOT_RECEIVE_TIME + 1;
+
+                            if (Common.clsNMS.muruComSt[i].ruBdaCommSt[j + 1].flagRu)
+                            {
+                                if (Common.clsNMS.muruName[i].ruName[j].ruName != "")
+                                {
+                                    AddStatus(Common.clsNMS.muruName[i].ruName[j].ruName + "(RU) 통신이상 발생");
+
+                                    Common.clsNMS.muruComSt[i].ruBdaCommSt[j + 1].flagRu = false;
+
+                                    //현재 보고 있는 RU화면이 있으면 통신불량 상태로 비활성화 시킨다.
+                                    if ((i + 1 == Common.clsNMS.presentMUID) && (j + 1 == Common.clsNMS.presentRUID)) RuStInit(false);
+
+
+                                    
+
+                                    try
+                                    {
+                                        SetColor(btRuB[i, j], colorBase);
+                                        SetForeColor(btRuB[i, j], Color.Black);
+                                     
+                                    }
+                                    catch
+                                    {
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+
+                    //각 기지국의 주/예비/감청 통신 Error Check
+                    for (j = 0; j < 3; j++)
+                    {
+                        if (commErrCheck[i].flagCommErr[j])
+                        {   //주/예비/감청통신이 이상인 경우
+                            try
+                            {
+                                commErrCheck[i].cntCommErr[j]++;
+                            }
+                            catch
+                            {
+                            }
+                        }
                     }
                 }
 
-                //각 기지국의 주/예비/감청 통신 Error Check
-                for (j = 0; j < 3; j++)
-                {
-                    if (commErrCheck[i].flagCommErr[j])
-                    {   //주/예비/감청통신이 이상인 경우
-                        try
-                        {
-                            commErrCheck[i].cntCommErr[j]++;
-                        }
-                        catch
-                        {
-                        }
-                    }
-                }
+                #endregion
+
+            }));
+
+            networkErrorThread.Start();
+            //
+            #endregion
+
+
+            #region 예전 로그 데이터 삭제
+            //날짜
+            if(mPrevTime.Day != DateTime.Now.Day)
+            {
+                mPrevTime = DateTime.Now;
+
+                Debug.StopThread();
+                Debug.StartThread();
+                DeleteLog();
             }
+            #endregion
+
 
             tmrMain.Start();
         }
 
+
+        #region 성남여주 데이터 미수신시 처리 작업
+
+        object lockObj = new object();
+
+        /// <summary>
+        /// 성남여주선 데이터 미수신 될 경우 처리 방법
+        /// </summary>
+        private void 성남여주_BDA_데이터미수신처리()
+        {
+            const int RuCount = 3;
+
+            //3분
+            const int BDA_DATA_NOT_RECEIVE = 5 * 60;
+            //const int BDA_DATA_NOT_RECEIVE = 10;
+
+            int muId, bdaId;
+            //30초이상 데이터를 수신하지 않을 경우에 데이터를 null로 처리함
+            //if (mConnectionCounter > BDA_DATA_NOT_RECEIVE)
+            //lock(lockObj)
+            {
+                //bda를 가져와서
+                var bdas = SYMain.GetBDAs();
+                
+                //Mu, Ru, BDA에 접근해야 하므로 3중 for문을 씀
+
+                //화면에 표시되는 BDA 상태 컨트롤 개수만큼 반복한다.
+                for (muId = 0; muId < bdas.Length; muId++)
+                {
+                    ///Ru에 붙어 있는 경우가 있으므로..
+                    for (int ruIndx = 0; ruIndx < RuCount; ruIndx++)
+                    {
+                        //붙어 있는 BDA 개수만큼 반복
+                        for (bdaId = 0; bdaId < 7; bdaId++)
+                        {
+                           
+                            //Data를 가져와서
+                            var tmp = BDA_Data[muId, ruIndx];
+
+                            //데이터가 있는 경우.
+                            if (tmp != null)
+                            {
+                                //해당 BDA의 정보를 가져와서
+                                var bda = tmp.bdaData[bdaId];
+
+                                //정보가 있을 경우에.
+                                if (bda != null)
+                                {
+                                    //초를 더해서
+                                    bda.DataReceiveTime++;
+
+                                    //30초를 추가해서 현재 시간 보다 작을 경우에 데이터가 수신되지 않은 경우로 간주함
+                                    if (bda.DataReceiveTime > BDA_DATA_NOT_RECEIVE)
+                                    {
+                                        //Console.WriteLine(string.Format("mu : {0} ru : {1} bda [{2}] 미수신", muId, ruIndx, bdaId));
+
+                                        //해당 BDA의 정보를 null 로 만들고
+                                        BDA_Data[muId, ruIndx].bdaData[bdaId] = null;
+
+                                        if (bdaId == 6)
+                                            BDA_Data[muId, ruIndx] = null;
+
+                                        //화면에 표시되는 버튼을 색을 비활성화
+                                        var tmpBDA = GetBDA(muId, ruIndx);
+
+                                        tmpBDA.SetEnable(bdaId, false);
+                                        
+
+                                        //첫번째 기지국용 BDA 일 경우
+                                        if (muId == 0)
+                                        {
+                                            if (bdaId > 1)
+                                            {
+                                                var item = SYMain.GetBDA(muId, 1);
+
+                                                item.SetEnable(bdaId - 2, false);
+                                            }
+                                            else
+                                            {
+                                                var item = SYMain.GetBDA(muId, 0);
+
+                                                item.SetEnable(bdaId, false);
+                                            }
+
+                                        }
+
+                                        else if (muId == 1)
+                                        {
+                                            if (bdaId > 2)
+                                            {
+                                                var item = SYMain.GetBDA(muId, 1);
+
+                                                item.SetEnable(bdaId - 3, false);
+                                            }
+                                            else
+                                            {
+                                                var item = SYMain.GetBDA(muId, 0);
+
+                                                item.SetEnable(bdaId, false);
+                                            }
+                                        }
+
+
+                                        //nmsBDA_Status_Display((byte)bda.Mu_Id, (byte)bda.Ru_Id, (byte)bda.BDA_ID, true);
+                                        AddStatusMessageBDADataNotReceive(muId, bdaId, tmpBDA, ruIndx);
+                                        continue;
+                                    }
+                                }
+                                else
+                                {
+
+
+                                    //bdas[muId].SetEnable(bdaId, false);
+                                }
+                            }
+
+                        }
+                    }
+                    //BDA_Data[mu].bdaData
+                }
+                
+
+                ///마지막 기지국용..
+                int idx = 'H' - 'A';
+
+                ///Ru에 붙어 있는 경우가 있으므로..
+                for (int ruIndx = 0; ruIndx < RuCount; ruIndx++)
+                {
+
+                    //붙어 있는 BDA 개수만큼 반복
+                    for (bdaId = 0; bdaId < 7; bdaId++)
+                    {
+                        //Data를 가져와서
+                        var tmp = BDA_Data[idx, ruIndx];
+
+                        //데이터가 있는 경우.
+                        if (tmp != null)
+                        {
+                            //해당 BDA의 정보를 가져와서
+                            var bda = tmp.bdaData[bdaId];
+
+                            //정보가 있을 경우에.
+                            if (bda != null)
+                            {
+                                //초를 더해서
+                                bda.DataReceiveTime++;
+
+                                //30초를 추가해서 현재 시간 보다 작을 경우에 데이터가 수신되지 않은 경우로 간주함
+                                if ( bda.DataReceiveTime > DATA_NOT_RECEIVE_TIME )
+                                {
+                                    //해당 BDA의 정보를 null 로 만들고
+                                    BDA_Data[idx, ruIndx].bdaData[bdaId] = null;
+
+                                    if (bdaId == 6)
+                                        BDA_Data[idx, ruIndx] = null;
+
+                                    //화면에 표시되는 버튼을 색을 비활성화
+                                    var tmpBDA = GetBDA(idx, ruIndx);
+
+                                    tmpBDA.SetEnable(bdaId, false);
+
+                                    //nmsBDA_Status_Display((byte)bda.Mu_Id, (byte)bda.Ru_Id, (byte)bda.BDA_ID, true);
+
+                                    AddStatusMessageBDADataNotReceive(bdas.Length, bdaId, tmpBDA, ruIndx);
+                                    continue;
+                                }
+                            }
+                            else
+                            {
+                                bdas[bdas.Length - 1].SetEnable(bdaId, false);
+                            }
+                        }
+
+                    }
+                }
+
+
+                mConnectionCounter = 0;
+            }
+
+            if (day != DateTime.Now.Day)
+            {   //날자가 변경되면..
+                day = DateTime.Now.Day;
+
+                //3. DB파일도 바꿔준다.
+                NMSDB_Connect();
+                //dTPStart.Value = DateTime.Now;
+                //dTPStop.Value = DateTime.Now;
+                //AddStatus("시간을 동기화 합니다.");
+            }
+
+        }
+
+        /// <summary>
+        /// BDA 통신 불가 표시
+        /// </summary>
+        /// <param name="mu"></param>
+        /// <param name="bdaID"></param>
+        /// <param name="bdas"></param>
+        /// <param name="idx"></param>
+        /// <param name="ru"></param>
+        private void AddStatusMessageBDADataNotReceive(int mu, int bdaID, ucBDA bdas, int ru)
+        {
+
+            if (bdaID >= bdas.DataNotReceiveFlag.Length)
+                return;
+
+            //한번만 표시하기 위해서
+            if (!bdas.DataNotReceiveFlag[bdaID])
+            {
+                bdas.DataNotReceiveFlag[bdaID] = true;
+
+                Invoke(new MethodInvoker(delegate()
+                {
+                    string mes = Get_BDA_Name_With_Mu_Ru_Name(mu, ru, bdaID);
+
+                    mes = mes + "통신 이상 발생";
+
+                    //string mes = string.Format("{0} 기지국 {1}번 BDA 통신이상 발생", clsNMS.stationList[mu], bdaID + 1);
+                    AddStatus(mes);
+                }));
+            }
+        }
+
+        /// <summary>
+        /// <para> 해당 BDA가 붙어있는 장치의 이름과 해당 BDA를 합쳐서  가져온다.</para>
+        /// <para> 예1) XX 기지국 1 번 BDA</para>
+        /// <para> 예2) xx 기지국 yy 광중계 장치 1번 BDA  </para>
+        /// 위의 예 처럼 반환된다
+        /// </summary>
+        /// <param name="mu"></param>
+        /// <param name="bdaID"></param>
+        /// <param name="ru"></param>
+        /// <returns>   예1) XX 기지국 1 번 BDA |  예2) xx 기지국 yy 광중계 장치 1번 BDA  옆의 예 처럼 반환된다 </returns>
+        private string Get_BDA_Name_With_Mu_Ru_Name(int mu, int ru, int bdaID)
+        {
+            string mes = string.Format("{0} 기지국 {1}번 BDA ", clsNMS.stationList[mu], bdaID + 1);
+
+            if (ru - 1 >= 0)
+            {
+                var ruName = clsNMS.muruName[mu].ruName[ru - 1].ruName;
+
+                if (ruName != "")
+                    mes = string.Format("{0} 기지국 - {1} 광 중계장치 - {2}번 BDA ", clsNMS.stationList[mu], ruName, bdaID + 1);
+            }
+
+            return mes;
+        }
+
+        #endregion
+        
+
+        /// <summary>
+        /// 서버에 핑테스트
+        /// </summary>
+        private void PingTest()
+        {
+            try
+            {
+                Ping ping = new Ping();
+                PingOptions options = new PingOptions();
+                options.DontFragment = true;
+                string data = "aaaaaaaaaaaaaaaaa";
+                byte[] buffer = ASCIIEncoding.ASCII.GetBytes(data);
+
+                int timeout = 6000;
+
+                PingReply reply = ping.Send(IPAddress.Parse(Common.clsNMS.nmsServerIP[0]), timeout, buffer, options);
+
+                if (reply.Status == IPStatus.Success)
+                    Console.WriteLine("Ping Test Success");
+            }
+            catch
+            {
+
+            }
+
+
+        }
+
+
+        /// <summary>
+        /// 로그 삭제
+        /// </summary>
+        private void DeleteLog()
+        {
+            var debug_path = Debug.DebugFolder;
+
+            string[] dirs = Directory.GetDirectories(debug_path+"\\"+DateTime.Now.Year);
+
+            var month = DateTime.Now.Month;
+            
+
+            foreach(var i in dirs)
+            {
+                DirectoryInfo info = new DirectoryInfo(i);
+                int dirName = Convert.ToInt32(info.Name);
+
+                //3달 이전 데이터가 있을 경우 삭제
+                if( dirName < month - 3)
+                {
+                    DeleteDirectory(i);
+                    
+                }
+
+            }
+
+
+        }
+
+
+        /// <summary>
+        /// 디렉토리를 삭제
+        /// </summary>
+        /// <param name="path"></param>
+        private void DeleteDirectory(string path)
+        {
+            var files = Directory.GetFiles(path);
+
+            foreach(var i in files)
+            {
+                File.Delete(i);
+            }
+
+            Directory.Delete(path);
+        }
+        
+
+        /// <summary>
+        /// 닫기
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             AddStatus("프로그램을 종료합니다.");
+
+            //디버그 저장 쓰레드 정지..
+            Debug.StopThread();
         }
 
-        
-    }
-}
+        /// <summary>
+        /// BDA 데이터를 가지고 있는 배열을 반환함.
+        /// </summary>
+        /// <returns>반환된 BDA 데이터</returns>
+        internal BDAData[,] GetBDA_Data()
+        {
+            return BDA_Data;
+        }
+
+
+    }// class end
+
+}// namespace end

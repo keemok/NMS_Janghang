@@ -48,14 +48,16 @@
             // 
             // btRU
             // 
+            this.btRU.BackColor = System.Drawing.Color.White;
             this.btRU.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btRU.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btRU.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btRU.Location = new System.Drawing.Point(3, 3);
             this.btRU.Name = "btRU";
             this.btRU.Size = new System.Drawing.Size(141, 64);
             this.btRU.TabIndex = 3;
             this.btRU.Text = "광 중계장치";
-            this.btRU.UseVisualStyleBackColor = true;
+            this.btRU.UseVisualStyleBackColor = false;
             // 
             // ucRu
             // 

@@ -9,6 +9,10 @@ using System.Windows.Forms;
 
 namespace NMS
 {
+    /// <summary>
+    /// MU에 Ru가 붙어 있는 경우, ucSYMUStatus에서 광 관련 오류를 표시하는 UserControl
+    /// Opt1과 다른 점은 광이 2개 불어 있는 경우 표시용
+    /// </summary>
     public partial class ucOpt2 : UserControl
     {
         public ucOpt2()
@@ -16,7 +20,10 @@ namespace NMS
             InitializeComponent();
         }
 
-
+        /// <summary>
+        /// LD, PD 반환
+        /// </summary>
+        /// <returns></returns>
         public PictureBox[] GetItems()
         {
             PictureBox[] list = {
@@ -27,6 +34,10 @@ namespace NMS
 
         }
 
+        /// <summary>
+        /// LD 반환
+        /// </summary>
+        /// <returns></returns>
         internal PictureBox[] GetOptLDs()
         {
             PictureBox[] list = {
@@ -35,6 +46,10 @@ namespace NMS
             return list;
         }
 
+        /// <summary>
+        /// PD 반환
+        /// </summary>
+        /// <returns></returns>
         internal PictureBox[] GetOptPBs()
         {
             PictureBox[] list = { pbOpt1PD1, pbOpt1PD2,

@@ -30,6 +30,7 @@
         {
             this.lblTitle = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ucBDAItem7 = new NMS.ucBDAItem();
             this.ucBDAItem5 = new NMS.ucBDAItem();
             this.ucBDAItem6 = new NMS.ucBDAItem();
             this.ucBDAItem3 = new NMS.ucBDAItem();
@@ -53,7 +54,8 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.panel1.Controls.Add(this.ucBDAItem7);
             this.panel1.Controls.Add(this.ucBDAItem5);
             this.panel1.Controls.Add(this.ucBDAItem6);
             this.panel1.Controls.Add(this.ucBDAItem3);
@@ -65,57 +67,66 @@
             this.panel1.Size = new System.Drawing.Size(1834, 719);
             this.panel1.TabIndex = 1;
             // 
+            // ucBDAItem7
+            // 
+            this.ucBDAItem7.Enabled = false;
+            this.ucBDAItem7.Location = new System.Drawing.Point(945, 382);
+            this.ucBDAItem7.Name = "ucBDAItem7";
+            this.ucBDAItem7.Size = new System.Drawing.Size(366, 185);
+            this.ucBDAItem7.TabIndex = 12;
+            this.ucBDAItem7.Title = "BDA 7";
+            // 
             // ucBDAItem5
             // 
             this.ucBDAItem5.Enabled = false;
-            this.ucBDAItem5.Location = new System.Drawing.Point(706, 416);
+            this.ucBDAItem5.Location = new System.Drawing.Point(124, 382);
             this.ucBDAItem5.Name = "ucBDAItem5";
-            this.ucBDAItem5.Size = new System.Drawing.Size(395, 185);
+            this.ucBDAItem5.Size = new System.Drawing.Size(366, 185);
             this.ucBDAItem5.TabIndex = 10;
             this.ucBDAItem5.Title = "BDA 5";
             // 
             // ucBDAItem6
             // 
             this.ucBDAItem6.Enabled = false;
-            this.ucBDAItem6.Location = new System.Drawing.Point(1235, 416);
+            this.ucBDAItem6.Location = new System.Drawing.Point(535, 382);
             this.ucBDAItem6.Name = "ucBDAItem6";
-            this.ucBDAItem6.Size = new System.Drawing.Size(392, 185);
+            this.ucBDAItem6.Size = new System.Drawing.Size(366, 185);
             this.ucBDAItem6.TabIndex = 11;
             this.ucBDAItem6.Title = "BDA 6";
             // 
             // ucBDAItem3
             // 
             this.ucBDAItem3.Enabled = false;
-            this.ucBDAItem3.Location = new System.Drawing.Point(1235, 117);
+            this.ucBDAItem3.Location = new System.Drawing.Point(945, 152);
             this.ucBDAItem3.Name = "ucBDAItem3";
-            this.ucBDAItem3.Size = new System.Drawing.Size(392, 185);
+            this.ucBDAItem3.Size = new System.Drawing.Size(366, 185);
             this.ucBDAItem3.TabIndex = 8;
             this.ucBDAItem3.Title = "BDA 3";
             // 
             // ucBDAItem4
             // 
             this.ucBDAItem4.Enabled = false;
-            this.ucBDAItem4.Location = new System.Drawing.Point(207, 416);
+            this.ucBDAItem4.Location = new System.Drawing.Point(1354, 152);
             this.ucBDAItem4.Name = "ucBDAItem4";
-            this.ucBDAItem4.Size = new System.Drawing.Size(393, 185);
+            this.ucBDAItem4.Size = new System.Drawing.Size(366, 185);
             this.ucBDAItem4.TabIndex = 9;
             this.ucBDAItem4.Title = "BDA 4";
             // 
             // ucBDAItem2
             // 
             this.ucBDAItem2.Enabled = false;
-            this.ucBDAItem2.Location = new System.Drawing.Point(706, 117);
+            this.ucBDAItem2.Location = new System.Drawing.Point(535, 152);
             this.ucBDAItem2.Name = "ucBDAItem2";
-            this.ucBDAItem2.Size = new System.Drawing.Size(395, 185);
+            this.ucBDAItem2.Size = new System.Drawing.Size(366, 185);
             this.ucBDAItem2.TabIndex = 6;
             this.ucBDAItem2.Title = "BDA 2";
             // 
             // ucBDAItem1
             // 
             this.ucBDAItem1.Enabled = false;
-            this.ucBDAItem1.Location = new System.Drawing.Point(207, 117);
+            this.ucBDAItem1.Location = new System.Drawing.Point(124, 152);
             this.ucBDAItem1.Name = "ucBDAItem1";
-            this.ucBDAItem1.Size = new System.Drawing.Size(393, 185);
+            this.ucBDAItem1.Size = new System.Drawing.Size(366, 185);
             this.ucBDAItem1.TabIndex = 7;
             this.ucBDAItem1.Title = "BDA 1";
             // 
@@ -143,5 +154,6 @@
         private ucBDAItem ucBDAItem4;
         private ucBDAItem ucBDAItem2;
         private ucBDAItem ucBDAItem1;
+        private ucBDAItem ucBDAItem7;
     }
 }

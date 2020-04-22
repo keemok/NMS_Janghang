@@ -9,6 +9,9 @@ using System.Windows.Forms;
 
 namespace NMS
 {
+    /// <summary>
+    /// ucSYMainScreen에서 기지국을 나타내는 UserControl을 담당
+    /// </summary>
     public partial class ucMU : UserControl
     {
 
@@ -45,30 +48,46 @@ namespace NMS
             }
         }
 
+        /// <summary>
+        /// Ru A가 있는지 여부
+        /// </summary>
         private bool RuA = false;
+
+        /// <summary>
+        /// 광과련 데이터
+        /// </summary>
         private byte[] mOptData;
 
     
-
         public ucMU()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 기지국 버튼
+        /// </summary>
         public Button Button
         {
             get
             {
                 return btMu;
             }
-                
          }
 
+        /// <summary>
+        /// 광에 대한 데이터를 설정
+        /// </summary>
+        /// <param name="mBDA_1_2"></param>
         internal void SetOptData(byte[] data)
         {
             mOptData = data;
         }
 
+        /// <summary>
+        /// 설정된 OPT 데이터를 반환
+        /// </summary>
+        /// <returns></returns>
         public byte[] GetOptData()
         {
             return mOptData;

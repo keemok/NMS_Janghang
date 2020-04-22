@@ -37,7 +37,7 @@ namespace NMS
         /// <summary>
         /// Opt 상태를 추가 함 
         /// </summary>
-        /// <param name="i">1이면 Opt1, 2면 Opt2</param>
+        /// <param name="mu">1이면 Opt1, 2면 Opt2</param>
         public void AddOpt(int i)
         {
             panelOpt.Controls.Clear();
@@ -48,7 +48,7 @@ namespace NMS
                 if (labelTitle.Width < 490)
                 {
 
-                    Console.WriteLine(" i :" + i);
+                    //Console.WriteLine(" i :" + i);
 
                     panelOpt.SendToBack();
 

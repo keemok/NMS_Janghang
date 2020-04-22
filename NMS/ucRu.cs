@@ -9,16 +9,20 @@ using System.Windows.Forms;
 
 namespace NMS
 {
+
+    /// <summary>
+    /// ucSYMainScreen에서 광중계장치을 나타내는 UserControl
+    /// </summary>
     public partial class ucRu : UserControl
     {
-
-
         public ucRu()
         {
             InitializeComponent();
         }
 
-
+        /// <summary>
+        /// 버튼
+        /// </summary>
         public Button RuButton
         {
             get
